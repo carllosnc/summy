@@ -1,0 +1,83 @@
+---
+import '../style/reveal.css'
+
+import '@fontsource-variable/inter/slnt.css'
+import '@fontsource/jetbrains-mono/400.css'
+
+import { Navbar, Footer } from '@/components'
+
+export interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
+      }
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+
+    <meta name="description" content="Atro build starter project" />
+    <meta name="keywords" content="Astro, HTML, CSS, JavaScript" />
+    <meta name="author" content="Lang Resume" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Open graph -->
+
+    <meta property="og:title" content="Lang Resume" />
+    <meta property="og:type" content="Lang Resume - description" />
+    <meta property="og:url" content="carlosnc.com" />
+    <meta property="og:image" content="/opengraph.png" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="carlosnc.com" />
+    <meta property="twitter:url" content="carlosnc.com" />
+    <meta name="twitter:title" content="Lang Resume" />
+    <meta name="twitter:description" content="Lang Resume - description" />
+    <meta name="twitter:image" content="/opengraph.png" />
+
+    <!-- icons -->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- App -->
+    <meta name="application-name" content="Lang Resume" />
+
+    <!-- Transition -->
+  </head>
+
+  <body>
+    <main class="w-full bg min-h-screen flex flex-col justify-between">
+      <Navbar />
+
+      <slot />
+
+      <Footer />
+    </main>
+  </body>
+</html>

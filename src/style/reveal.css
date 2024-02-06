@@ -1,0 +1,48 @@
+.base {
+  @apply
+  relative
+  transition-all
+  ease-in-out
+  duration-500
+}
+
+/* TOP --- */
+.START_TOP_REVEAL { @apply base top-[100px] }
+.END_TOP_REVEAL { @apply base opacity-100 top-0 rotate-0 }
+
+/* BOTTOM --- */
+.START_BOTTOM_REVEAL { @apply base bottom-[100px] }
+.END_BOTTOM_REVEAL { @apply base opacity-100 bottom-0 rotate-0 }
+
+/* LEFT --- */
+.START_LEFT_REVEAL { @apply base left-[100px] }
+.END_LEFT_REVEAL { @apply base opacity-100 left-0 rotate-0 }
+
+/* RIGHT --- */
+.START_RIGHT_REVEAL { @apply base right-[100px] }
+.END_RIGHT_REVEAL { @apply base opacity-100 right-0 rotate-0 }
+
+.lang {
+  @apply
+  lg:border-none
+  max-w-[800px]
+  py-[50px]
+  px-6
+  m-auto
+
+  prose
+  prose-pre:text-base
+  prose-hr:mb-8
+  prose-pre:border
+  prose-pre:rounded-none
+  prose-slate
+  prose-blockquote:text-blue-600
+  prose-code:text-blue-600
+  prose-pre:border-slate-200
+  prose-a:text-blue-600
+  prose-h1:text-6xl
+
+
+  md:prose-base
+  md:prose-pre:text-base
+}

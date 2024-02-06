@@ -1,0 +1,498 @@
+---
+layout: '../layouts/LangLayout.astro'
+title: 'PHP'
+icon: '/langs/php.svg'
+href: '/php'
+lang: 'php'
+---
+
+# PHP
+
+All examples are based on PHP 8.3.
+
+**Resources:**
+
+- [👉 PHP Official Documentation](https://www.php.net/manual/en/)
+- [👉 PHP The Right Way](https://phptherightway.com/)
+- [👉 PHP Tutorial](https://www.phptutorial.net/)
+
+## How to start
+
+Just create a file with `.php` extension and run it with `php` command.
+
+```php
+//touch app.php
+
+<?php
+echo "Hello World";
+
+//php app.php
+```
+
+Using docker:
+
+```bash
+docker run --rm -v .:/app php php app/playground.php
+```
+
+## Variables
+
+```php
+//variable
+$v = "variable";
+$_var = "variable";
+$variable_ = "variable";
+
+//constants
+define("HELLO", "Hello World");
+```
+
+## Primitive types
+
+```php
+$a = 10;
+$b = 10.5;
+$c = "hello";
+$d = true;
+$e = null;
+
+//get type
+$f = gettype($a); //integer
+$g = gettype($b); //double
+$h = gettype($c); //string
+$i = gettype($d); //boolean
+$j = gettype($e); //NULL
+```
+
+## Logical operators
+
+```php
+$a = 0;
+$b = '0';
+$c = '1';
+$d = '1';
+
+assert($a == $b); // false
+assert($c != $a); // true
+assert($c <> $a); // true
+assert($a < $c);  // true
+assert($a <= $b); // true
+assert($c >= $d); // true
+
+assert($c === $d); // true
+assert($a !== $d); // true
+assert(1 === '1'); // false
+assert(1 !== '1'); // true
+
+$a = 100;
+$b = 1000;
+
+$a <=> $a; // 0 since they are equal
+$a <=> $b; // -1 since $a < $b
+$b <=> $a; // 1 since $b > $a
+```
+
+## Strings
+
+```php
+//simple string
+$a = "Hello World";
+
+//concatenation
+$d = "Hello" . " " . "World";
+
+//interpolation
+$e = "Hello $a";
+
+//escaping
+$f = "Hello \"World\"";
+
+//use variable in string
+$g = "Hello $a";
+
+//some methods
+$h = strtoupper($a); // HELLO WORLD
+$i = strtolower($a); // hello world
+$j = ucfirst($a); // Hello World
+$k = ucwords($a); // Hello World
+$l = strlen($a); // 11
+$m = str_replace("Hello", "Hi", $a); // Hi World
+$n = strpos($a, "World"); // 6
+$o = substr($a, 0, 5); // Hello
+```
+
+[👉 String reference](https://www.php.net/manual/en/ref.strings.php)
+
+## Arrays
+
+```php
+// simple array
+$a = array(1, 2, 3);
+
+// short array syntax
+$b = [1, 2, 3];
+
+// associative array
+$c = [ "a" => 1, "b" => 2, "c" => 3 ];
+
+// multi-dimensional array
+$d = [
+  "a" => [
+    "a1" => 1,
+    "a2" => 2
+  ],
+  "b" => [
+    "b1" => 1,
+    "b2" => 2
+  ]
+];
+
+//recover from array
+$e = $a[0];
+$f = $c["a"];
+$g = $d["a"]["a1"];
+
+//concatenation
+$h = array_merge($a, $b);
+
+//add element
+$i = array_push($a, 4);
+
+//remove element
+$j = array_pop($a);
+
+//sort
+$k = sort($a);
+
+//reverse
+$l = array_reverse($a);
+
+//filter
+$m = array_filter($a, function ($v) {
+  return $v > 1;
+});
+
+//map
+$n = array_map(function ($v) {
+  return $v * 2;
+}, $a);
+
+//reduce
+$o = array_reduce($a, function ($acc, $v) {
+  return $acc + $v;
+}, 0);
+
+//count
+$p = count($a); // 3
+```
+
+[👉 Array reference](https://www.php.net/manual/en/ref.array.php)
+
+## Control structures
+
+```php
+// if/else
+if (true) {
+    echo "condition 1 \n";
+} elseif (true) {
+    echo "condition 2 \n";
+} else {
+    echo "condition 3 \n";
+}
+
+// switch case
+$x1 = "two";
+switch ($x1) {
+  case "zero":
+    print "--ZERO-- \n";
+    break;
+  case "one":
+    print "--ONE-- \n";
+    break;
+  case "two":
+    print "--TWO-- \n";
+    break;
+  default:
+    print "default option \n";
+}
+
+// ternary
+$ternary = true ? "show if true" : "show if false";
+
+// shorthand ternary
+$short1 = false ?: "first"; // first
+$short2 = 5 ?: 0; // 5
+$short3 = false ?: 0; // 0
+$short4 = null ?: 'foo'; // 'foo'
+
+// null coalesce
+$a = null;
+$b = "hello world\n";
+$c = $a ?? $b ?? "no value"; // hello world
+
+// pattern matching
+$x = 10;
+$y = 3;
+
+match ($x <=> $y) {
+  0 => print "x equals y\n",
+  1 => print "x is greater than y\n",
+  -1 => print "x is less than y\n",
+};
+```
+
+## Loops
+
+```php
+// for
+for ($i = 0; $i < 10; $i++) {
+  echo $i . "\n";
+}
+
+// while
+$j = 0;
+while ($j < 10) {
+  echo $j . "\n";
+  $j++;
+}
+
+// do while
+$k = 0;
+do {
+  echo $k . "\n";
+  $k++;
+} while ($k < 10);
+
+// foreach
+$l = [1, 2, 3];
+foreach ($l as $v) {
+  echo $v . "\n";
+}
+
+// foreach with key
+$m = [ "a" => 1, "b" => 2, "c" => 3 ];
+foreach ($m as $k => $v) {
+  echo $k . " => " . $v . "\n";
+}
+
+// break
+for ($i = 0; $i < 10; $i++) {
+  if ($i === 5) {
+    break;
+  }
+  echo $i . "\n";
+}
+
+// continue
+for ($i = 0; $i < 10; $i++) {
+  if ($i === 5) {
+    continue;
+  }
+  echo $i . "\n";
+}
+
+// goto
+for ($i = 0; $i < 10; $i++) {
+  if ($i === 5) {
+    goto end;
+  }
+  echo $i . "\n";
+}
+
+end:
+echo "end";
+```
+
+## Functions
+
+```php
+// simple function
+function hello() {
+  echo "Hello World\n";
+}
+
+// function with parameters
+function greet($name) {
+  echo "Hello $name\n";
+}
+
+// function with default parameters
+function greet2($name = "World") {
+  echo "Hello $name\n";
+}
+
+// function with return
+function add($a, $b) {
+  return $a + $b;
+}
+
+// function with type hint
+function add2(int $a, int $b): int {
+  return $a + $b;
+}
+
+// function with variadic parameters
+function sum(...$numbers) {
+  return array_sum($numbers);
+}
+
+// function with named parameters
+function named(int $a, int $b, int $c) {
+  return $a + $b + $c;
+}
+
+// function with named parameters
+named(c: 1, a: 2, b: 3);
+
+// callback
+function func($callback)
+{
+  $callback();
+}
+func(fn () => print('hello world'));
+```
+
+## Closure, Arrow function
+
+In PHP, a closure is essentially an anonymous function that can access variables from the parent scope.
+
+```php
+// closure
+$closure = function ($name) {
+    return "Hello $name\n";
+};
+
+// closure using external variable
+$message = "Hello, world";
+$example = function () use ($message) {
+    var_dump($message);
+};
+
+//example: calculator using arrow function and pattern matching
+$calc = fn($a, $b, $op) => match ($op) {
+  '+' => $a + $b,
+  '-' => $a - $b,
+  '*' => $a * $b,
+  '/' => $a / $b,
+  default => throw new Exception("Invalid operator"),
+};
+
+echo $calc(10, 5, '+'); // 15
+echo $calc(10, 5, '-'); // 5
+echo $calc(10, 5, '*'); // 50
+echo $calc(10, 5, '/'); // 2
+```
+
+## Classes
+
+```php
+class Person
+{
+  // static and constans
+  public const REFERENCE = "<Class Person>";
+  public static $description = "Person Class";
+
+  // constructor
+  public function __construct(
+    string $name,
+    string $lastname,
+    string $age
+  ) {
+    // properties
+    $this->name = $name;
+    $this->lastname = $lastname;
+    $this->age = $age;
+  }
+
+  //static method
+  public static function StaticMethod()
+  {
+    print("A simple static method");
+  }
+
+  //method
+  public function getFullName()
+  {
+    return $this->name . ' ' . $this->lastname;
+  }
+
+  //generic getter
+  public function __get($property)
+  {
+    if (property_exists($this, $property)) {
+      return $this->$property;
+    }
+  }
+
+  //generic setter
+  public function __set($property, $value)
+  {
+    if (property_exists($this, $property)) {
+      $this->$property = $value;
+    }
+    return $this;
+  }
+
+  //toString
+  public function __toString()
+  {
+    return $this->name . ' ' . $this->lastname . ' ' . $this->age;
+  }
+}
+
+//usage
+$person = new Person('John', 'Doe', 30);
+
+//accessing properties
+echo $person->name; //John
+echo $person->lastname; //Doe
+echo $person->age; //30
+
+//setting properties
+$person->name = 'Jane';
+$person->lastname = 'Doe';
+$person->age = 25;
+
+//accessing static properties
+echo Person::REFERENCE; //<Class Person>
+echo Person::$description; //Person Class
+
+//accessing static method
+Person::StaticMethod(); //A simple static method
+
+echo $person; //Jane Doe 25
+```
+
+## Class inheritance
+
+```php
+class Person
+{
+  public function __construct(
+    String $name,
+    String $lastname,
+    int $age
+  )
+  {
+    $this->name = $name;
+    $this->lastname = $lastname;
+    $this->age = $age;
+  }
+}
+
+class Hero extends Person
+{
+  public function __construct(
+    String $name,
+    String $lastname,
+    int $age,
+    String $superpower
+  ) {
+
+    //parent constructor
+    parent::__construct($name, $lastname, $age);
+
+    $this->superpower = $superpower;
+  }
+}
+```
