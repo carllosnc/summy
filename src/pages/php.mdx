@@ -92,6 +92,27 @@ $r = gettype($i); //resource
 
 ```
 
+Casting
+
+```php
+//cast to string
+$a = (string) 10; //"10"
+$b = strval(10); //"10"
+
+//cast to integer
+$c = (int) "10"; //10
+$d = intval("10"); //10
+
+//cast to float
+$e = (float) "10.5"; //10.5
+$f = floatval("10.5"); //10.5
+
+//cast to boolean
+$g = (bool) 1; //true
+$h = boolval(1); //true
+```
+
+
 ## Operators
 
 ```php
@@ -799,4 +820,44 @@ echo $add(1, 2); //3
 echo $sub(1, 2); //-1
 echo $mul(1, 2); //2
 echo $div(1, 2); //0.5
+```
+
+### Namespaces
+
+```php
+//math.php
+namespace Math\Basic {
+  class Calc
+  {
+    public function add($a, $b)
+    {
+      return $a + $b;
+    }
+  }
+}
+
+namespace Math\Geometry {
+  class Triangle
+  {
+    public function area($base, $height)
+    {
+      return ($base * $height) / 2;
+    }
+  }
+}
+```
+
+```php
+//app.php
+require 'file.php';
+
+use Math\Basic\Calc;
+use Math\Geometry\Triangle;
+
+$calc = new Calc();
+echo $calc->add(1, 2);
+
+$triangle = new Triangle();
+echo $triangle->area(3, 4);
+
 ```
