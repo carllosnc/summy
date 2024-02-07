@@ -6,8 +6,36 @@ const { frontmatter } = Astro.props
 
 <Layout title={frontmatter.title}>
   <article>
-    <div class="lang">
+    <div class="lang relative">
       <slot />
+    </div>
+    <div class="fixed bottom-0 right-0 mb-[20px]">
+      <a
+        href="#topics"
+        class="text-white
+        bg-blue-700
+        px-[15px]
+        py-[8px]
+        rounded-l-full
+        font-mono
+        font-bold
+        uppercase
+        text-xs
+        tracking-widest
+        transition
+        duration-300"
+      >
+        (T)opics
+      </a>
     </div>
   </article>
 </Layout>
+
+<script>
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 't') {
+      e.preventDefault()
+      document?.querySelector('#topics')?.scrollIntoView({ behavior: 'smooth' })
+    }
+  })
+</script>
