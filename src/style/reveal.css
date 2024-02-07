@@ -22,6 +22,10 @@
 .START_RIGHT_REVEAL { @apply base right-[100px] }
 .END_RIGHT_REVEAL { @apply base opacity-100 right-0 rotate-0 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .lang {
   @apply
   lg:border-none
@@ -40,8 +44,7 @@
   prose-code:text-blue-600
   prose-pre:border-slate-200
   prose-a:text-blue-600
-  prose-h1:text-6xl
-
+  prose-h1:text-5xl
 
   md:prose-base
   md:prose-pre:text-base
