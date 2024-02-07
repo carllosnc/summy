@@ -15,6 +15,7 @@ All examples are based on PHP 8.3.
 - [👉 PHP Official Documentation](https://www.php.net/manual/en/)
 - [👉 PHP The Right Way](https://phptherightway.com/)
 - [👉 PHP Tutorial](https://www.phptutorial.net/)
+- [👉 Composer](https://getcomposer.org/)
 
 ## How to start
 
@@ -22,10 +23,8 @@ Just create a file with `.php` extension and run it with `php` command.
 
 ```php
 //touch app.php
-
 <?php
-echo "Hello World";
-
+echo "Hello, world";
 //php app.php
 ```
 
@@ -35,13 +34,33 @@ Using docker:
 docker run --rm -v .:/app php php app/playground.php
 ```
 
+## Topics
+- <a href="#variables">Variables</a>
+- <a href="#primitive-types">Primitive types</a>
+- <a href="#operators">Logical operators</a>
+- <a href="#strings">Strings</a>
+- <a href="#arrays">Arrays</a>
+- <a href="#control-structures">Control structures</a>
+- <a href="#loops">Loops</a>
+- <a href="#functions">Functions</a>
+- <a href="#closure-arrow-function">Closure, Arrow function</a>
+- <a href="#classes">Classes</a>
+- <a href="#class-inheritance">Class inheritance</a>
+- <a href="#abstract-class">Abstract Class</a>
+- <a href="#interfaces">Interfaces</a>
+- <a href="#traits">Traits</a>
+- <a href="#enum">Enum</a>
+- <a href="#error-handling">Error Handling</a>
+- <a href="#include-require">Include, Require</a>
+
 ## Variables
 
 ```php
 //variable
-$v = "variable";
-$_var = "variable";
-$variable_ = "variable";
+$variable = "hello, world";
+
+//reference variable
+$reference = &$variable;
 
 //constants
 define("HELLO", "Hello World");
@@ -55,41 +74,86 @@ $b = 10.5;
 $c = "hello";
 $d = true;
 $e = null;
+$f = [1, 2, 3];
+$g = new stdClass();
+$h = fn() => print("Hello, world");
+$i = fopen("file.txt", "r");
 
 //get type
-$f = gettype($a); //integer
-$g = gettype($b); //double
-$h = gettype($c); //string
-$i = gettype($d); //boolean
-$j = gettype($e); //NULL
+$j = gettype($a); //integer
+$k = gettype($b); //double
+$l = gettype($c); //string
+$m = gettype($d); //boolean
+$n = gettype($e); //NULL
+$o = gettype($f); //array
+$p = gettype($g); //object
+$q = gettype($h); //object(Closure)
+$r = gettype($i); //resource
+
 ```
 
-## Logical operators
+## Operators
 
 ```php
-$a = 0;
-$b = '0';
-$c = '1';
-$d = '1';
+//arithmetics operators
+$a = 10 + 5; //15
+$b = 10 - 5; //5
+$c = 10 * 5; //50
+$d = 10 / 5; //2
+$e = 10 % 3; //1
 
-assert($a == $b); // false
-assert($c != $a); // true
-assert($c <> $a); // true
-assert($a < $c);  // true
-assert($a <= $b); // true
-assert($c >= $d); // true
+//assignment operators
+$f = 10;
+$f += 5; //15
+$f -= 5; //10
+$f *= 5; //50
+$f /= 5; //10
+$f %= 3; //1
 
-assert($c === $d); // true
-assert($a !== $d); // true
-assert(1 === '1'); // false
-assert(1 !== '1'); // true
+//comparison operators
+$g = 10 == 10; //true
+$h = 10 === "10"; //false
+$i = 10 != 5; //true
+$j = 10 !== "10"; //true
+$k = 10 > 5; //true
+$l = 10 < 5; //false
+$m = 10 >= 10; //true
+$n = 10 <= 5; //false
 
-$a = 100;
-$b = 1000;
+//logical operators
+$o = true && true; //true
+$p = true || false; //true
+$q = !true; //false
 
-$a <=> $a; // 0 since they are equal
-$a <=> $b; // -1 since $a < $b
-$b <=> $a; // 1 since $b > $a
+//increment and decrement operators
+$r = 10;
+$r++; //11
+$r--; //10
+
+//concatenation
+$s = "Hello" . " " . "World"; //Hello World
+
+//null coalesce
+$t = null;
+$u = $t ?? "no value"; //no value
+
+//null coalesce assignment
+$v = null;
+$v ??= "no value"; //no value
+
+//spaceship operator
+$w = 10 <=> 5; //1
+$x = 5 <=> 10; //-1
+$y = 10 <=> 10; //0
+
+//ternary
+$z = true ? "show if true" : "show if false"; //show if true
+
+//shorthand ternary
+$short1 = false ?: "first"; //first
+
+//shorthand ternary
+$short2 = 5 ?: 0; //5
 ```
 
 ## Strings
@@ -111,14 +175,14 @@ $f = "Hello \"World\"";
 $g = "Hello $a";
 
 //some methods
-$h = strtoupper($a); // HELLO WORLD
-$i = strtolower($a); // hello world
-$j = ucfirst($a); // Hello World
-$k = ucwords($a); // Hello World
-$l = strlen($a); // 11
-$m = str_replace("Hello", "Hi", $a); // Hi World
-$n = strpos($a, "World"); // 6
-$o = substr($a, 0, 5); // Hello
+$h = strtoupper($a); //HELLO WORLD
+$i = strtolower($a); //hello world
+$j = ucfirst($a); //Hello World
+$k = ucwords($a); //Hello World
+$l = strlen($a); //11
+$m = str_replace("Hello", "Hi", $a); //Hi World
+$n = strpos($a, "World"); //6
+$o = substr($a, 0, 5); //Hello
 ```
 
 [👉 String reference](https://www.php.net/manual/en/ref.strings.php)
@@ -126,16 +190,16 @@ $o = substr($a, 0, 5); // Hello
 ## Arrays
 
 ```php
-// simple array
+//simple array
 $a = array(1, 2, 3);
 
-// short array syntax
+//short array syntax
 $b = [1, 2, 3];
 
-// associative array
+//associative array
 $c = [ "a" => 1, "b" => 2, "c" => 3 ];
 
-// multi-dimensional array
+//multi-dimensional array
 $d = [
   "a" => [
     "a1" => 1,
@@ -183,7 +247,7 @@ $o = array_reduce($a, function ($acc, $v) {
 }, 0);
 
 //count
-$p = count($a); // 3
+$p = count($a); //3
 ```
 
 [👉 Array reference](https://www.php.net/manual/en/ref.array.php)
@@ -191,7 +255,7 @@ $p = count($a); // 3
 ## Control structures
 
 ```php
-// if/else
+//if/else
 if (true) {
     echo "condition 1 \n";
 } elseif (true) {
@@ -200,7 +264,7 @@ if (true) {
     echo "condition 3 \n";
 }
 
-// switch case
+//switch case
 $x1 = "two";
 switch ($x1) {
   case "zero":
@@ -216,21 +280,21 @@ switch ($x1) {
     print "default option \n";
 }
 
-// ternary
+//ternary
 $ternary = true ? "show if true" : "show if false";
 
-// shorthand ternary
-$short1 = false ?: "first"; // first
-$short2 = 5 ?: 0; // 5
-$short3 = false ?: 0; // 0
-$short4 = null ?: 'foo'; // 'foo'
+//shorthand ternary
+$short1 = false ?: "first"; //first
+$short2 = 5 ?: 0; //5
+$short3 = false ?: 0; //0
+$short4 = null ?: 'foo'; //'foo'
 
-// null coalesce
+//null coalesce
 $a = null;
 $b = "hello world\n";
-$c = $a ?? $b ?? "no value"; // hello world
+$c = $a ?? $b ?? "no value"; //hello world
 
-// pattern matching
+//pattern matching
 $x = 10;
 $y = 3;
 
@@ -244,38 +308,38 @@ match ($x <=> $y) {
 ## Loops
 
 ```php
-// for
+//for
 for ($i = 0; $i < 10; $i++) {
   echo $i . "\n";
 }
 
-// while
+//while
 $j = 0;
 while ($j < 10) {
   echo $j . "\n";
   $j++;
 }
 
-// do while
+//do while
 $k = 0;
 do {
   echo $k . "\n";
   $k++;
 } while ($k < 10);
 
-// foreach
+//foreach
 $l = [1, 2, 3];
 foreach ($l as $v) {
   echo $v . "\n";
 }
 
-// foreach with key
+//foreach with key
 $m = [ "a" => 1, "b" => 2, "c" => 3 ];
 foreach ($m as $k => $v) {
   echo $k . " => " . $v . "\n";
 }
 
-// break
+//break
 for ($i = 0; $i < 10; $i++) {
   if ($i === 5) {
     break;
@@ -283,7 +347,7 @@ for ($i = 0; $i < 10; $i++) {
   echo $i . "\n";
 }
 
-// continue
+//continue
 for ($i = 0; $i < 10; $i++) {
   if ($i === 5) {
     continue;
@@ -291,7 +355,7 @@ for ($i = 0; $i < 10; $i++) {
   echo $i . "\n";
 }
 
-// goto
+//goto
 for ($i = 0; $i < 10; $i++) {
   if ($i === 5) {
     goto end;
@@ -306,45 +370,45 @@ echo "end";
 ## Functions
 
 ```php
-// simple function
+//simple function
 function hello() {
   echo "Hello World\n";
 }
 
-// function with parameters
+//function with parameters
 function greet($name) {
   echo "Hello $name\n";
 }
 
-// function with default parameters
+//function with default parameters
 function greet2($name = "World") {
   echo "Hello $name\n";
 }
 
-// function with return
+//function with return
 function add($a, $b) {
   return $a + $b;
 }
 
-// function with type hint
+//function with type hint
 function add2(int $a, int $b): int {
   return $a + $b;
 }
 
-// function with variadic parameters
+//function with variadic parameters
 function sum(...$numbers) {
   return array_sum($numbers);
 }
 
-// function with named parameters
+//function with named parameters
 function named(int $a, int $b, int $c) {
   return $a + $b + $c;
 }
 
-// function with named parameters
+//function with named parameters
 named(c: 1, a: 2, b: 3);
 
-// callback
+//callback
 function func($callback)
 {
   $callback();
@@ -357,12 +421,12 @@ func(fn () => print('hello world'));
 In PHP, a closure is essentially an anonymous function that can access variables from the parent scope.
 
 ```php
-// closure
+//closure
 $closure = function ($name) {
     return "Hello $name\n";
 };
 
-// closure using external variable
+//closure using external variable
 $message = "Hello, world";
 $example = function () use ($message) {
     var_dump($message);
@@ -377,28 +441,30 @@ $calc = fn($a, $b, $op) => match ($op) {
   default => throw new Exception("Invalid operator"),
 };
 
-echo $calc(10, 5, '+'); // 15
-echo $calc(10, 5, '-'); // 5
-echo $calc(10, 5, '*'); // 50
-echo $calc(10, 5, '/'); // 2
+echo $calc(10, 5, '+'); //15
+echo $calc(10, 5, '-'); //5
+echo $calc(10, 5, '*'); //50
+echo $calc(10, 5, '/'); //2
 ```
+
+[👉 Anonymous functions](https://www.php.net/manual/en/functions.anonymous.php)
 
 ## Classes
 
 ```php
 class Person
 {
-  // static and constans
+  //static and constans
   public const REFERENCE = "<Class Person>";
   public static $description = "Person Class";
 
-  // constructor
+  //constructor
   public function __construct(
     string $name,
     string $lastname,
     string $age
   ) {
-    // properties
+    //properties
     $this->name = $name;
     $this->lastname = $lastname;
     $this->age = $age;
@@ -469,8 +535,8 @@ echo $person; //Jane Doe 25
 class Person
 {
   public function __construct(
-    String $name,
-    String $lastname,
+    string $name,
+    string $lastname,
     int $age
   )
   {
@@ -483,10 +549,10 @@ class Person
 class Hero extends Person
 {
   public function __construct(
-    String $name,
-    String $lastname,
+    string $name,
+    string $lastname,
     int $age,
-    String $superpower
+    string $superpower
   ) {
 
     //parent constructor
@@ -495,4 +561,242 @@ class Hero extends Person
     $this->superpower = $superpower;
   }
 }
+```
+
+## Abstract Class
+
+```php
+abstract class Person
+{
+  public function __construct(string $name, int $age)
+  {
+    $this->name = $name;
+    $this->age = $age;
+  }
+
+  public abstract function introduce();
+}
+
+class Hero extends Person
+{
+  //constructor
+  public function __construct(
+    string $name,
+    int $age,
+    string $superpower
+  ) {
+    parent::__construct($name, $age);
+    $this->superpower = $superpower;
+  }
+
+  public function introduce()
+  {
+    return "My name is $this->name and I am $this->age years old";
+  }
+}
+```
+
+## Interfaces
+
+```php
+interface Animal
+{
+  public function makeSound();
+  public function run($speed = 0);
+  public function eat(callable $callback);
+}
+
+//class
+class Dog implements Animal
+{
+  public function makeSound()
+  {
+    echo "Bark";
+  }
+
+  public function run($speed = 0)
+  {
+    echo "The dog is running at " . $speed . " km/h";
+  }
+
+  public function eat(callable $callback)
+  {
+    $callback();
+  }
+}
+```
+
+## Traits
+
+Traits are a mechanism for code reuse in single inheritance languages such as PHP.
+A Trait is intended to reduce some limitations of single inheritance by enabling a
+developer to reuse sets of methods freely in several independent classes living in
+different class hierarchies.
+
+```php
+//simple trait
+trait Hello
+{
+  public function sayHello()
+  {
+    echo 'Hello ';
+  }
+}
+
+//trait that includes another trait
+trait World
+{
+  use Hello;
+  public function sayWorld()
+  {
+    echo 'World';
+  }
+}
+
+//trait with static method
+trait HelloWorld
+{
+  public function sayHelloWorld()
+  {
+    echo 'Hello World';
+  }
+}
+
+//class that uses the traits
+class MyHelloWorld
+{
+  use Hello, World, HelloWorld;
+}
+```
+
+```php
+//trait with static methods and properties
+trait StaticExample
+{
+  public static $name = "StaticExample";
+
+  public static function staticMethod()
+  {
+    return "Static Method";
+  }
+}
+
+echo StaticExample::$name; //StaticExample
+echo StaticExample::staticMethod(); //Static Method
+```
+
+```php
+trait TraitExample
+{
+  public abstract function doSomething();
+}
+
+/*
+when you use a trait with an abstract method,
+you must implement the method in the class
+that uses the trait
+*/
+class ClassExample
+{
+  use TraitExample;
+
+  public function doSomething()
+  {
+    echo 'Doing something';
+  }
+}
+```
+
+## Enum
+```php
+enum status: string
+{
+  case PENDING = 'pending';
+  case PUBLISHED = 'published';
+  case STARRED = 'starred';
+  case DENIED = 'denied';
+}
+
+echo status::PENDING->name //pending;
+echo status::PUBLISHED->name //published;
+echo status::STARRED->name //starred;
+echo status::DENIED->name //denied;
+
+//enum with methods
+enum Color
+{
+  case Red;
+  case Green;
+  case Blue;
+  case Purple;
+
+  //that method can be called on each enum value
+  public function printColor()
+  {
+    match ($this) {
+      Color::Red => print("😡 Color: Red \n"),
+      Color::Green => print("🤢 Color: Green \n"),
+      Color::Blue => print("🥶 Color: Blue \n"),
+      Color::Purple => print("👿 Color: Purple \n"),
+    };
+  }
+}
+
+Color::Red->printColor(); //😡 Color: Red
+Color::Green->printColor(); //🤢 Color: Green
+Color::Blue->printColor(); //🥶 Color: Blue
+Color::Purple->printColor(); //👿 Color: Purple
+```
+
+## Error Handling
+
+```php
+//try catch
+try {
+  throw new Exception('Error');
+} catch (Exception $e) {
+  echo $e->getMessage();
+}
+
+//custom exception
+class CustomException extends Exception
+{
+  public function errorMessage()
+  {
+    return "Error: " . $this->getMessage();
+  }
+}
+
+try {
+  throw new CustomException('Error');
+} catch (CustomException $e) {
+  echo $e->errorMessage();
+}
+```
+
+## Include, Require
+
+Include and require are used to include a file into the current file,
+but if the file is not found, include will only produce a warning,
+while require will produce a fatal error.
+
+```php
+//math.php
+<?php
+$add = fn ($a, $b) => $a + $b;
+$sub = fn ($a, $b) => $a - $b;
+$mul = fn ($a, $b) => $a * $b;
+$div = fn ($a, $b) => $a / $b;
+```
+
+```php
+//app.php
+<?php
+require './file.php';
+//include './file.php';
+
+echo $add(1, 2); //3
+echo $sub(1, 2); //-1
+echo $mul(1, 2); //2
+echo $div(1, 2); //0.5
 ```
