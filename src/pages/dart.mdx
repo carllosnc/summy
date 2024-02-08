@@ -37,14 +37,22 @@ docker run --rm -v .:/app dart dart app/playground.dart
 
 ## Topics
 - <a href="#variables">Variables</a>
-- <a href="#types">Types</a>
+- <a href="#primitive-types">Types</a>
 - <a href="#operators">Operators</a>
 - <a href="#operator-overload">Operator overload</a>
+- <a href="#strings">Strings</a>
 - <a href="#null-safety">Null safety</a>
 - <a href="#collections">Collections</a>
 - <a href="#control-structures">Control structures</a>
 - <a href="#loops">Loops</a>
 - <a href="#functions">Functions</a>
+- <a href="#classes">Classes</a>
+- <a href="#class-inheritance">Class inheritance</a>
+- <a href="#abstract-class">Abstract class</a>
+- <a href="#implicit-interfaces">Implicit interfaces</a>
+- <a href="#object-extensions">Object extensions</a>
+- <a href="#mixins">Mixins</a>
+- <a href="#enum">Enum</a>
 
 ## Variables
 
@@ -65,7 +73,7 @@ dynamic dynamicVar = 'dynamic';
 String typedVar = 'typed';
 ```
 
-## Types
+## Primitive Types
 
 ```dart
 //int
@@ -165,6 +173,27 @@ void main() {
 }
 ```
 
+## Strings
+
+```dart
+//single line
+var singleLine = 'Dart is a client-optimized language';
+
+//multi-line
+var multiLine = '''
+Dart is a client-optimized language
+for fast apps on any platform.
+''';
+
+//string interpolation
+var name = 'Dart';
+var age = 25;
+var result = 'name: $name, age: $age';
+
+//raw string
+var rawString = r'raw string \n';
+```
+
 ## Null safety
 
 Null safety is a feature that helps you avoid null reference exceptions. It is introduced in Dart 2.12.0.
@@ -215,13 +244,37 @@ void main() {
 var list = [1, 2, 3];
 var typedList = <int>[1, 2, 3];
 
+//some methods
+list.add(4);
+list.remove(2);
+list.insert(1, 5);
+list.removeAt(0);
+list.clear();
+list.forEach((item) => print(item));
+```
+
+```dart
 //Set: is an unordered collection of unique objects
 var set = {1, 2, 3};
 var typedSet = <int>{1, 2, 3};
 
+//some methods
+set.add(4);
+set.remove(2);
+set.clear();
+set.forEach((item) => print(item));
+```
+
+```dart
 //Map: is a collection of key-value pairs
 var map = {'name': 'Dart', 'age': 25};
 var typedMap = <String, int>{'age': 25};
+
+//some methods
+map['name'] = 'Dart';
+map.remove('age');
+map.clear();
+map.forEach((key, value) => print('$key: $value'));
 ```
 
 ## Control structures
@@ -323,5 +376,274 @@ void main() {
   execute(() {
     print('a simple function');
   });
+}
+```
+
+## Classes
+
+```dart
+//simple class
+class Point1 {
+  var x;
+  var y;
+
+  Point1(num x, num y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+//short syntax
+class Point2 {
+  var x;
+  var y;
+
+  Point2(this.x, this.y);
+}
+
+//named constructor
+class Point3 {
+  var x, y;
+
+  Point3.string(String this.x, String this.y);
+  Point3.integer(int this.x, int this.y);
+  Point3.number(num this.x, int this.y);
+  Point3.origin() {
+    x = 0;
+    y = 0;
+  }
+  Point3.middle() {
+    x = 10;
+    y = 10;
+  }
+}
+
+//initializer and validate
+class Person {
+  var name, age;
+
+  People(String this.name, int this.age) : assert(age >= 18) {
+    print('Person class initilized');
+  }
+}
+
+//redirecting constructor
+class Cords {
+  num x, y;
+
+  Cords(this.x, this.y);
+
+  //Delegate to the main constructor.
+  Cords.origin(num x) : this(x, 0);
+}
+
+//constant constructor
+class ImmutablePoint {
+  final num x, y;
+
+  const ImmutablePoint(this.x, this.y);
+
+  //immutable
+  static final ImmutablePoint origin = const ImmutablePoint(0, 0);
+}
+
+//methods
+class Foo {
+  int first() {
+    return 1;
+  }
+
+  String second() {
+    return '2';
+  }
+}
+
+//getters and setters
+class Rectangle {
+  /*
+    you can create additional properties
+    by implementing setters and getters
+  */
+
+  num get left => 100;
+  set left(num value) => left = value;
+
+  num get right => 100;
+  set right(num value) => right = value;
+
+  num get bottom => 10;
+  set bottom(num value) => bottom = bottom;
+
+  num get top => 10;
+  set top(num value) => value = value;
+}
+```
+
+```dart
+class Circle {
+  //property
+  num radius;
+
+  //static property
+  static const pi = 3.14;
+
+  Circle(this.radius);
+
+  //method
+  num calculateArea() {
+    return radius * radius * pi;
+  }
+
+  //static method
+  static num calculateArea(num radius) {
+    return radius * radius * pi;
+  }
+}
+```
+
+## Class inheritance
+
+```dart
+class Animal {
+  var name;
+
+  Animal(this.name);
+
+  void speak() {
+    print('Animal speaks');
+  }
+}
+
+class Dog extends Animal {
+  Dog(String name) : super(name);
+
+  //overriding method
+  @override
+  void speak() {
+    print('Dog barks');
+  }
+}
+```
+
+## Abstract class
+
+```dart
+abstract class Animal {
+  void speak();
+}
+
+class Dog extends
+Animal {
+  @override
+  void speak() {
+    print('Dog barks');
+  }
+}
+```
+
+## Implicit interfaces
+
+In dart, all classes have an implicit interface. This means that all classes can be extended and implemented.
+
+```dart
+class Animal {
+  void speak() {
+    print('Animal speaks');
+  }
+}
+
+class Dog implements Animal {
+  @override
+  void speak() {
+    print('Dog barks');
+  }
+}
+```
+
+## Object extensions
+
+Dart 2.7.0 introduces extension methods, which allow you to add new functionality to existing classes.
+
+```dart
+//extension, add capitalize method to String class
+extension StringExtension on String {
+  String capitalize() {
+    return '${this[0].toUpperCase()}${this.substring(1)}';
+  }
+}
+
+void main() {
+  var name = 'dart';
+  print(name.capitalize());
+}
+```
+
+## Mixins
+
+Mixins are a way to reuse a class's code in multiple class hierarchies.
+
+```dart
+//class animal
+class Animal {
+  String name;
+  Animal(this.name);
+  void eat() => print('$name is eating');
+}
+
+//mixin swim
+mixin Swimmer {
+  void swim() => print('Swimming');
+}
+
+//class dolphin who extends animal and implements swim
+class Dolphin extends Animal with Swimmer {
+  Dolphin(String name) : super(name);
+}
+
+//class fish who extends animal and implements swim
+class Fish extends Animal with Swimmer {
+  Fish(String name) : super(name);
+}
+
+void main() {
+  final flipper = Dolphin('Flipper');
+  flipper.eat();
+  flipper.swim();
+
+  final nemo = Fish('Nemo');
+  nemo.eat();
+  nemo.swim();
+}
+
+```
+
+## Enum
+
+```dart
+//enum
+enum Days {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday,
+}
+
+//enum with values
+enum Color {
+  red('red'),
+  green('green'),
+  blue('blue');
+
+  const Color(this.name);
+  final String name;
+}
+
+void main() {
+  printColor(Color.red); //red
+  printColor(Color.green); //green
+  printColor(Color.blue); //blue
 }
 ```
