@@ -7,3 +7,321 @@ lang: 'dart'
 ---
 
 # Dart
+
+Dart is a client-optimized language for fast apps on any platform. It is developed by Google and can be used to build mobile, desktop, server, and web applications.
+
+All examples are based on Dart SDK version: 3.2.5.
+
+**Resources:**
+
+- [👉 Dart official website](https://dart.dev/)
+- [👉 Dart API reference](https://api.dart.dev/stable/3.2.5/index.html)
+
+## Getting start
+
+To run Dart code, you need to have Dart SDK installed on your machine. You can download it from the [official website](https://dart.dev/get-dart).
+
+```dart
+//playground.dart
+void main() {
+  print('Hello, World!');
+}
+
+//running: dart playground.dart
+```
+Using docker:
+
+```shell
+docker run --rm -v .:/app dart dart app/playground.dart
+```
+
+## Topics
+- <a href="#variables">Variables</a>
+- <a href="#types">Types</a>
+- <a href="#operators">Operators</a>
+- <a href="#operator-overload">Operator overload</a>
+- <a href="#null-safety">Null safety</a>
+- <a href="#collections">Collections</a>
+- <a href="#control-structures">Control structures</a>
+- <a href="#loops">Loops</a>
+- <a href="#functions">Functions</a>
+
+## Variables
+
+```dart
+//var: mutable variable
+var name = 'Dart';
+
+//final: immutable variable, constant at runtime
+final age = 25;
+
+//const: immutable variable, constant at compile time
+const pi = 3.14;
+
+//dynamic: dynamic type
+dynamic dynamicVar = 'dynamic';
+
+//typed variable
+String typedVar = 'typed';
+```
+
+## Types
+
+```dart
+//int
+int age = 25;
+
+//double
+double pi = 3.14;
+
+//String
+String name = 'Dart';
+
+//bool
+bool isDartCool = true;
+
+//function
+Function fn = (arg) {
+  print('a simple function');
+};
+```
+
+## Operators
+
+```dart
+//Arithmetic
+var sum = 1 + 2;
+var sub = 2 - 1;
+var mul = 2 * 2;
+var div = 4 / 2;
+var mod = 5 % 2;
+
+//Equality and relational
+var isEqual = 1 == 1;
+var isNotEqual = 1 != 2;
+var isGreater = 2 > 1;
+var isLess = 1 < 2;
+var isGreaterOrEqual = 2 >= 2;
+
+//Logical
+var and = true && true;
+var or = true || false;
+var not = !true;
+
+//Assignment
+var a = 1;
+a += 1;
+a -= 1;
+a *= 2;
+a /= 2;
+a %= 2;
+
+//Conditional
+var isTrue = true;
+var result = isTrue ? 'yes' : 'no';
+
+//Type test
+var isString = 'Dart' is String;
+var isNotString = 'Dart' is! String;
+
+//Bitwise
+var andBit = 0 & 1;
+var orBit = 0 | 1;
+var xorBit = 0 ^ 1;
+var shiftRight = 1 >> 1;
+var shiftLeft = 1 << 1;
+
+//Null-aware
+var value;
+var result = value ?? 'default';
+```
+
+## Operator overload
+
+Operators can be overloaded in Dart. For example, you can define the `+` operator for your custom class.
+
+```dart
+class Vector {
+  final int x, y;
+
+  Vector(this.x, this.y);
+
+  //overloading +, -, *
+  Vector operator +(Vector v) => Vector(x + v.x, y + v.y);
+  Vector operator -(Vector v) => Vector(x - v.x, y - v.y);
+  Vector operator *(int scalar) => Vector(x * scalar, y * scalar);
+}
+
+void main() {
+  final v1 = Vector(1, 2);
+  final v2 = Vector(2, 3);
+
+  //using overloaded operators
+  final sum = v1 + v2;
+  final sub = v1 - v2;
+  final mul = v1 * 2;
+
+  print('sum: $sum, sub: $sub, mul: $mul');
+}
+```
+
+## Null safety
+
+Null safety is a feature that helps you avoid null reference exceptions. It is introduced in Dart 2.12.0.
+
+```dart
+//non-nullable variable
+String name = 'Dart';
+
+//nullable variable
+String? nullableName = null;
+
+//null-aware operator
+var result = nullableName?.length;
+
+//null assertion operator
+var length = nullableName!.length;
+
+//late variable
+late String lateName;
+
+//late initialization
+void main() {
+  lateName = 'Dart';
+  print(lateName);
+}
+
+//late initialization with null
+late String? lateNullableName;
+
+void main() {
+  lateNullableName = null;
+  print(lateNullableName);
+}
+
+//late initialization with null safety
+late String lateName;
+
+void main() {
+  lateName = 'Dart';
+  print(lateName);
+}
+```
+
+## Collections
+
+```dart
+//List: is an ordered collection of objects
+var list = [1, 2, 3];
+var typedList = <int>[1, 2, 3];
+
+//Set: is an unordered collection of unique objects
+var set = {1, 2, 3};
+var typedSet = <int>{1, 2, 3};
+
+//Map: is a collection of key-value pairs
+var map = {'name': 'Dart', 'age': 25};
+var typedMap = <String, int>{'age': 25};
+```
+
+## Control structures
+
+```dart
+//if-else
+var isTrue = true;
+if (isTrue) {
+  print('yes');
+} else {
+  print('no');
+}
+
+//switch
+var option = 1;
+switch (option) {
+  case 1:
+    print('option 1');
+    break;
+  case 2:
+    print('option 2');
+    break;
+  default:
+    print('default option');
+}
+
+//ternary
+var result = isTrue ? 'yes' : 'no';
+```
+
+## Loops
+
+```dart
+//for
+for (var i = 0; i < 3; i++) {
+  print(i);
+}
+
+//for-in
+var list = [1, 2, 3];
+for (var item in list) {
+  print(item);
+}
+
+//while
+var i = 0;
+while (i < 3) {
+  print(i);
+  i++;
+}
+
+//do-while
+var j = 0;
+do {
+  print(j);
+  j++;
+} while (j < 3);
+```
+
+## Functions
+
+```dart
+//function
+void printName(String name) {
+  print(name);
+}
+
+//function with return type
+int sum(int a, int b) {
+  return a + b;
+}
+
+//function with optional parameters
+void printOptional(String name, [int? age]) {
+  print('name: $name, age: $age');
+}
+
+//function with named parameters
+void printNamed({required String name, int? age}) {
+  print('name: $name, age: $age');
+}
+
+//function with default parameters
+void printDefault({String name = 'Dart', int age = 25}) {
+  print('name: $name, age: $age');
+}
+
+//function as a parameter
+void execute(Function fn) {
+  fn();
+}
+
+void main() {
+  printName('Dart');
+  print(sum(1, 2));
+  printOptional('Dart');
+  printNamed(name: 'Dart');
+  printDefault();
+  execute(() {
+    print('a simple function');
+  });
+}
+```
