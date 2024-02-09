@@ -53,6 +53,11 @@ docker run --rm -v .:/app dart dart app/playground.dart
 - <a href="#object-extensions">Object extensions</a>
 - <a href="#mixins">Mixins</a>
 - <a href="#enum">Enum</a>
+- <a href="#async">Async</a>
+- <a href="#error-handling">Error handling</a>
+- <a href="#generics">Generics</a>
+- <a href="#streams">Streams</a>
+- <a href="#generators">Generators</a>
 
 ## Variables
 
@@ -143,6 +148,19 @@ var shiftLeft = 1 << 1;
 var value;
 var result = value ?? 'default';
 ```
+
+Cascade operator is used to perform a sequence of operations on the same object.
+
+```dart
+//cascade operator
+var list = [1, 2, 3];
+list
+  ..add(4)
+  ..remove(2)
+  ..insert(1, 5)
+  ..removeAt(0)
+  ..clear();
+  ```
 
 ## Operator overload
 
@@ -645,5 +663,243 @@ void main() {
   printColor(Color.red); //red
   printColor(Color.green); //green
   printColor(Color.blue); //blue
+}
+```
+
+## Async
+
+Dart supports asynchronous programming using `Future` and `async` and `await` keywords.
+
+>Future: represents a potential value or error that will be available at some time in the future.
+
+```dart
+//async function
+Future<void> fetchData() async {
+  var data = await fetch('https://api.example.com/data');
+  print(data);
+}
+
+//async function with error handling
+Future<void> fetchData() async {
+  try {
+    var data = await fetch('https://api.example.com/data');
+    print(data);
+  } catch (e) {
+    print(e);
+  }
+}
+
+//async function with multiple futures
+Future<void> fetchData() async {
+  var data1 = fetch('https://api.example.com/data1');
+  var data2 = fetch('https://api.example.com/data2');
+  var data3 = fetch('https://api.example.com/data3');
+
+  var results = await Future.wait([data1, data2, data3]);
+  print(results);
+}
+```
+
+Resolving with `.then()` and `.catchError()`
+
+```dart
+fetch('https://api.example.com/data')
+  .then((data) => print(data))
+  .catchError((e) => print(e));
+```
+
+## Error handling
+
+```dart
+//throwing an error
+void throwError() {
+  throw Exception('An error occurred');
+}
+
+//catching an error
+void catchError() {
+  try {
+    throwError();
+  } catch (e) {
+    print(e);
+  }
+}
+
+//typed error
+void throwError() {
+  throw FormatException('An error occurred');
+}
+
+//catching a typed error
+void catchError() {
+  try {
+    throwError();
+  } on FormatException catch (e) {
+    print(e);
+  }
+}
+
+//custom error
+class CustomError implements Exception {
+  final String message;
+  CustomError(this.message);
+}
+
+//throwing a custom error
+void throwError() {
+  throw CustomError('An error occurred');
+}
+
+//catching a custom error
+void catchError() {
+  try {
+    throwError();
+  } on CustomError catch (e) {
+    print(e.message);
+  }
+}
+```
+
+## Generics
+
+Generics are a way to make your code more reusable and type-safe. You can use generics with classes, functions, constraints, mixins, extensions, and more.
+
+```dart
+//generic class
+class Box<T> {
+  final T value;
+  Box(this.value);
+}
+
+//generic function
+T identity<T>(T value) {
+  return value;
+}
+
+//generic constraint
+T first<T extends List>(T list) {
+  return list[0];
+}
+
+//generic mixin
+mixin Serializer<T> {
+  String toJson() {
+    return json.encode(this);
+  }
+}
+
+//generic extension
+extension ListExtension<T> on List<T> {
+  T first() {
+    return this[0];
+  }
+}
+
+//using generic
+void main() {
+  var box = Box<String>('Dart');
+  print(box.value);
+
+  var result = identity<String>('Dart');
+  print(result);
+
+  var firstItem = first<String>(['Dart', 'Flutter']);
+  print(firstItem);
+
+  var list = [1, 2, 3];
+  print(list.first());
+}
+```
+
+## Streams
+
+Streams are a way to handle asynchronous data. You can use streams to handle data that is being produced over time.
+
+```dart
+//simple stream
+var stm = Stream.fromIterable([1, 2, 3]);
+
+stm.listen((event) {
+  print(event);
+});
+
+//stream from future
+var stm = Stream.fromFuture(Future.value('Dart'));
+
+stm.listen((event) {
+  print(event);
+});
+
+//stream from futures
+var stm = Stream.fromFutures([
+  Future.value(1),
+  Future.value(2),
+  Future.value(3)
+]);
+
+stm.listen((event) {
+  print(event);
+});
+
+//transforming stream
+var stm = Stream.fromIterable([1, 2, 3]);
+
+stm.map((event) => event * 2).listen((event) {
+  print(event);
+});
+
+//periodic stream
+var stm = Stream.periodic(Duration(seconds: 1), (event) => event);
+
+stm.listen((event) {
+  print(event);
+});
+
+//broadcast stream, is a stream that allows multiple listeners
+var stm = Stream
+          .periodic(Duration(seconds: 1), (event) => event)
+          .asBroadcastStream();
+
+stm.listen((event) {
+  print('listener 1: $event');
+});
+
+//stream controller
+var controller = StreamController<int>();
+
+controller.stream.listen((event) {
+  print(event);
+});
+
+controller.sink.add(1);
+controller.sink.add(2);
+controller.sink.add(3);
+```
+
+## Generators
+
+Generators are a way to create iterable collections of data. You can use generators to create lazy sequences of data that are produced on demand. Async generators are a way to create a stream of data.
+
+```dart
+//sync generator
+Iterable<int> count(int n) sync* {
+  for (var i = 0; i < n; i++) {
+    yield i;
+  }
+}
+
+//async generator
+Stream<int> count(int n) async* {
+  for (var i = 0; i < n; i++) {
+    yield i;
+  }
+}
+
+//using generator
+void main() {
+  var result = count(3);
+  result.forEach((element) {
+    print(element);
+  });
 }
 ```
