@@ -65,6 +65,18 @@ $variable = "hello, world";
 //constants
 define("HELLO", "Hello World");
 ```
+Predefined variables
+```php
+$_SERVER //Server and execution environment information
+$_GET //HTTP GET variables
+$_POST //HTTP POST variables
+$_FILES //HTTP File Upload variables
+$_REQUEST //HTTP Request variables
+$_SESSION //Session variables
+$_ENV //Environment variables
+$_COOKIE //HTTP Cookies
+```
+[👉Predefined Variables](https://www.php.net/manual/en/reserved.variables.php)
 
 ## Primitive types
 
@@ -435,6 +447,14 @@ function func($callback)
   $callback();
 }
 func(fn () => print('hello world'));
+
+//passing argument as reference
+function addOne(&$value)
+{
+  $value++;
+}
+$a = 1;
+addOne($a); //2
 ```
 
 ## Closure, Arrow function
@@ -859,5 +879,4 @@ echo $calc->add(1, 2);
 
 $triangle = new Triangle();
 echo $triangle->area(3, 4);
-
 ```
