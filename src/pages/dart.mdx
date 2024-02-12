@@ -58,6 +58,7 @@ docker run --rm -v .:/app dart dart app/playground.dart
 - <a href="#generics">Generics</a>
 - <a href="#streams">Streams</a>
 - <a href="#generators">Generators</a>
+- <a href="#import-export">Import, Export</a>
 
 ## Variables
 
@@ -939,4 +940,62 @@ void main() {
     print(element);
   });
 }
+```
+
+## Import, Export
+
+```dart
+//importing a library
+import 'dart:math';
+
+//importing a library with a prefix
+import 'dart:math' as math;
+
+//importing only specific parts of a library
+import 'dart:math' show min, max;
+
+//importing everything except specific parts of a library
+import 'dart:math' hide min, max;
+```
+
+Importing a file from the same directory:
+
+```dart
+//calc.dart
+int add(int a, int b) {
+  return a + b;
+}
+
+int sub(int a, int b) {
+  return a - b;
+}
+
+//private memebers are prefixed with an underscore.
+int _mul(int a, int b) {
+  return a * b;
+}
+```
+
+```dart
+//main.dart
+import 'calc.dart';
+
+void main() {
+  print(add(1, 2));
+  print(sub(2, 1));
+}
+```
+
+In Dart, the export keyword is used to share library code with other libraries.
+It allows a library to re-export any of its imported libraries, making the re-exported libraries' APIs available to the library's consumers.
+
+```dart
+export '/components/components.dart';
+export '/domain/domain.dart';
+export '/dto/dto.dart';
+export '/data/data.dart';
+export '/core/core.dart';
+export '/notifiers/notifiers.dart';
+export '/views/views.dart';
+export '/style/text_style.dart';
 ```
