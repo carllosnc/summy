@@ -1,0 +1,322 @@
+---
+layout: '../layouts/LangLayout.astro'
+title: 'C++'
+icon: '/langs/cpp.svg'
+href: '/cpp'
+lang: 'cpp'
+---
+
+# C++
+
+C++ is a general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language, or "C with Classes". The language has expanded significantly over time, and modern C++ has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation.
+
+**Resources**
+
+[👉 cplusplus.com](https://cplusplus.com/)
+
+## Getting start
+
+To start programming in C++, you need to have a compiler installed on your computer. The most popular compiler is `g++`, which is part of the GNU Compiler Collection (GCC).
+
+```cpp
+#include <iostream>
+
+int main()
+{
+  std::cout << "Hello World!" << std::endl;
+  return 0;
+}
+```
+
+```bash
+g++ -o app main.cpp && ./app
+```
+
+## Topics
+
+- <a href="#primitive-types">Primitive Types</a>
+- <a href="#operators">Operators</a>
+- <a href="#strings">Strings</a>
+- <a href="#arrays">Arrays</a>
+- <a href="#pointers">Pointers</a>
+- <a href="#control-structures">Control Structures</a>
+- <a href="#loops">Loops</a>
+- <a href="#functions">Functions</a>
+
+## Primitive types
+
+```cpp
+int a = 10;
+float b = 10.5;
+double c = 10.5;
+char d = 'A';
+bool e = true;
+std::string f = "Hello World";
+```
+
+Constants
+
+```cpp
+const double pi = 3.14159265358979323846;
+const char newline = '\n';
+```
+
+## Operators
+
+```cpp
+int a = 10;
+int b = 20;
+
+// Arithmetic operators
+int c = a + b; // 30
+int d = a - b; // -10
+int e = a * b; // 200
+int f = a / b; // 0
+int g = a % b; // 10
+
+// Relational operators
+bool h = a == b; // false
+bool i = a != b; // true
+bool j = a > b; // false
+bool k = a < b; // true
+bool l = a >= b; // false
+bool m = a <= b; // true
+
+// Logical operators
+bool n = true && false; // false
+bool o = true || false; // true
+bool p = !true; // false
+
+// Bitwise operators
+int q = a & b; // 0
+int r = a | b; // 30
+int s = a ^ b; // 30
+int t = ~a; // -11
+int u = a << 2; // 40
+int v = a >> 2; // 2
+
+// Assignment operators
+a += b; // 30
+a -= b; // 10
+a *= b; // 200
+a /= b; // 10
+a %= b; // 10
+a &= b; // 0
+a |= b; // 30
+a ^= b; // 30
+a <<= 2; // 40
+a >>= 2; // 10
+
+// Misc operators
+int w = sizeof(a); // 4
+int x = &a; // 0x7ffebc3b3b4c
+int y = *x; // 10
+
+// Conditional operator
+int z = (a > b) ? a : b; // 20
+
+// Comma operator
+int aa = (a++, b++); // 20
+
+// Pointer operator
+int *ab = &a;
+int ac = *ab;
+```
+
+## Strings
+```cpp
+std::string str1 = "Hello";
+std::string str2 = "World";
+
+std::string str3 = str1 + " " + str2; // Hello World
+
+std::string str4 = str1.append(" World"); // Hello World
+
+std::string str5 = str1.substr(0, 5); // Hello
+
+int str6 = str1.length(); // 11
+
+std::string str7 = "Hello World";
+str7[0] = 'J'; // Jello World
+
+std::string str8 = "Hello World";
+str8.at(0) = 'J'; // Jello World
+
+std::string str9 = "Hello World";
+str9.insert(5, "C++"); // Hello C++World
+
+std::string str10 = "Hello World";
+str10.erase(5, 5); // Hello
+
+std::string str11 = "Hello World";
+
+if (str11.find("World") != std::string::npos)
+{
+  std::cout << "Found" << std::endl;
+}
+else
+{
+  std::cout << "Not found" << std::endl;
+}
+```
+
+[👉 String reference](https://cplusplus.com/reference/string/string/)
+
+## Arrays
+
+```cpp
+int arr1[5] = {1, 2, 3, 4, 5};
+
+//accessing elements
+int a = arr1[0]; // 1
+int b = arr1[1]; // 2
+int c = arr1[2]; // 3
+
+//modifying elements
+arr1[0] = 10;
+
+//multidimensional arrays
+int arr2[2][3] = {{1, 2, 3}, {4, 5, 6}};
+
+//multidimensional arrays: accessing elements
+int d = arr2[0][0]; // 1
+int e = arr2[0][1]; // 2
+
+//:multidimensional arrays: modifying elements
+arr2[0][0] = 10;
+
+//array functions
+int arr3[5] = {1, 2, 3, 4, 5};
+std::sort(arr3, arr3 + 5);
+std::reverse(arr3, arr3 + 5);
+std::fill(arr3, arr3 + 5, 0);
+
+//array size
+int size = sizeof(arr3) / sizeof(arr3[0]);
+
+//array copy
+int arr4[5];
+std::copy(arr3, arr3 + 5, arr4);
+
+//array fill
+std::fill(arr4, arr4 + 5, 0);
+```
+
+## Pointers
+
+```cpp
+int a = 10; // variable
+int *b = &a; // pointer
+
+std::cout << *b << std::endl; // 10
+std::cout << b << std::endl; // 0x7ffebc3b3b4c
+```
+[👉 Pointers reference](https://cplusplus.com/reference/pointers/)
+
+## Control structures
+
+```cpp
+int a = 10;
+int b = 20;
+
+//if statement
+if (a > b)
+{
+  std::cout << "a is greater than b" << std::endl;
+}
+else
+{
+  std::cout << "a is less than or equal to b" << std::endl;
+}
+
+//switch statement
+int c = 2;
+switch (c)
+{
+case 1:
+  std::cout << "Case 1" << std::endl;
+  break;
+case 2:
+  std::cout << "Case 2" << std::endl;
+  break;
+default:
+  std::cout << "Default case" << std::endl;
+}
+```
+
+## Loops
+
+```cpp
+//while loop
+int a = 0;
+while (a < 5)
+{
+  std::cout << a << std::endl;
+  a++;
+}
+
+//do-while loop
+int b = 0;
+do
+{
+  std::cout << b << std::endl;
+  b++;
+} while (b < 5);
+
+//for loop
+for (int c = 0; c < 5; c++)
+{
+  std::cout << c << std::endl;
+}
+
+//range-based for loop
+int arr[5] = {1, 2, 3, 4, 5};
+for (int x : arr)
+{
+  std::cout << x << std::endl;
+}
+```
+
+## Functions
+
+```cpp
+//simple function
+void printHello()
+{
+  std::cout << "Hello" << std::endl;
+}
+
+//function with parameters
+void printName(std::string name)
+{
+  std::cout << "Hello " << name << std::endl;
+}
+
+//function with return value
+int add(int a, int b)
+{
+  return a + b;
+}
+
+//function with default parameters
+void printNumber(int number = 10)
+{
+  std::cout << number << std::endl;
+}
+
+//function overloading
+int add(int a, int b)
+{
+  return a + b;
+}
+
+float add(float a, float b)
+{
+  return a + b;
+}
+
+double add(double a, double b)
+{
+  return a + b;
+}
+```
