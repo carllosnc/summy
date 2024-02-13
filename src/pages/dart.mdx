@@ -534,6 +534,7 @@ class Rectangle {
   set top(num value) => value = value;
 }
 ```
+Static members are shared among all instances of a class. You can access static members using the class name.
 
 ```dart
 class Circle {
@@ -554,6 +555,16 @@ class Circle {
   static num calculateArea(num radius) {
     return radius * radius * pi;
   }
+}
+```
+
+The sealed modifier prevents a class from being extended or implemented outside its own library. Sealed classes are implicitly abstract.
+
+```dart
+sealed class Colors {
+  static String red = "red";
+  static String green = "green";
+  static String blue = "blue";
 }
 ```
 
