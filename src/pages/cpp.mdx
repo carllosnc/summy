@@ -41,7 +41,11 @@ g++ -o app main.cpp && ./app
 - <a href="#pointers">Pointers</a>
 - <a href="#control-structures">Control Structures</a>
 - <a href="#loops">Loops</a>
+- <a href="#structs">Structs</a>
+- <a href="#enum">Enum</a>
 - <a href="#functions">Functions</a>
+- <a href="#classes">Classes</a>
+- <a href="#inheritance">Inheritance</a>
 
 ## Primitive types
 
@@ -202,6 +206,35 @@ std::copy(arr3, arr3 + 5, arr4);
 std::fill(arr4, arr4 + 5, 0);
 ```
 
+## Casting
+
+```cpp
+int a = 10;
+float b = 10.5;
+double c = 10.5;
+
+//implicit casting
+float d = a; // 10.0
+double e = a; // 10.0
+double f = b; // 10.5
+
+//explicit casting
+int g = (int)b; // 10
+int h = (int)c; // 10
+float i = (float)a; // 10.0
+float j = (float)c; // 10.5
+double k = (double)a; // 10.0
+double l = (double)b; // 10.5
+
+//static casting
+int m = static_cast<int>(b); // 10
+int n = static_cast<int>(c); // 10
+float o = static_cast<float>(a); // 10.0
+float p = static_cast<float>(c); // 10.5
+double q = static_cast<double>(a); // 10.0
+double r = static_cast<double>(b); // 10.5
+```
+
 ## Pointers
 
 ```cpp
@@ -277,6 +310,106 @@ for (int x : arr)
 }
 ```
 
+## Structs
+
+```cpp
+// struct
+struct Point
+{
+  // data members
+  int x;
+  int y;
+
+  // constructor
+  Point(int x, int y)
+  {
+    this->x = x;
+    this->y = y;
+  }
+
+  // constructor overloading
+  Point()
+  {
+    x = 0;
+    y = 0;
+  }
+
+  // member function
+  void increment()
+  {
+    x++;
+    y++;
+  }
+
+  // member function
+  void decrement()
+  {
+    x--;
+    y--;
+  }
+
+  // member function
+  void print()
+  {
+    std::cout << "Point(" << x << ", " << y << ")" << std::endl;
+  }
+};
+
+//usage
+int main()
+{
+  Point p1(1, 2);
+  p1.increment();
+  p1.print();
+
+  Point p2;
+  p2.decrement();
+  p2.print();
+
+  return 0;
+}
+```
+
+## Enum
+
+```cpp
+// enum
+enum Color
+{
+  RED,
+  GREEN,
+  BLUE
+};
+
+// enum for weeks
+enum Week
+{
+  MONDAY = 1,
+  TUESDAY = 2,
+  WEDNESDAY = 3,
+  THURSDAY = 4,
+  FRIDAY = 5,
+  SATURDAY = 6,
+  SUNDAY = 7
+};
+
+int main()
+{
+  Color b = BLUE;
+  std::cout << b << std::endl;
+
+  Color r = RED;
+  std::cout << r << std::endl;
+
+  Week monday = MONDAY;
+  // increment monday
+  monday = static_cast<Week>(monday + 1);
+  std::cout << monday << std::endl; // 2 - tuesday
+
+  return 0;
+}
+```
+
 ## Functions
 
 ```cpp
@@ -318,5 +451,105 @@ float add(float a, float b)
 double add(double a, double b)
 {
   return a + b;
+}
+```
+
+## Classes
+
+```cpp
+// class point
+class Point
+{
+  // private members
+private:
+  int x, y;
+
+  // public members
+public:
+  // default constructor
+  Point() : x(0), y(0)
+  {
+    std::cout << "Default Point constructor called" << std::endl;
+  }
+
+  // parameterized constructor
+  Point(int x, int y) : x(x), y(y)
+  {
+    std::cout << "Point constructor called" << std::endl;
+  }
+
+  // getters
+  int getX() { return x; }
+  int getY() { return y; }
+
+  // setters
+  void setX(int x) { this->x = x; }
+  void setY(int y) { this->y = y; }
+
+  // operator overloading
+  Point operator+(Point const &obj)
+  {
+    Point res;
+    res.x = x + obj.x;
+    res.y = y + obj.y;
+    return res;
+  }
+
+  // destructor
+  ~Point()
+  {
+    std::cout << "Point destructor called" << std::endl;
+  }
+};
+
+//usage
+int main()
+{
+  Point p1;
+  Point p2(10, 20);
+
+  std::cout << "p1: " << p1.getX() << ", " << p1.getY() << std::endl;
+  std::cout << "p2: " << p2.getX() << ", " << p2.getY() << std::endl;
+
+  return 0;
+}
+```
+
+## Inheritance
+
+```cpp
+class Person
+{
+public:
+  std::string name;
+  int age;
+
+  Person(std::string name, int age)
+  {
+    this->name = name;
+    this->age = age;
+  }
+};
+
+class Hero : public Person
+{
+public:
+  int level;
+
+  Hero(std::string name, int age, int level) : Person(name, age)
+  {
+    this->level = level;
+  }
+};
+
+int main()
+{
+  Hero hero("John", 25, 10);
+
+  std::cout << hero.name << std::endl;
+  std::cout << hero.age << std::endl;
+  std::cout << hero.level << std::endl;
+
+  return 0;
 }
 ```
