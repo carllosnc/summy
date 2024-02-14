@@ -5,15 +5,19 @@ const AllPosts = await Astro.glob('./*.mdx')
 ---
 
 <Layout title="Lang Resume">
-  <div class="max-w-[600px] m-auto px-4 py-8 w-full flex flex-col gap-4">
+  <div class="max-w-[600px] m-auto px-4 py-8 w-full grid grid-cols-3 md:grid-cols-2 gap-4">
     {
       AllPosts.map((post) => (
         <a
           href={post.frontmatter.href}
-          class="border flex border-slate-300 items-center gap-[20px] px-6 py-4 rounded-2xl hover:border-blue-500 transition-all"
+          class="border flex flex-col w-full border-slate-300 items-center gap-[10px] p-3 rounded-3xl hover:border-blue-500 transition-all"
         >
-          <img class="w-[40px] h-[40px]" src={post.frontmatter.icon} alt={post.frontmatter.title} />
-          <h2 class="text-slate-600 text-xl font-bold">{post.frontmatter.title}</h2>
+          <img
+            class="w-[130px] border border-slate-300 rounded-full p-4"
+            src={post.frontmatter.icon}
+            alt={post.frontmatter.title}
+          />
+          <h2 class="text-slate-700 text-base">{post.frontmatter.title}</h2>
         </a>
       ))
     }
