@@ -1,7 +1,5 @@
 function revealBase(startClass: string, endClass: string) {
-  return function (id: string) {
-    console.log('check this')
-
+  return function (id: string, delay: number = 0) {
     const element = document.getElementById(id)
 
     if (!element) {
@@ -15,12 +13,14 @@ function revealBase(startClass: string, endClass: string) {
     element?.classList.add(startClass)
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove(startClass)
-          entry.target.classList.add(endClass)
-        }
-      })
+      setTimeout(() => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove(startClass)
+            entry.target.classList.add(endClass)
+          }
+        })
+      }, delay)
     })
 
     observer.observe(element!)
