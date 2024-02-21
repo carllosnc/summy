@@ -9,8 +9,9 @@ const AllPosts = await Astro.glob('./*.mdx')
     {
       AllPosts.map((post) => (
         <a
+          id={post.frontmatter.title}
           href={post.frontmatter.href}
-          class="border flex flex-col w-full border-slate-300 items-center gap-[10px] p-3 rounded-3xl hover:border-blue-500 transition-all"
+          class="border opacity-0 flex flex-col w-full border-slate-300 items-center gap-[10px] p-3 rounded-3xl hover:border-blue-500 transition-all"
         >
           <img
             class="w-[130px] border border-slate-300 rounded-full p-4"
@@ -23,3 +24,10 @@ const AllPosts = await Astro.glob('./*.mdx')
     }
   </div>
 </Layout>
+
+<script>
+  import { revealTop } from '@/actions'
+  revealTop('C++')
+  revealTop('Dart', 100)
+  revealTop('PHP', 200)
+</script>
