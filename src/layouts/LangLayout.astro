@@ -32,10 +32,14 @@ const { frontmatter } = Astro.props
 </Layout>
 
 <script>
+  import { revealLeft } from '@/actions'
+
   window.addEventListener('keydown', (e) => {
     if (e.key === 't') {
       e.preventDefault()
       document?.querySelector('#topics')?.scrollIntoView({ behavior: 'smooth' })
     }
   })
+
+  revealLeft('title')
 </script>
