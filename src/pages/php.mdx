@@ -51,6 +51,7 @@ docker run --rm -v .:/app php php app/playground.php
 - <a href="#abstract-class">Abstract Class</a>
 - <a href="#interfaces">Interfaces</a>
 - <a href="#traits">Traits</a>
+- <a href="#attributes">Attributes</a>
 - <a href="#enum">Enum</a>
 - <a href="#error-handling">Error Handling</a>
 - <a href="#include-require">Include, Require</a>
@@ -747,6 +748,41 @@ class ClassExample
   }
 }
 ```
+
+## Attributes
+
+Attributes are a new feature in PHP 8. They are a way to add metadata to classes, methods, and functions.
+
+```php
+#[Attribute]
+class ExampleAttribute
+{
+  private string $message;
+  private int $answer;
+
+  public function __construct(string $message, int $answer)
+  {
+    $this->message = $message;
+    $this->answer = $answer;
+  }
+}
+
+#[ExampleAttribute('Hello', 42)]
+class Example
+{
+}
+
+$reflection = new ReflectionClass(Example::class);
+$attributes = $reflection->getAttributes();
+
+foreach ($attributes as $attribute) {
+  var_dump($attribute->getName());
+  var_dump($attribute->getArguments());
+  var_dump($attribute->newInstance());
+}
+
+```
+(👉 Attributes in PHP 8)[https://php.watch/articles/php-attributes#intro-naming]
 
 ## Enum
 ```php
