@@ -1,0 +1,292 @@
+---
+layout: '../layouts/LangLayout.astro'
+title: 'Swift'
+icon: '/langs/swift.svg'
+href: '/swift'
+lang: 'swift'
+---
+
+# Swift
+
+Swift is a general-purpose, multi-paradigm, compiled programming language developed by Apple Inc. and the open-source community, first released in 2014. Swift was developed as a replacement for Apple's earlier programming language Objective-C, as Objective-C had been largely unchanged since the early 1980s and lacked modern language features. Swift works with Apple's Cocoa and Cocoa Touch frameworks, and a key aspect of Swift's design was the ability to interoperate with the huge body of existing Objective-C code developed for Apple products over the previous decades. It is built with the open source LLVM compiler framework and has been included in Xcode since version 6, released in 2014. On Apple platforms, it uses the Objective-C runtime library which allows C, Objective-C, C++ and Swift code to run within one program.
+
+## Getting Started
+
+To get started with Swift, you can use the [Swift Playgrounds](https://www.apple.com/swift/playgrounds/) app on macOS or iPadOS, or you can use the [Swift REPL](https://swift.org/download/) on Linux. You can also use the [Xcode](https://developer.apple.com/xcode/) IDE on macOS, which includes a Swift compiler and a visual interface builder.
+
+To run swift code on linux or windows, you can use docker to run a swift container:
+
+```bash
+docker run -dit --volume .:/app --name learn-swift swift swift /app/app.swift
+```
+
+Another way:
+
+```bash
+docker run -dit --volume .:/app --name learn-swift swift
+docker exec learn-swift swift /app/app.swift
+```
+
+## Topics
+- <a href="#variables">Variables</a>
+- <a href="#primitive-types">Primitive types</a>
+- <a href="#operators">Operators</a>
+- <a href="#string">String</a>
+- <a href="#collections">Collections</a>
+
+## Variables
+
+```swift
+//variables
+var myVariable = 42
+
+//constant
+let myConstant = 42
+
+//type annotations
+var myVariable2: Double = 70
+```
+
+## Primitive types
+
+```swift
+var a: String = "Hello, World!"
+var b: Int = 10
+var c: Double = 10.5
+var d: Bool = true
+var e: Character = "A"
+var f: Float = 10.5
+//optional
+var h: String? = nil
+
+print(type(of: a))
+print(type(of: b))
+print(type(of: c))
+print(type(of: d))
+print(type(of: e))
+print(type(of: f))
+print(type(of: h))
+```
+
+## Operators
+
+```swift
+//arithmetics operators
+var a = 10
+var b = 20
+var c = a + b
+var d = a - b
+var e = a * b
+var f = a / b
+var g = a % b
+
+//comparison operators
+var h = a == b
+var i = a != b
+var j = a > b
+var k = a < b
+var l = a >= b
+var m = a <= b
+
+//logical operators
+var n = true && false
+var o = true || false
+var p = !true
+
+//assignment operators
+var q = 10
+q += 10
+q -= 10
+q *= 10
+q /= 10
+q %= 10
+
+//range operators
+var r = 1...10
+var s = 1..<10
+
+//ternary conditional operator
+var t = a > b ? "a is greater than b" : "a is less than or equal to b"
+
+//nil-coalescing operator
+var u: String? = nil
+var v = u ?? "default value"
+```
+
+## String
+
+```swift
+//simple string
+var str = "Hello, playground"
+
+//concatenation
+var str1 = "Hello"
+var str2 = "World"
+var str3 = str1 + " " + str2
+
+//string interpolation
+var name = "John"
+var age = 25
+var message = "My name is \(name) and I am \(age) years old."
+
+//multiline string
+var str4 = """
+This is a multiline string.
+It can contain multiple lines.
+"""
+
+//unicode
+var heart = "\u{1F496}"
+
+//empty string
+var emptyString = ""
+
+//check if string is empty
+if emptyString.isEmpty {
+    print("String is empty")
+}
+
+//string length
+var str5 = "Hello, World!"
+print("Length of str5 is \(str5.count)")
+
+//accessing characters
+var str6 = "Hello, World!"
+print(str6[str6.startIndex])
+print(str6[str6.index(before: str6.endIndex)])
+print(str6[str6.index(after: str6.startIndex)])
+print(str6[str6.index(str6.startIndex, offsetBy: 7)])
+
+//inserting and removing
+var str7 = "Hello"
+str7.insert("!", at: str7.endIndex)
+print(str7)
+str7.remove(at: str7.index(before: str7.endIndex))
+print(str7)
+
+//substring
+var str8 = "Hello, World!"
+let index = str8.firstIndex(of: ",") ?? str8.endIndex
+let newStr = str8[..<index]
+let newStr2 = str8[index...]
+
+//compare strings
+var str9 = "Hello"
+var str10 = "Hello"
+if str9 == str10 {
+    print("Strings are equal")
+}
+
+//prefix and suffix
+var str11 = "Hello, World!"
+if str11.hasPrefix("Hello") {
+    print("String starts with Hello")
+}
+if str11.hasSuffix("World!") {
+    print("String ends with World!")
+}
+
+//uppercase and lowercase
+var str12 = "Hello, World!"
+print(str12.uppercased())
+print(str12.lowercased())
+
+//replacing
+var str13 = "Hello, World!"
+print(str13.replacingOccurrences(of: "Hello", with: "Hi"))
+
+//splitting
+var str14 = "Hello, World!"
+print(str14.split(separator: ","))
+print(str14.split(separator: ",", maxSplits: 1))
+print(str14.split(separator: ",", omittingEmptySubsequences: false))
+```
+
+## Collections
+
+**Array:** In swift, arrays are used to store ordered lists of values of the same type. Arrays are zero-indexed, which means the first element is at index 0, the second element is at index 1, and so on.
+
+```swift
+// array
+var arr = [1,2,3,4,5]
+
+// type array
+var arr1: [Int] = [1,2,3,4,5]
+
+// add elements
+arr.append(6)
+
+// remove elements
+arr.remove(at: 0)
+
+// count elements
+arr.count
+
+// check if empty
+arr.isEmpty
+
+// get element
+arr[0]
+
+// set element
+arr[0] = 10
+
+//loop
+for i in arr {
+    print(i)
+}
+
+//map
+arr.map { (i) -> Int in
+    return i * 2
+}
+
+//filter
+arr.filter { (i) -> Bool in
+    return i % 2 == 0
+}
+
+//reduce
+arr.reduce(0) { (result, i) -> Int in
+    return result + i
+}
+```
+
+**Sets:** In swift, sets are used to store distinct values of the same type. Sets are unordered collections of unique elements.
+
+```swift
+//create an set
+var set: Set = [1, 2, 3, 3, 4, 5, 5]
+
+//print set length
+print(set.count) // 5
+
+//check if empty
+print(set.isEmpty) // false
+
+//add element
+set.insert(6)
+
+//remove element
+set.remove(1)
+
+//loop
+for i in set {
+    print(i)
+}
+
+//map
+let mappedSet = set.map { (i) -> Int in
+    return i * 2
+} // [4, 6, 8, 10, 12]
+
+//filter
+let filteredSet = set.filter { (i) -> Bool in
+    return i % 2 == 0
+} // [2, 4, 6]
+
+//reduce
+let reducedSet = set.reduce(0) { (result, i) -> Int in
+    return result + i
+}// 20
+```
