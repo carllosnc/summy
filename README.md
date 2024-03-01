@@ -1,6 +1,6 @@
-# Lag Resume
+# Summy
 
-> programing language resume
+> Summary about programming languages, frameworks, libraries, and tools.
 
 ## Stack
 
