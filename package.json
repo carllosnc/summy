@@ -1,6 +1,6 @@
 {
-  "name": "astro-starter",
-  "description": "Start new Astro project",
+  "name": "summy",
+  "description": "brief resume about langs, libs, tools and frameworks",
   "type": "module",
   "version": "0.0.1",
   "private": true,
