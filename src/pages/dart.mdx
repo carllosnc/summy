@@ -44,7 +44,7 @@ docker run --rm -v .:/app dart dart app/playground.dart
 - <a href="#strings">Strings</a>
 - <a href="#null-safety">Null safety</a>
 - <a href="#collections">Collections</a>
-- <a href="#control-structures">Control structures</a>
+- <a href="#conditional-statements">Conditional statements</a>
 - <a href="#loops">Loops</a>
 - <a href="#functions">Functions</a>
 - <a href="#classes">Classes</a>
@@ -334,19 +334,32 @@ print("$name $age");
 
 [👉Dart: records](https://dart.dev/language/records)
 
-## Control structures
+## Conditional Statements
 
 ```dart
 //if-else
 var isTrue = true;
+
 if (isTrue) {
   print('yes');
 } else {
   print('no');
 }
 
+//if-else if
+var option = 1;
+
+if (option == 1) {
+  print('option 1');
+} else if (option == 2) {
+  print('option 2');
+} else {
+  print('default option');
+}
+
 //switch
 var option = 1;
+
 switch (option) {
   case 1:
     print('option 1');
