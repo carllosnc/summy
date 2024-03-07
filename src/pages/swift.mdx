@@ -8,7 +8,7 @@ lang: 'swift'
 
 # Swift
 
-Swift is a general-purpose, multi-paradigm, compiled programming language developed by Apple Inc. and the open-source community, first released in 2014. Swift was developed as a replacement for Apple's earlier programming language Objective-C, as Objective-C had been largely unchanged since the early 1980s and lacked modern language features. Swift works with Apple's Cocoa and Cocoa Touch frameworks, and a key aspect of Swift's design was the ability to interoperate with the huge body of existing Objective-C code developed for Apple products over the previous decades. It is built with the open source LLVM compiler framework and has been included in Xcode since version 6, released in 2014. On Apple platforms, it uses the Objective-C runtime library which allows C, Objective-C, C++ and Swift code to run within one program.
+Swift is a powerful and intuitive programming language developed by Apple for building iOS, macOS, watchOS, and tvOS applications. Introduced in 2014, Swift is designed to be modern, safe, and efficient. It incorporates elements from various programming languages and aims to provide a seamless development experience for both beginners and experienced developers.
 
 ## Getting Started
 
@@ -28,11 +28,17 @@ docker exec learn-swift swift /app/app.swift
 ```
 
 ## Topics
+
 - <a href="#variables">Variables</a>
 - <a href="#primitive-types">Primitive types</a>
 - <a href="#operators">Operators</a>
 - <a href="#string">String</a>
 - <a href="#collections">Collections</a>
+- <a href="#conditional-statements">Conditional Statements</a>
+- <a href="#loops">Loops</a>
+- <a href="#functions">Functions</a>
+- <a href="#structs">Structs</a>
+- <a href="#enums">Enums</a>
 
 ## Variables
 
@@ -289,4 +295,440 @@ let filteredSet = set.filter { (i) -> Bool in
 let reducedSet = set.reduce(0) { (result, i) -> Int in
     return result + i
 }// 20
+```
+
+**Dictionary:** In swift, dictionaries are used to store key-value pairs of the same type. Dictionaries are unordered collections of key-value associations.
+
+```swift
+var capitalCity = [
+    "Indonesia": "Jakarta",
+    "Japan": "Tokyo",
+    "Korea": "Seoul",
+    "China": "Beijing"
+]
+
+//typed collection
+var capitalCity: [String: String] = [
+    "Indonesia": "Jakarta",
+    "Japan": "Tokyo",
+    "Korea": "Seoul",
+    "China": "Beijing"
+]
+
+//empty dictionary
+var capitalCity = [String: String]()
+var capitalCity: [String: String] = [:]
+
+//add element
+capitalCity["USA"] = "Washington"
+capitalCity["England"] = "London"
+
+//remove element
+capitalCity.removeValue(forKey: "USA")
+
+//count elements
+capitalCity.count
+
+//check if empty
+capitalCity.isEmpty
+
+//get element
+capitalCity["Indonesia"]
+
+//loop
+for (country, city) in capitalCity {
+    print("\(country) : \(city)")
+}
+
+//map
+capitalCity.map { (country, city) -> String in
+    return "\(country) : \(city)"
+}
+
+//filter
+capitalCity.filter { (country, city) -> Bool in
+    return country == "Indonesia"
+}
+
+//update value
+capitalCity.updateValue("Jakarta Baru", forKey: "Indonesia")
+
+//get keys
+capitalCity.keys
+
+//get values
+capitalCity.values
+```
+
+**Tuple:** is a group of values combined into a single value. Tuples are useful for temporary groups of related values.
+
+```swift
+var product = ("Ice Cream", 3.99)
+
+// get element
+product.0
+product.1
+
+// update value
+product.0 = "Ice Cream Baru"
+
+//destructure
+let (name, price) = product
+
+//tuple with label
+var product = (name: "Ice Cream", price: 3.99)
+
+// get element
+product.name
+product.price
+
+// update value
+product.name = "Ice Cream Baru"
+
+// loop
+for (key, value) in product {
+    print("\(key) : \(value)")
+}
+
+// nested tuple
+var product = (name: "Ice Cream", price: (3.99, 4.99))
+
+// get element from nested tuple
+product.name
+product.price.0
+product.price.1
+
+// dictionary inside tuple
+var product = (name: "Ice Cream", price: ["small": 3.99, "large": 4.99])
+
+// get element from dictionary inside tuple
+product.name
+product.price["small"]
+product.price["large"]
+```
+
+## Conditional Statements
+
+```swift
+let a = 5
+
+// if statement
+if a < 10 {
+    print("a is less than 10")
+} else {
+    print("a is greater than or equal to 10")
+}
+
+// if-else if-else statement
+if a < 10 {
+    print("a is less than 10")
+} else if a < 20 {
+    print("a is less than 20")
+} else {
+    print("a is greater than or equal to 20")
+}
+
+// switch statement
+switch a {
+  case 0:
+      print("a is 0")
+  case 1:
+      print("a is 1")
+  case 2:
+      print("a is 2")
+  case 3:
+      print("a is 3")
+  default:
+      print("a is greater than 4")
+}
+
+//ternary conditional operator
+let b = a < 10
+        ? "a is less than 10"
+        : "a is greater than or equal to 10"
+```
+
+## Loops
+
+```swift
+//for loop
+for index in 1...5 {
+    print("\(index) times 5 is \(index * 5)")
+}
+
+//while loop
+var index = 1
+while index <= 5 {
+    print("\(index) times 5 is \(index * 5)")
+    index += 1
+}
+
+//repeat-while loop
+index = 1
+repeat {
+    print("\(index) times 5 is \(index * 5)")
+    index += 1
+} while index <= 5
+```
+
+## Functions
+
+```swift
+//function
+func printName(name: String){
+    print("Hello, \(name)")
+}
+
+//function with return value
+func add(a: Int, b: Int) -> Int {
+    return a + b
+}
+
+//function with multiple return values
+func getMinMax(arr: [Int]) -> (min: Int, max: Int) {
+    var min = arr[0]
+    var max = arr[0]
+    for value in arr {
+        if value < min {
+            min = value
+        } else if value > max {
+            max = value
+        }
+    }
+    return (min, max)
+}
+
+//function with variadic parameters
+func sum(numbers: Int...) -> Int {
+    var total = 0
+    for number in numbers {
+        total += number
+    }
+    return total
+}
+
+//function with default parameter value
+func greet(name: String, msg: String = "Good morning!") {
+    print("Hello, \(name), \(msg)")
+}
+
+//function with inout parameters
+//inout parameters can be modified within the function
+//and the changes are reflected in the original value
+func swap(a: inout Int, b: inout Int) {
+    let temp = a
+    a = b
+    b = temp
+}
+
+var x = 10
+var y = 20
+swap(&x, &y) // x = 20, y = 10
+
+//function with return value as optional
+func divide(a: Int, b: Int) -> Int? {
+    if b == 0 {
+        return nil
+    }
+    return a / b
+}
+
+//function with nested function
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    func stepForward(input: Int) -> Int { return input + 1 }
+    func stepBackward(input: Int) -> Int { return input - 1 }
+
+    return backward ? stepBackward : stepForward
+}
+
+//function with function as parameter
+func printResult(_ function: (Int, Int) -> Int, a: Int, b: Int) {
+    let result = function(a, b)
+    print("Result: \(result)")
+}
+
+//function with function as return value
+func stepForward(input: Int) -> Int { return input + 1 }
+func stepBackward(input: Int) -> Int { return input - 1 }
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    return backward ? stepBackward : stepForward
+}
+```
+
+## Structs
+
+```swift
+//simple struct
+struct Person {
+    var name: String
+    var age: Int
+}
+
+var p = Person(
+    name: "John",
+    age: 25
+)
+
+//print the properties of the instance
+print(p.name) //John
+print(p.age) //25
+
+//change the properties of the instance
+p.name = "Bob"
+p.age = 30
+
+//structs with default values
+struct Employee {
+    var name: String = "Unknown"
+    var age: Int = 0
+}
+
+//structs with computed properties
+struct Circle {
+    var radius: Double = 0.0
+    var area: Double {
+        return 3.14 * radius * radius
+    }
+}
+
+var c = Circle(radius: 5.0)
+print(c.area) //78.5
+
+//structs with property observers
+struct Progress {
+    var task: String
+    var amount: Int {
+        didSet {
+            print("\(task) is now \(amount)% complete")
+        }
+    }
+}
+
+var p = Progress(task: "Loading data", amount: 0)
+p.amount = 30
+p.amount = 80
+p.amount = 100
+
+//structs with property observers
+struct Progress {
+    var task: String
+    var amount: Int {
+        didSet {
+            print("\(task) is now \(amount)% complete")
+        }
+    }
+}
+
+var p = Progress(task: "Loading data", amount: 0)
+p.amount = 30
+p.amount = 80
+p.amount = 100
+
+//structs with type property
+struct Circle {
+    static let pi = 3.14
+    var radius: Double
+    var area: Double {
+        return Circle.pi * radius * radius
+    }
+}
+print(Circle.pi) //3.14
+var c = Circle(radius: 5.0)
+print(c.area) //78.5
+
+//structs with type method
+struct Math {
+    static func abs(number: Int) -> Int {
+        if number < 0 {
+            return -number
+        }
+        return number
+    }
+}
+print(Math.abs(number: -35)) //35
+print(Math.abs(number: 40)) //40
+
+//structs with access control
+struct Person {
+    var name: String
+    private var age: Int
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+    func display() {
+        print("Name: \(name), Age: \(age)")
+    }
+}
+
+var p = Person(name: "John", age: 25)
+p.display() //Name: John, Age: 25
+print(p.name) //John
+print(p.age)
+//Error: 'age' is inaccessible due to 'private' protection level
+```
+
+## Enums
+
+```swift
+//example of enum
+enum CompassPoint {
+    case north
+    case south
+    case east
+    case west
+}
+var directionToHead: CompassPoint = CompassPoint.west
+print(directionToHead)
+
+//enum with switch
+directionToHead = .south
+switch directionToHead {
+    case .north:
+        print("Lots of planets have a north")
+    case .south:
+        print("Watch out for penguins")
+    case .east:
+        print("Where the sun rises")
+    case .west:
+        print("Where the skies are blue")
+}
+
+//enum with raw value
+enum Planet: Int {
+    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+}
+let earthsOrder = Planet.earth.rawValue
+print(earthsOrder) // 3
+
+//enum with raw value
+enum CompassPoint2: String {
+    case north, south, east, west
+}
+let sunsetDirection = CompassPoint2.west.rawValue
+print(sunsetDirection) // west
+
+//enum iterable
+enum Beverage: CaseIterable {
+    case coffee, tea, juice
+}
+
+for beverage in Beverage.allCases {
+    print(beverage)
+}
+
+//enum associated value
+enum Barcode {
+    case upc(Int, Int, Int, Int)
+    case qrCode(String)
+}
+var productBarcode = Barcode.upc(8, 85909, 51226, 3)
+productBarcode = .qrCode("ABCDEFGHIJKLMNOP")
+
+switch productBarcode {
+    case .upc(let numberSystem, let manufacturer, let product, let check):
+        print("UPC: \(numberSystem), \(manufacturer), \(product), \(check).")
+    case .qrCode(let productCode):
+        print("QR code: \(productCode).")
+}
 ```
