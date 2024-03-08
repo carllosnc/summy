@@ -664,38 +664,56 @@ void main() {
 Mixins are a way to reuse a class's code in multiple class hierarchies.
 
 ```dart
-//class animal
-class Animal {
-  String name;
-  Animal(this.name);
-  void eat() => print('$name is eating');
-}
-
-//mixin swim
+//mixin example
 mixin Swimmer {
   void swim() => print('Swimming');
 }
 
-//class dolphin who extends animal and implements swim
-class Dolphin extends Animal with Swimmer {
-  Dolphin(String name) : super(name);
+//mixin with properties
+mixin Flyer {
+  int age = 0;
+  void fly() => print('Flying');
 }
 
-//class fish who extends animal and implements swim
-class Fish extends Animal with Swimmer {
-  Fish(String name) : super(name);
+//mixin with methods
+mixin Runner {
+  void run() => print('Running');
+  void runFor(int distance) => print('Running for $distance meters');
 }
 
-void main() {
-  final flipper = Dolphin('Flipper');
+//mixin with abstract methods
+mixin Jumper {
+  void jump() => print('Jumping');
+  void jumpOver(int distance);
+}
+
+//mixin that extends another mixin
+mixin SuperJumper on Jumper {
+  void superJump() => print('Super Jumping');
+}
+
+//class that use mixins
+class Animal with Swimmer, Flyer, Runner, Jumper, SuperJumper {
+  String name;
+  Animal(this.name);
+  void eat() => print('$name is eating');
+  void jumpOver(int distance) => print('$name is jumping over $distance meters');
+}
+
+void main() async {
+  final flipper = Animal('Flipper');
   flipper.eat();
   flipper.swim();
-
-  final nemo = Fish('Nemo');
-  nemo.eat();
-  nemo.swim();
+  flipper.fly();
+  flipper.run();
+  flipper.runFor(100);
+  flipper.jump();
+  flipper.jumpOver(10);
+  flipper.superJump();
+  print(flipper.age);
+  flipper.age = 10;
+  print(flipper.age);
 }
-
 ```
 
 ## Enum
