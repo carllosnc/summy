@@ -60,6 +60,7 @@ docker run --rm -v .:/app dart dart app/playground.dart
 - <a href="#streams">Streams</a>
 - <a href="#generators">Generators</a>
 - <a href="#import-export">Import, Export</a>
+- <a href="#isolates">Isolates</a>
 
 ## Variables
 
@@ -1041,4 +1042,24 @@ export '/core/core.dart';
 export '/notifiers/notifiers.dart';
 export '/views/views.dart';
 export '/style/text_style.dart';
+```
+
+## Isolates
+
+Isolates are a way to run Dart code in a separate thread. You can use isolates to run code in parallel, without sharing memory.
+
+- [👉Dart: isolates](https://dart.dev/language/isolates)
+- [👉Dart: concurrency](https://dart.dev/language/concurrency)
+
+```dart
+import 'dart:isolate';
+
+void main() async {
+  var result = await Isolate.run(() {
+    return "hello from isolate";
+  });
+
+  print(result);
+  print("hello world");
+}
 ```
