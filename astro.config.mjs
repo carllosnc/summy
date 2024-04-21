@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx'
 import svelte from '@astrojs/svelte'
 
 // https://astro.build/config
-import netlify from '@astrojs/netlify'
+import vercel from '@astrojs/vercel/static'
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +15,6 @@ export default defineConfig({
   },
 
   integrations: [tailwind(), mdx(), svelte()],
-  output: 'server',
-  adapter: netlify(),
+  output: 'static',
+  adapter: vercel(),
 })
