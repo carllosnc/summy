@@ -1,6 +1,6 @@
 # Summy
 
-> Summary about programming languages, frameworks, libraries, and tools.
+> Tiny cheatsheets for programming languages, frameworks, tools, and more.
 
 ## Stack
 
@@ -12,4 +12,4 @@
 
 ---
 
-Carlos Costa 🤟 2022
+@ Carlos costa 2024
