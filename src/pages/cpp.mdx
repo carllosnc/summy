@@ -21,9 +21,11 @@ To start programming in C++, you need to have a compiler installed on your compu
 ```cpp
 #include <iostream>
 
+using namespace std;
+
 int main()
 {
-  std::cout << "Hello World!" << std::endl;
+  cout << "Hello, World!" << endl;
   return 0;
 }
 ```
@@ -47,6 +49,7 @@ g++ -o app main.cpp && ./app
 - <a href="#classes">Classes</a>
 - <a href="#inheritance">Inheritance</a>
 - <a href="#error-handling">Error Handling</a>
+- <a href="#namespace-using-include-define-ifndef-endif">Namespace, using, #include, #define, #ifndef, #endif</a>
 
 ## Primitive types
 
@@ -56,7 +59,7 @@ float b = 10.5;
 double c = 10.5;
 char d = 'A';
 bool e = true;
-std::string f = "Hello World";
+string f = "Hello World";
 ```
 
 Constants
@@ -129,39 +132,41 @@ int ac = *ab;
 ```
 
 ## Strings
+
 ```cpp
-std::string str1 = "Hello";
-std::string str2 = "World";
+string str1 = "Hello";
 
-std::string str3 = str1 + " " + str2; // Hello World
+string str2 = "World";
 
-std::string str4 = str1.append(" World"); // Hello World
+string str3 = str1 + " " + str2; // Hello World
 
-std::string str5 = str1.substr(0, 5); // Hello
+string str4 = str1.append(" World"); // Hello World
+
+string str5 = str1.substr(0, 5); // Hello
 
 int str6 = str1.length(); // 11
 
-std::string str7 = "Hello World";
+string str7 = "Hello World";
 str7[0] = 'J'; // Jello World
 
-std::string str8 = "Hello World";
+string str8 = "Hello World";
 str8.at(0) = 'J'; // Jello World
 
-std::string str9 = "Hello World";
+string str9 = "Hello World";
 str9.insert(5, "C++"); // Hello C++World
 
-std::string str10 = "Hello World";
+string str10 = "Hello World";
 str10.erase(5, 5); // Hello
 
-std::string str11 = "Hello World";
+string str11 = "Hello World";
 
-if (str11.find("World") != std::string::npos)
+if (str11.find("World") != string::npos)
 {
-  std::cout << "Found" << std::endl;
+  cout << "Found" << endl;
 }
 else
 {
-  std::cout << "Not found" << std::endl;
+  cout << "Not found" << endl;
 }
 ```
 
@@ -192,20 +197,22 @@ arr2[0][0] = 10;
 
 // array functions
 int arr3[5] = {1, 2, 3, 4, 5};
-std::sort(arr3, arr3 + 5);
-std::reverse(arr3, arr3 + 5);
-std::fill(arr3, arr3 + 5, 0);
+sort(arr3, arr3 + 5);
+reverse(arr3, arr3 + 5);
+fill(arr3, arr3 + 5, 0);
 
 // array size
 int size = sizeof(arr3) / sizeof(arr3[0]);
 
 // array copy
 int arr4[5];
-std::copy(arr3, arr3 + 5, arr4);
+copy(arr3, arr3 + 5, arr4);
 
 // array fill
-std::fill(arr4, arr4 + 5, 0);
+fill(arr4, arr4 + 5, 0);
 ```
+
+[👉 Array reference](https://cplusplus.com/reference/array/array/)
 
 ## Casting
 
@@ -242,9 +249,10 @@ double r = static_cast<double>(b); // 10.5
 int a = 10; // variable
 int *b = &a; // pointer
 
-std::cout << *b << std::endl; // 10
-std::cout << b << std::endl; // 0x7ffebc3b3b4c
+cout << *b << endl; // 10
+cout << b << endl; // 0x7ffebc3b3b4c
 ```
+
 [👉 Pointers reference](https://cplusplus.com/reference/pointers/)
 
 ## Control structures
@@ -256,11 +264,11 @@ int b = 20;
 // if statement
 if (a > b)
 {
-  std::cout << "a is greater than b" << std::endl;
+  cout << "a is greater than b" << endl;
 }
 else
 {
-  std::cout << "a is less than or equal to b" << std::endl;
+  cout << "a is less than or equal to b" << endl;
 }
 
 // switch statement
@@ -268,13 +276,13 @@ int c = 2;
 switch (c)
 {
 case 1:
-  std::cout << "Case 1" << std::endl;
+  cout << "Case 1" << endl;
   break;
 case 2:
-  std::cout << "Case 2" << std::endl;
+  cout << "Case 2" << endl;
   break;
 default:
-  std::cout << "Default case" << std::endl;
+  cout << "Default case" << endl;
 }
 ```
 
@@ -285,7 +293,7 @@ default:
 int a = 0;
 while (a < 5)
 {
-  std::cout << a << std::endl;
+  cout << a << endl;
   a++;
 }
 
@@ -293,21 +301,21 @@ while (a < 5)
 int b = 0;
 do
 {
-  std::cout << b << std::endl;
+  cout << b << endl;
   b++;
 } while (b < 5);
 
 // for loop
 for (int c = 0; c < 5; c++)
 {
-  std::cout << c << std::endl;
+  cout << c << endl;
 }
 
 // range-based for loop
 int arr[5] = {1, 2, 3, 4, 5};
 for (int x : arr)
 {
-  std::cout << x << std::endl;
+  cout << x << endl;
 }
 ```
 
@@ -352,7 +360,7 @@ struct Point
   // member function
   void print()
   {
-    std::cout << "Point(" << x << ", " << y << ")" << std::endl;
+    cout << "Point(" << x << ", " << y << ")" << endl;
   }
 };
 
@@ -397,15 +405,15 @@ enum Week
 int main()
 {
   Color b = BLUE;
-  std::cout << b << std::endl;
+  cout << b << endl;
 
   Color r = RED;
-  std::cout << r << std::endl;
+  cout << r << endl;
 
   Week monday = MONDAY;
   // increment monday
   monday = static_cast<Week>(monday + 1);
-  std::cout << monday << std::endl; // 2 - tuesday
+  cout << monday << endl; // 2 - tuesday
 
   return 0;
 }
@@ -417,13 +425,13 @@ int main()
 // simple function
 void printHello()
 {
-  std::cout << "Hello" << std::endl;
+  cout << "Hello" << endl;
 }
 
 // function with parameters
-void printName(std::string name)
+void printName(string name)
 {
-  std::cout << "Hello " << name << std::endl;
+  cout << "Hello " << name << endl;
 }
 
 // function with return value
@@ -435,7 +443,7 @@ int add(int a, int b)
 // function with default parameters
 void printNumber(int number = 10)
 {
-  std::cout << number << std::endl;
+  cout << number << endl;
 }
 
 // function overloading
@@ -470,13 +478,13 @@ public:
   // default constructor
   Point() : x(0), y(0)
   {
-    std::cout << "Default Point constructor called" << std::endl;
+    cout << "Default Point constructor called" << endl;
   }
 
   // parameterized constructor
   Point(int x, int y) : x(x), y(y)
   {
-    std::cout << "Point constructor called" << std::endl;
+    cout << "Point constructor called" << endl;
   }
 
   // getters
@@ -499,7 +507,7 @@ public:
   // destructor
   ~Point()
   {
-    std::cout << "Point destructor called" << std::endl;
+    cout << "Point destructor called" << endl;
   }
 };
 
@@ -509,8 +517,8 @@ int main()
   Point p1;
   Point p2(10, 20);
 
-  std::cout << "p1: " << p1.getX() << ", " << p1.getY() << std::endl;
-  std::cout << "p2: " << p2.getX() << ", " << p2.getY() << std::endl;
+  cout << "p1: " << p1.getX() << ", " << p1.getY() << endl;
+  cout << "p2: " << p2.getX() << ", " << p2.getY() << endl;
 
   return 0;
 }
@@ -522,10 +530,10 @@ int main()
 class Person
 {
 public:
-  std::string name;
+  string name;
   int age;
 
-  Person(std::string name, int age)
+  Person(string name, int age)
   {
     this->name = name;
     this->age = age;
@@ -537,7 +545,7 @@ class Hero : public Person
 public:
   int level;
 
-  Hero(std::string name, int age, int level) : Person(name, age)
+  Hero(string name, int age, int level) : Person(name, age)
   {
     this->level = level;
   }
@@ -547,9 +555,9 @@ int main()
 {
   Hero hero("John", 25, 10);
 
-  std::cout << hero.name << std::endl;
-  std::cout << hero.age << std::endl;
-  std::cout << hero.level << std::endl;
+  cout << hero.name << endl;
+  cout << hero.age << endl;
+  cout << hero.level << endl;
 
   return 0;
 }
@@ -564,7 +572,7 @@ try
 }
 catch (int e)
 {
-  std::cout << "An exception occurred. Exception Nr. " << e << '\n';
+  cout << "An exception occurred. Exception Nr. " << e << '\n';
 }
 
 // nested try catch block
@@ -576,12 +584,12 @@ try
   }
   catch (int e)
   {
-    std::cout << "An exception occurred. Exception Nr. " << e << '\n';
+    cout << "An exception occurred. Exception Nr. " << e << '\n';
   }
 }
 catch (int e)
 {
-  std::cout << "An exception occurred. Exception Nr. " << e << '\n';
+  cout << "An exception occurred. Exception Nr. " << e << '\n';
 }
 
 // rethrowing an exception
@@ -590,16 +598,16 @@ try
   try
   {
     throw 20;
-  }
+  }e
   catch (int e)
   {
-    std::cout << "An exception occurred. Exception Nr. " << e << '\n';
+    cout << "An exception occurred. Exception Nr. " << e << '\n';
     throw; // rethrowing the exception
   }
 }
 catch (int e)
 {
-  std::cout << "An exception occurred. Exception Nr. " << e << '\n';
+  cout << "An exception occurred. Exception Nr. " << e << '\n';
 }
 
 // catch all exceptions
@@ -609,34 +617,35 @@ try
 }
 catch (int e)
 {
-  std::cout << "An exception occurred. Exception Nr. " << e << '\n';
+  cout << "An exception occurred. Exception Nr. " << e << '\n';
 }
 catch (char e)
 {
-  std::cout << "An exception occurred. Exception char " << e << '\n';
+  cout << "An exception occurred. Exception char " << e << '\n';
 }
 catch (...)
 {
-  std::cout << "An exception occurred. Exception unknown" << '\n';
+  cout << "An exception occurred. Exception unknown" << '\n';
 }
 
 // standard exceptions
 try
 {
-  throw std::runtime_error("runtime error");
+  throw runtime_error("runtime error");
 }
-catch (std::exception &e)
+catch (exception &e)
 {
-  std::cout << "Standard exception: " << e.what() << '\n';
+  cout << "Standard exception: " << e.what() << '\n';
 }
 ```
 
 Custom Exception
+
 ```cpp
 #include <iostream>
 
 // custom exception
-class MyException : public std::exception
+class MyException : public exception
 {
 public:
   virtual const char *what() const throw()
@@ -647,16 +656,60 @@ public:
 
 int main()
 {
-
   try
   {
     throw MyException();
   }
   catch (MyException &e)
   {
-    std::cout << e.what() << std::endl;
+    cout << e.what() << endl;
   }
 
   return 0;
+}
+```
+
+## namespace, using, #include, #define, #ifndef, #endif
+
+lib.h
+
+```cpp
+#ifndef _LIB_CALC_
+#define _LIB_CALC_
+
+namespace lib
+{
+  class Calc
+  {
+  public:
+    int add(int a, int b)
+    {
+      return a + b;
+    }
+
+    int sub(int a, int b)
+    {
+      return a - b;
+    }
+  };
+}
+
+#endif
+```
+
+main.cpp
+
+```cpp
+#include <iostream>
+#include "./lib.h"
+
+using namespace std;
+using namespace lib;
+
+int main(int argc, char const *argv[])
+{
+  Calc c;
+  cout << c.add(1, 2) << endl;
+  cout << c.sub(1, 2) << endl;
 }
 ```
