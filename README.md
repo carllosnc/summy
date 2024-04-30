@@ -2,14 +2,14 @@
 
 > Tiny cheatsheets for programming languages, frameworks, tools, and more.
 
+https://summmy.vercel.app/
+
 ## Stack
 
-🚀 [Astro build](https://astro.build/)
-
-🚝 [Tailwind](https://tailwindcss.com/)
-
-📝 [MDX](https://mdxjs.com/)
+- 🚀 [Astro build](https://astro.build/)
+- 🚝 [Tailwind](https://tailwindcss.com/)
+- 📝 [MDX](https://mdxjs.com/)
 
 ---
 
-@ Carlos costa 2024
+@ Carlos Costa 2024
