@@ -1,0 +1,316 @@
+---
+layout: '../layouts/LangLayout.astro'
+title: 'Kotlin'
+icon: '/langs/kotlin.svg'
+href: '/kotlin'
+lang: 'kotlin'
+---
+
+# Kotlin
+
+Kotlin is a modern, statically-typed programming language that runs on the Java Virtual Machine (JVM). It was developed by JetBrains and first released in 2011.
+
+All examples are based on Kotlin 1.8.0.
+
+**Resources:**
+
+- [👉 Kotlin Official Documentation](https://kotlinlang.org/docs/home.html)
+
+## How to start
+
+A simple and fast way to get started with Kotlin is to use an IDE like IntelliJ IDEA.
+
+- [👉 IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+```kotlin
+//main.kt
+fun main() {
+    println("Hello, world")
+}
+```
+
+## Topics
+
+- [Variables](#variables)
+- [Primitive Types](#primitive-types)
+- [Operators](#operators)
+- [Strings](#strings)
+- [Null Safety](#null-safety)
+- [Operator Overloading](#operator-overloading)
+- [Collections](#collections)
+
+## Variables
+
+```kotlin
+//var: mutable variable
+var x = 10
+
+//val: immutable variable
+val y = 10
+
+//typed variable
+val z: Int = 10
+
+//nullable variable
+val a: Int? = null
+```
+
+## Primitive Types
+
+```kotlin
+val a: String = "Hello"
+val b: Int = 10
+val c: Double = 3.14
+val d: Boolean = true
+val f: Byte = 100
+val g: Short = 1000
+val h: Long = 100000
+val i: Float = 10.0F
+val j: Char = 'a'
+val k: CharSequence = "Hello"
+```
+
+## Operators
+
+```kotlin
+//Arithmetic Operators
+val a = 10 + 20
+val b = 10 - 20
+val c = 10 * 20
+val d = 10 / 20
+val e = 10 % 20
+
+//Comparison Operators
+val a = 10 == 20
+val b = 10 != 20
+val c = 10 > 20
+val d = 10 < 20
+val e = 10 >= 20
+val f = 10 <= 20
+
+//Logical Operators
+val a = true && false
+val b = true || false
+
+//Assignment Operators
+var a = 10
+a += 20
+a -= 20
+a *= 20
+a /= 20
+a %= 20
+
+//Conditional Operators
+val a = 10
+a ?: 20
+
+//Range Operators
+val a = 10..20
+for (i in a) { println(i)}
+
+//Type test
+if (a is Int) { println("a is Int") }
+if (a is String) { println("a is String") }
+
+//Bitwise Operators
+val a = 10 and 20
+val b = 10 or 20
+val c = 10 xor 20
+val d = 10 shl 20
+val e = 10 shr 20
+val f = 10 ushr 20
+
+//Elvis operator
+val a = null
+var b = a ?: "default"
+```
+
+## Strings
+
+```kotlin
+//single line string
+var a = "Hello world"
+
+//multiline string
+var b = """
+    Hello
+    world
+"""
+
+//string interpolation
+var c = "Hello $a"
+
+//string template
+fun message(): String {  return "Hello World!" }
+println("message: ${message()}")
+```
+
+- [👉 String references](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/)
+
+## Null Safety
+
+Null safety is a feature in Kotlin that helps prevent null pointer exceptions.
+It allows you to declare variables as nullable, and then handle the case where
+the variable is null.
+
+```kotlin
+//null-nullable variable
+val a: String? = null
+
+//null nullable variable
+val b: String = a ?: "default"
+
+//null-aware operator (safe call operator)
+val c = a?.length
+
+//null assertion operator
+val d = a!!.length
+
+//check for null in conditions
+val e = if (a != null) { a.length } else { 0 }
+
+//elvis operator with nullable receiver
+val l = b?.length ?: 0
+
+//safe casts
+val f: String = a as? Int
+```
+
+## Operator Overloading
+
+Operator overloading allows you to define custom behavior for specific operators.
+In Kotlin, you can define operator overloading for arithmetic operators,
+comparison operators, and more.
+
+```kotlin
+data class Point(val x: Int, val y: Int)
+
+operator fun Point.plus(other: Point): Point {
+    return Point(this.x + other.x, this.y + other.y)
+}
+
+val point = Point(1, 2)
+val other = Point(3, 4)
+
+fun main(args: Array<String>) {
+    println(point + other) //Point(x=4, y=6)
+}
+```
+
+- [👉 Operator Overloading](https://kotlinlang.org/docs/operator-overloading.html)
+
+## Collections
+
+**List**: is a simple collection of objects. There is two types of list: mutable and immutable.
+
+```kotlin
+val list = listOf("a", "b", "c")
+val typedList: List<Int> = listOf(1, 2, 3)
+var mutableList = mutableListOf("a", "b", "c")
+
+//some methods
+mutableList.add("d")
+mutableList.remove("b")
+mutableList.clear()
+mutableList.addAll(list)
+mutableList.first()
+mutableList.last()
+mutableList.forEach { println(it) }
+```
+
+**Set**: is an unordered collection of unique elements. There are two types of sets: mutable and immutable.
+
+```kotlin
+var set = setOf(1, 2, 3, 4, 5)
+var typedSet: Set<Int> = setOf(1, 2, 3, 4, 5)
+var mutableSet: MutableSet<Int> = mutableSetOf(1, 2, 3, 4, 5)
+
+//some methods
+mutableSet.add(6)
+mutableSet.remove(3)
+mutableSet.clear()
+mutableSet.contains(3)
+mutableSet.size
+mutableSet.isEmpty()
+mutableSet.forEach { println(it) }
+```
+
+**Map**: is a collection of key-value pairs. There are two types of map: immutable and mutable
+
+```kotlin
+val map = mapOf<String, String>()
+val typedMap: Map<String, String> = mapOf(
+    "key1" to "value1",
+    "key2" to "value2"
+)
+var mutableMap = mutableMapOf<String, String>(
+    "key1" to "value1",
+    "key2" to "value2"
+)
+
+//some methods
+mutableMap.put("key3", "value3")
+mutableMap.putAll(typedMap)
+mutableMap.remove("key1")
+mutableMap.clear()
+mutableMap.isEmpty()
+mutableMap.containsKey("key1")
+mutableMap.containsValue("value1")
+mutableMap.forEach { println("key: $it.key, value: $it.value") }
+```
+
+**Array**: Arrays are collections of fixed size that contain elements of the same type. Kotlin supports both mutable and immutable arrays.
+
+```kotlin
+val array = arrayOf("a", "b", "c")
+println(array)
+
+//some methods
+array.size
+array.isEmpty()
+array.contains("a")
+array.contains("d")
+array.indexOf("a")
+array.lastIndexOf("a")
+```
+
+**Sequence**: Sequences are special types of collections that lazily compute their elements. They are useful for performing operations on large or infinite collections without eagerly computing all elements at once.
+
+```kotlin
+var sequence = sequenceOf(1, 2, 3, 5)
+
+//some methods
+sequence.count()
+sequence.sum()
+sequence.max()
+sequence.min()
+sequence.average()
+sequence.toList()
+```
+
+**Range**: Ranges are not collections in the traditional sense, but they represent a sequence of values between a start and an end, inclusive or exclusive.
+
+```kotlin
+val range = 1..5
+println(range)
+
+//some methods
+range.count()
+range.sum()
+range.max()
+range.min()
+range.average()
+range.toList()
+```
+
+| Collection Type | Mutable Implementation | Immutable Implementation |
+|-----------------|------------------------|--------------------------|
+| List            | MutableList            | List                     |
+| Set             | MutableSet             | Set                      |
+| Map             | MutableMap             | Map                      |
+| Array           | Array                  | N/A                      |
+| Sequence        | N/A                    | N/A                      |
+| Range           | N/A                    | N/A                      |
+
+- [👉 Kotlin Collections](https://kotlinlang.org/docs/collections-overview.html)
+
