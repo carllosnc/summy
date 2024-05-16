@@ -38,6 +38,11 @@ fun main() {
 - [Null Safety](#null-safety)
 - [Operator Overloading](#operator-overloading)
 - [Collections](#collections)
+- [Conditional Statements](#conditional-statements)
+- [Loops](#loops)
+- [Functions](#functions)
+- [Classes](#classes)
+- [Data Classes](#data-classes)
 
 ## Variables
 
@@ -314,3 +319,314 @@ range.toList()
 
 - [👉 Kotlin Collections](https://kotlinlang.org/docs/collections-overview.html)
 
+## Conditional Statements
+
+```kotlin
+val x = 10
+
+// if statement
+if (x > 5) {  println("x is greater than 5") }
+else{  println("x is less than or equal to 5") }
+
+//inline if
+println(if (x > 5) "x is greater than 5" else "x is less than or equal to 5")
+
+//when expression
+when (x) {
+    0 -> println("x is 0")
+    1 -> println("x is 1")
+    2 -> println("x is 2")
+    3 -> println("x is 3")
+    4 -> println("x is 4")
+    5 -> println("x is 5")
+    else -> println("x is greater than 5")
+}
+
+//when expression with return
+val y = when (x) {
+    0 -> "x is 0"
+    1 -> "x is 1"
+    2 -> "x is 2"
+    3 -> "x is 3"
+    4 -> "x is 4"
+    5 -> "x is 5"
+    else -> "x is greater than 5"
+}
+println(y)
+```
+
+## Loops
+
+```kotlin
+//for loop
+for (i in 1..5) {
+    println(i)
+}
+
+//while loop
+var i = 1
+while (i <= 5) {
+    println(i)
+    i++
+}
+
+//do-while loop
+var i = 1
+do {
+    println(i)
+    i++
+} while (i <= 5)
+
+//range loop
+for (i in 1..5) {
+    println(i)
+}
+
+//range loop with step
+for (i in 1..5 step 2) {
+    println(i)
+}
+
+//rage loop with step and reverse
+for (i in 6 downTo 0 step 2) {
+    println(i)
+}
+```
+
+## Functions
+
+```kotlin
+//function with no parameters
+fun sayHello() {
+    println("Hello")
+}
+
+//function with parameters
+fun sayHello(name: String) {
+    println("Hello, $name")
+}
+
+//function with multiple parameters
+fun sayHello(name: String, age: Int) {
+    println("Hello, $name, you are $age years old")
+}
+
+//function with return type
+fun add(a: Int, b: Int): Int {
+    return a + b
+}
+
+//function with default parameter
+fun sayHello(name: String = "World") {
+    println("Hello, $name")
+}
+
+//infix function:
+//is a simple way to extends a class with a new method
+infix fun Int.add(i: Int) = this + i
+var a: Int = 10
+println(a.add(5))
+
+//lambda function:
+//is a function that can be passed as an argument to another function
+val add = fun(a: Int, b: Int): Int { return a + b }
+println(add(5, 10))
+
+//function overloading
+fun add(a: Int, b: Int): Int  { return a + b }
+fun add(a: String, b: String): Int { return a.toInt() + b.toInt() }
+```
+
+**Calling functions with multiple parameters**
+
+When a function have multiple parameters, the last parameter can be called with `{}`.
+
+```kotlin
+fun calc(x: Int, y: Int, action: (Int, Int) -> Int): Int
+{
+    return action(x, y)
+}
+
+//calling
+var a = calc(5, 10) { a, b -> a + b }
+var b = calc(5, 10) { a, b -> a * b }
+var c = calc(5, 10) { a, b -> a - b }
+var d = calc(5, 10) { a, b -> a / b }
+
+println("a = $a")
+println("b = $b")
+println("c = $c")
+println("d = $d")
+```
+
+## Classes
+
+Classes can contain:
+
+- Constructors and initializer blocks
+- Functions
+- Properties
+- Nested and inner classes
+- Object declarations
+
+**Constructors:**
+
+```kotlin
+//primary constructor
+class Person(val name: String, val age: Int)
+
+class Person(name: String, age: Int) {
+    var name: String = name
+    var age: Int = age
+}
+
+//secondary constructor
+class Person {
+    var name: String
+    var age: Int
+
+    constructor(name: String, age: Int) {
+        this.name = name
+        this.age = age
+    }
+}
+
+//initializer block
+class Person {
+    var name: String = "John"
+    var age: Int = 25
+
+    init {
+        println("Person name: $name")
+        println("Person age: $age")
+    }
+}
+
+//initializer block
+class Person(private val name: String, private var age: Int) {
+    init {
+        println("Person initialized with name: $name and age: $age")
+    }
+}
+```
+
+**Properties, Fields, Getters and Setters:**
+
+```kotlin
+// default getter and setter are generated
+class Person {
+    var name: String  = ""
+}
+
+//custom getter and setter
+class Person {
+    var age: Int = 0
+        get() = field
+        set(value) {
+            if (value < 0)
+                throw IllegalArgumentException("Age cannot be negative")
+        }
+}
+
+//backing property
+class User {
+    private var _email: String = ""
+
+    var email: String
+        get() = _email
+        set(value) {
+            _email = value
+            println("Email changed to $value")
+        }
+}
+val user = User()
+user.email = "email@gmail.com"
+```
+
+**Nested and inner classes:**
+
+In Kotlin, an inner class is a class declared within another class. Inner classes have a special relationship with the outer class, allowing them to access the members of the outer class, including private members. Here's an explanation of inner classes in Kotlin:
+
+```kotlin
+//outer class members
+class Outer {
+    // Inner class members
+    inner class Inner {
+    }
+}
+
+//access to outer class members
+class Store(private var name: String) {
+    inner class Car(private var color: String) {
+        fun info(){
+            println("Car color $color from store $name")
+        }
+    }
+}
+val store = Store("My Store")
+val car = store.Car("Red")
+
+car.info()
+
+//qualifier access
+//this@Outer: refers to the outer class
+class Outer {
+    private val outerProperty: Int = 10
+
+    inner class Inner {
+        fun accessOuterProperty() {
+            println("Outer property value: ${this@Outer.outerProperty}")
+        }
+    }
+}
+```
+
+**Object declarations:**
+
+In Kotlin, object declarations provide a convenient way to define singleton objects, which are objects that have only one instance throughout the entire application.
+
+```kotlin
+object Car {
+    private var make = "ford"
+    private var model = "mustang"
+    private var color = "red"
+    private var year = 2020
+
+    fun printInfo() {
+        println("make: $make, model: $model, color: $color, year: $year")
+    }
+}
+
+Car.printInfo()
+```
+
+**Anonymous objects:**
+
+In Kotlin, anonymous objects are instances of anonymous classes. These classes are defined directly within an expression, without a separate class declaration.
+
+An anonymous class is created using the `object` keyword followed by the declaration of the class or interface it implements, as well as its members.
+
+```kotlin
+open class Person(val name: String, val age: Int)
+
+var hero = object : Person("Superman", 50){
+    override fun toString(): String {
+        return "I am $name and I am $age years old"
+    }
+}
+
+println(hero) // I am Superman and I am 50 years old
+if (hero is Person) { println("I am a person")}
+```
+
+## Data Classes
+
+In Kotlin, data classes are a special kind of class designed to hold data and provide some automatic functionality out of the box. They simplify the process of creating classes specifically for storing data.
+
+```kotlin
+data class Person(val name: String, val age: Int)
+
+val p = Person("John", 25)
+val p2 = p.copy(name =  "Jane", age = 26)
+```
+- [👉 Data Classes](https://kotlinlang.org/docs/data-classes.html)
