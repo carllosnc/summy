@@ -42,7 +42,15 @@ fun main() {
 - [Loops](#loops)
 - [Functions](#functions)
 - [Classes](#classes)
+- [Nested and inner classes](#nested-and-inner-classes)
+- [Object declarations](#object-declarations)
 - [Data Classes](#data-classes)
+- [Sealed Classes](#sealed-classes)
+- [Enum classes](#enum-classes)
+- [Companion Objects](#companion-objects)
+- [Interfaces](#interfaces)
+- [Class Inheritance](#class-inheritance)
+- [Visibility modifiers](#visibility-modifiers)
 
 ## Variables
 
@@ -543,7 +551,7 @@ val user = User()
 user.email = "email@gmail.com"
 ```
 
-**Nested and inner classes:**
+## Nested and inner classes
 
 In Kotlin, an inner class is a class declared within another class. Inner classes have a special relationship with the outer class, allowing them to access the members of the outer class, including private members. Here's an explanation of inner classes in Kotlin:
 
@@ -581,7 +589,7 @@ class Outer {
 }
 ```
 
-**Object declarations:**
+## Object declarations
 
 In Kotlin, object declarations provide a convenient way to define singleton objects, which are objects that have only one instance throughout the entire application.
 
@@ -600,7 +608,7 @@ object Car {
 Car.printInfo()
 ```
 
-**Anonymous objects:**
+## Anonymous objects
 
 In Kotlin, anonymous objects are instances of anonymous classes. These classes are defined directly within an expression, without a separate class declaration.
 
@@ -630,3 +638,173 @@ val p = Person("John", 25)
 val p2 = p.copy(name =  "Jane", age = 26)
 ```
 - [👉 Data Classes](https://kotlinlang.org/docs/data-classes.html)
+
+## Sealed Classes
+
+Sealed classes in Kotlin are a powerful feature that allow you to represent restricted class hierarchies. When you have a known set of subclasses, a sealed class can enforce that all subclasses are defined in the same file or within the same module. This is particularly useful for modeling state machines, result types, or other structures where the possible types are known and finite.
+
+```kotlin
+sealed class Result {
+    data class Success(val data: String) : Result()
+    data class Error(val data: String) : Result()
+    data object Loading : Result()
+}
+
+fun handleResult(result: Result) {
+    when (result) {
+        is Result.Success -> println(result.data)
+        is Result.Error -> println(result.data)
+        is Result.Loading -> println("Loading...")
+    }
+}
+
+fun main() {
+    val success = Result.Success("Success message")
+    val error = Result.Error("Error message")
+    val loading = Result.Loading
+
+    handleResult(success)
+    handleResult(error)
+    handleResult(loading)
+}
+```
+
+- [👉 Sealed classes](https://kotlinlang.org/docs/reference/sealed-classes.html)
+
+## Enum classes
+
+Enum classes in Kotlin are a way to define a set of named values. They are similar to Java's enum classes, but with some additional features and syntax.
+
+```kotlin
+enum class Color(val name: String) {
+    RED("Red"),
+    GREEN("Green"),
+    BLUE("Blue")
+}
+
+val color = Color.RED
+println(color.name) // Red
+```
+
+- [👉 Enum classes](https://kotlinlang.org/docs/reference/enum-classes.html)
+
+## Companion Objects
+
+Companion objects are used to define static members for a class. They are declared inside a class and can access the private members of that class.
+
+```kotlin
+class Calc {
+    companion object {
+        fun add(a: Int, b: Int) = a + b
+        fun sub(a: Int, b: Int) = a - b
+        fun mul(a: Int, b: Int) = a * b
+        fun div(a: Int, b: Int) = a / b
+    }
+}
+
+fun main() {
+    println(Calc.add(1, 2))
+    println(Calc.sub(1, 2))
+    println(Calc.mul(1, 2))
+    println(Calc.div(1, 2))
+}
+```
+
+## Interfaces
+
+```kotlin
+interface Drivable {
+    fun drive()
+}
+
+class Car : Drivable {
+    override fun drive() {
+        println("Driving a car")
+    }
+}
+
+class Bike : Drivable {
+    override fun drive() {
+        println("Driving a bike")
+    }
+}
+```
+
+**Default implementation:**
+
+```kotlin
+interface Printable {
+    fun print() {
+        println("Printing from Printable")
+    }
+}
+
+class Document : Printable {
+    override fun print() {
+        println("Printing from Document")
+    }
+}
+
+// Uses the default implementation of print()
+class Image : Printable
+```
+
+## Class Inheritance
+
+```kotlin
+open class Animal {
+    open fun sound() {
+        println("I am an animal")
+    }
+}
+
+class Dog : Animal() {
+    override fun sound() {
+        println("Woof!")
+    }
+}
+
+class Cat : Animal() {
+    override fun sound() {
+        println("Meow!")
+    }
+}
+```
+
+Contructor and initialization:
+
+```kotlin
+open class Animal(val name: String) {
+    open fun makeSound() {
+        println("$name makes a sound")
+    }
+}
+
+class Dog(name: String) : Animal(name) {
+    override fun makeSound() {
+        println("$name barks")
+    }
+}
+```
+
+## Visibility modifiers
+
+- `public` is the default visibility if no modifier is specified.
+
+- `private` restricts access to within the class for class members and within the file for top-level declarations.
+
+- `protected` visibility is similar to private but allows access in subclasses. It cannot be used for top-level declarations.
+
+- `internal` restricts access to within the same module, making it useful for encapsulating implementation details that are not meant to be exposed outside the module.
+
+Example:
+
+```kotlin
+class MyClass {
+    val myPublicProperty = "I am public"
+    private val myPrivateProperty = "I am private"
+    protected val myProtectedProperty = "I am protected"
+    internal val myInternalProperty = "I am internal"
+}
+```
+
