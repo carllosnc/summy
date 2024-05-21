@@ -42,15 +42,17 @@ fun main() {
 - [Loops](#loops)
 - [Functions](#functions)
 - [Classes](#classes)
-- [Nested and inner classes](#nested-and-inner-classes)
-- [Object declarations](#object-declarations)
+- [Nested and Inner Classes](#nested-and-inner-classes)
+- [Object Declarations](#object-declarations)
 - [Data Classes](#data-classes)
 - [Sealed Classes](#sealed-classes)
-- [Enum classes](#enum-classes)
+- [Enum Classes](#enum-classes)
 - [Companion Objects](#companion-objects)
 - [Interfaces](#interfaces)
 - [Class Inheritance](#class-inheritance)
-- [Visibility modifiers](#visibility-modifiers)
+- [Visibility Modifiers](#visibility-modifiers)
+- [Funcional Interfaces (SAM)](#funcional-interfaces-sam)
+- [Coroutines](#coroutines)
 
 ## Variables
 
@@ -671,7 +673,7 @@ fun main() {
 
 - [👉 Sealed classes](https://kotlinlang.org/docs/reference/sealed-classes.html)
 
-## Enum classes
+## Enum Classes
 
 Enum classes in Kotlin are a way to define a set of named values. They are similar to Java's enum classes, but with some additional features and syntax.
 
@@ -808,3 +810,104 @@ class MyClass {
 }
 ```
 
+## Object extension
+
+In Kotlin, object extensions allow you to add new functionality to existing classes without modifying their source code.
+
+```kotlin
+class Calc {}
+fun Calc.add(a: Int, b: Int): Int = a + b
+fun Calc.sub(a: Int, b: Int): Int = a - b
+fun Calc.mul(a: Int, b: Int): Int = a * b
+fun Calc.div(a: Int, b: Int): Int = a / b
+
+val calc = Calc()
+println(calc.add(1, 2))
+println(calc.sub(1, 2))
+println(calc.mul(1, 2))
+println(calc.div(1, 2))
+```
+- [👉 Object extension](https://kotlinlang.org/docs/extensions.html)
+
+## Funcional Interfaces (SAM)
+
+An interface with only one abstract method is called a functional interface, or a Single Abstract Method (SAM) interface. The functional interface can have several non-abstract members but only one abstract member.
+
+```kotlin
+fun interface Calculable {
+    fun action(x: Double, y: Double): Double
+}
+
+fun calc(a: Double, b: Double, calc: Calculable): Double {
+    return calc.action(a, b)
+}
+
+fun main() {
+    var add = calc(2.0, 3.0) { x, y -> x + y }
+    var sub = calc(2.0, 3.0) { x, y -> x - y }
+    var mul = calc(2.0, 3.0) { x, y -> x * y }
+    var div = calc(2.0, 3.0) { x, y -> x / y }
+}
+```
+
+## Coroutines
+
+Kotlin Coroutines is a library that allows you to write asynchronous code in a sequential way. It provides a set of suspending functions that can be called from within a coroutine.
+
+- [👉 Kotlinx Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+
+**Launch**
+
+The `launch` builder starts a new coroutine and does not return a result.
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() {
+    runBlocking {
+        val job = launch {
+            println("Hello from coroutine")
+        }
+        delay(1000)
+        job.cancel()
+    }
+}
+```
+
+**Async**
+
+The `async` builder starts a new coroutine and returns a `Deferred` object that can be used to get the result of the coroutine.
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    val deferred = async {
+        delay(1000)
+
+        return@async "Hello World"
+    }
+
+    println("Loading...")
+    val result = deferred.await()
+    println(result)
+}
+```
+**Structured concurrency**
+
+Structured concurrency ensures that new coroutines are launched within a specific scope, making it easier to manage and cancel them collectively.
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    coroutineScope {
+        launch {
+            delay(5000)
+            println("Task from nested launch")
+       }
+        println("Task from coroutineScope")
+    }
+    println("Coroutine scope is done")
+}
+```
