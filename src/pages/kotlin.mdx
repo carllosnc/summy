@@ -53,6 +53,7 @@ fun main() {
 - [Visibility Modifiers](#visibility-modifiers)
 - [Funcional Interfaces (SAM)](#funcional-interfaces-sam)
 - [Coroutines](#coroutines)
+- [Error Handling](#error-handling)
 
 ## Variables
 
@@ -909,5 +910,41 @@ fun main() = runBlocking {
         println("Task from coroutineScope")
     }
     println("Coroutine scope is done")
+}
+```
+
+## Error Handling
+
+```kotlin
+try {
+    var result = 10 / 0
+} catch (e: Exception) {
+    println("Error: ${e.message}")
+} finally {
+    println("Finally")
+}
+```
+
+Custom error handling:
+
+```kotlin
+class MyException(message: String) : Exception(message)
+
+fun divide(a: Int, b: Int): Int {
+    if (b == 0) {
+        throw MyException("Division by zero")
+    }
+    return a / b
+}
+
+fun main() {
+    try {
+        val result = divide(10, 0)
+        println(result)
+    } catch (e: MyException) {
+        println(e.message)
+    } finally {
+        println("Finally")
+    }
 }
 ```
