@@ -54,6 +54,9 @@ fun main() {
 - [Funcional Interfaces (SAM)](#funcional-interfaces-sam)
 - [Coroutines](#coroutines)
 - [Error Handling](#error-handling)
+- [Let Expression](#let-expression)
+- [Pair and Triple](#pair-and-triple)
+- [Destructuring declarations](#destructuring-declarations)
 
 ## Variables
 
@@ -84,6 +87,14 @@ val h: Long = 100000
 val i: Float = 10.0F
 val j: Char = 'a'
 val k: CharSequence = "Hello"
+```
+
+Any type: is a variable of any type
+
+```kotlin
+val any: Any = "Hello"
+any = 10
+any = true
 ```
 
 ## Operators
@@ -946,5 +957,111 @@ fun main() {
     } finally {
         println("Finally")
     }
+}
+```
+
+## Let Expression
+
+```kotlin
+object.let { it -> // Code to execute }
+
+//common use
+val name: String? = "Kotlin"
+name?.let {
+    println("The length of the name is ${it.length}")
+}
+
+//temporary variable
+val (a, b) = "Kotlin".let { it.length to it }
+
+//chaining Operations
+val result = "Kotlin".let { it.toUpperCase() }.let { it.reversed() }
+println(result) //NILTOK
+
+//chaining transformations
+val transformed = "123"
+                .let { it.toInt() }
+                .let { it * 2 }
+                .let { it.toString() }
+println(result) //246
+```
+
+## Pair and Triple
+
+**Pair:** is a data class that contains two values of the same type.
+
+```kotlin
+val pair = Pair(1, "a")
+val (a, b) = pair
+
+println(a) //1
+println(b) //a
+
+//short declaration using `to`
+val pair2 = 1 to "a"
+val (a, b) = pair2
+
+println(a) //1
+println(b) //a
+
+//using pair in a function return
+fun getPair(): Pair<Int, String> {
+    return 1 to "a"
+}
+
+val pair3 = getPair()
+val (a, b) = pair3
+
+println(a) //1
+println(b) //a
+```
+
+**Triple:** is a data class that contains three values of the same type.
+
+```kotlin
+val triple = Triple(1, "a", true)
+val (a, b, c) = triple
+
+println(a) //1
+println(b) //a
+println(c) //true
+```
+
+## Destructuring declarations
+
+A destructuring declaration allows you to assign multiple variables at once from a single object. This is typically done using the componentN() functions that are automatically generated for data classes and can be manually defined for custom classes.
+
+```kotlin
+data class Person(val name: String, val age: Int, val email: String)
+
+fun main() {
+    val person = Person("Alice", 30, "alice@example.com")
+
+    // Destructuring declaration
+    val (name, age, email) = person
+
+    println("Name: $name")
+    println("Age: $age")
+    println("Email: $email")
+}
+```
+
+**Custom destructuring declaration:**
+
+You can define your own componentN() functions to enable destructuring for custom classes.
+
+```kotlin
+class Point(val x: Int, val y: Int) {
+    operator fun component1() = x
+    operator fun component2() = y
+}
+
+fun main() {
+    val point = Point(10, 20)
+
+    // Destructuring declaration
+    val (x, y) = point
+
+    println("x: $x, y: $y")
 }
 ```
