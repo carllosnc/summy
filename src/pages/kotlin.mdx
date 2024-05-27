@@ -57,6 +57,7 @@ fun main() {
 - [Let Expression](#let-expression)
 - [Pair and Triple](#pair-and-triple)
 - [Destructuring declarations](#destructuring-declarations)
+- [Keywords](#keywords)
 
 ## Variables
 
@@ -1065,3 +1066,102 @@ fun main() {
     println("x: $x, y: $y")
 }
 ```
+
+## Keywords
+
+**Hard Keywords:**
+
+| Keyword      | Description                                                         |
+|--------------|---------------------------------------------------------------------|
+| `as`         | Used for type casting.                                              |
+| `as?`        | Safe type casting that returns `null` if the cast is not possible.  |
+| `break`      | Terminates the nearest enclosing loop.                              |
+| `class`      | Declares a class.                                                   |
+| `continue`   | Proceeds to the next iteration of the nearest enclosing loop.       |
+| `do`         | Used in do-while loops.                                             |
+| `else`       | Used with `if` for conditional branching.                           |
+| `false`      | Boolean literal.                                                    |
+| `for`        | Used for loops.                                                     |
+| `fun`        | Declares a function.                                                |
+| `if`         | Conditional branching.                                              |
+| `in`         | Checks for membership in a range or collection.                     |
+| `!in`        | Checks for non-membership in a range or collection.                 |
+| `interface`  | Declares an interface.                                              |
+| `is`         | Checks for type compatibility.                                      |
+| `!is`        | Checks for type incompatibility.                                    |
+| `null`       | Represents a null reference.                                        |
+| `object`     | Declares an object.                                                 |
+| `package`    | Specifies the package for the file.                                 |
+| `return`     | Returns from a function.                                            |
+| `super`      | Refers to the superclass implementation.                            |
+| `this`       | Refers to the current instance.                                     |
+| `throw`      | Throws an exception.                                                |
+| `true`       | Boolean literal.                                                    |
+| `try`        | Starts a try-catch block.                                           |
+| `typealias`  | Declares a type alias.                                              |
+| `val`        | Declares a read-only variable.                                      |
+| `var`        | Declares a mutable variable.                                        |
+| `when`       | Conditional branching, similar to a switch statement in other languages. |
+| `while`      | Starts a while loop.                                                |
+
+**Soft Keywords:**
+
+| Keyword          | Description                                                           |
+|------------------|-----------------------------------------------------------------------|
+| `by`             | Used for delegation.                                                  |
+| `catch`          | Used in try-catch blocks to catch exceptions.                         |
+| `constructor`    | Declares a constructor.                                               |
+| `delegate`       | Used to specify a property delegate.                                  |
+| `dynamic`        | Marks a member as dynamic, typically used for dynamic languages interop.|
+| `field`          | References the backing field of a property.                           |
+| `file`           | Used in file annotations.                                             |
+| `finally`        | Used in try-catch blocks to execute code regardless of whether an exception is thrown. |
+| `get`            | Defines a getter for a property.                                      |
+| `import`         | Imports a package, class, or function.                                |
+| `init`           | Declares an initializer block.                                        |
+| `param`          | Used in annotations to reference constructor parameters.              |
+| `property`       | Used in annotations to reference properties.                          |
+| `receiver`       | Used in annotations to reference the receiver parameter.              |
+| `set`            | Defines a setter for a property.                                      |
+| `setparam`       | Used in annotations to reference setter parameters.                   |
+| `where`          | Specifies type constraints in generic declarations.                   |
+
+**Modifier Keywords:**
+
+| Keyword      | Description                                                             |
+|--------------|-------------------------------------------------------------------------|
+| `abstract`   | Marks a class or member as abstract, meaning it cannot be instantiated or must be overridden. |
+| `annotation` | Declares an annotation class.                                           |
+| `companion`  | Declares a companion object inside a class.                             |
+| `const`      | Marks a property as a compile-time constant.                            |
+| `crossinline`| Ensures that a lambda parameter is not inlined at the call site.        |
+| `data`       | Declares a data class, which automatically generates useful methods like `equals` and `hashCode`. |
+| `enum`       | Declares an enumeration class.                                          |
+| `expect`     | Declares expected declarations in multiplatform projects.               |
+| `external`   | Marks a function or property as implemented outside of Kotlin (e.g., in C/C++). |
+| `final`      | Prohibits a class or member from being overridden.                      |
+| `infix`      | Allows a function to be called using infix notation.                    |
+| `inline`     | Requests the compiler to inline the function to improve performance.    |
+| `inner`      | Allows an inner class to access members of its outer class.             |
+| `internal`   | Restricts visibility to the same module.                                |
+| `lateinit`   | Defers property initialization.                                         |
+| `noinline`   | Ensures that a lambda parameter is not inlined.                         |
+| `open`       | Allows a class or member to be overridden.                              |
+| `operator`   | Marks a function as an operator overload.                               |
+| `out`        | Indicates that a type parameter is covariant.                           |
+| `override`   | Indicates that a member is overriding a member in a superclass.         |
+| `private`    | Restricts visibility to the same class.                                 |
+| `protected`  | Restricts visibility to the same class and subclasses.                  |
+| `public`     | Specifies that the member is visible everywhere (default visibility).   |
+| `reified`    | Allows a type parameter to be accessed at runtime.                      |
+| `sealed`     | Declares a sealed class, which restricts subclassing to the same file.  |
+| `suspend`    | Marks a function as suspending (usable in coroutines).                  |
+| `tailrec`    | Marks a function as tail-recursive to optimize recursion.               |
+| `vararg`     | Allows a function to accept a variable number of arguments.             |
+
+**Specified identifiers:**
+
+| Identifier  | Description                                                                               |
+|-------------|-------------------------------------------------------------------------------------------|
+| `field`     | Refers to the backing field of a property. Used inside custom getter and setter functions. |
+| `it`        | The default name for the single parameter in a lambda expression if no explicit name is provided. |
