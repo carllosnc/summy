@@ -61,6 +61,7 @@ docker run --rm -v .:/app dart dart app/playground.dart
 - <a href="#generators">Generators</a>
 - <a href="#import-export">Import, Export</a>
 - <a href="#isolates">Isolates</a>
+- <a href="#keywords">Keywords</a>
 
 ## Variables
 
@@ -1065,3 +1066,110 @@ void main() async {
   print("hello world");
 }
 ```
+
+## Keywords
+
+| Keyword       | Description                                                     |
+|---------------|-----------------------------------------------------------------|
+| **Built-in Types**                                                             |
+| `bool`        | Boolean type representing true or false.                        |
+| `double`      | Represents a 64-bit floating-point number.                      |
+| `int`         | Represents a 64-bit integer.                                    |
+| `num`         | Represents either an integer or a double.                       |
+| `String`      | Represents a sequence of characters.                            |
+| **Keywords Used in Declarations**                                               |
+| `abstract`    | Indicates an abstract class or method.                          |
+| `class`       | Declares a class.                                               |
+| `enum`        | Declares an enumeration.                                        |
+| `extends`     | Indicates that a class is inheriting from another class.        |
+| `implements`  | Indicates that a class is implementing an interface.            |
+| `import`      | Imports a library.                                              |
+| `library`     | Declares a library.                                             |
+| `part`        | Declares that a file is part of a library.                      |
+| `typedef`     | Declares a function type alias.                                 |
+| **Keywords Used in Control Flow**                                               |
+| `assert`      | Used for debugging; checks if a condition is true.              |
+| `break`       | Exits a loop or switch statement.                               |
+| `case`        | Defines a case clause in a switch statement.                    |
+| `catch`       | Catches exceptions.                                             |
+| `continue`    | Skips the rest of the current loop iteration.                   |
+| `default`     | Specifies the default case in a switch statement.               |
+| `do`          | Starts a do-while loop.                                         |
+| `else`        | Specifies the alternative block of code in an if-else statement.|
+| `finally`     | Declares a block of code that will always be executed.          |
+| `for`         | Starts a for loop.                                              |
+| `if`          | Starts a conditional statement.                                 |
+| `in`          | Used in for-in loops.                                           |
+| `rethrow`     | Re-throws the current exception.                                |
+| `return`      | Returns a value from a function.                                |
+| `switch`      | Starts a switch statement.                                      |
+| `throw`       | Throws an exception.                                            |
+| `try`         | Starts a try block to handle exceptions.                        |
+| `while`       | Starts a while loop.                                            |
+| `yield`       | Pauses the generator function and returns a value.              |
+| **Contextual Keywords**                                                         |
+| `as`          | Used for type casting.                                          |
+| `covariant`   | Specifies that a parameter can have a more specific type.       |
+| `deferred`    | Indicates that a library is loaded lazily.                      |
+| `dynamic`     | Declares a variable without specifying its type.                |
+| `export`      | Exports a library.                                              |
+| `external`    | Declares that a function or variable is implemented externally. |
+| `factory`     | Declares a factory constructor.                                 |
+| `get`         | Defines a getter method.                                        |
+| `implements`  | Indicates that a class is implementing an interface.            |
+| `late`        | Indicates that a variable will be initialized later.            |
+| `mixin`       | Declares a mixin.                                               |
+| `on`          | Specifies the superclass constraints for a mixin.               |
+| `operator`    | Declares an operator method.                                    |
+| `required`    | Specifies that a named parameter is required.                   |
+| `set`         | Defines a setter method.                                        |
+| `static`      | Declares a static member of a class.                            |
+| `sync`        | Indicates that a generator function is synchronous.             |
+| **Keywords Used in Asynchronous Programming**                                   |
+| `async`       | Indicates that a function is asynchronous.                      |
+| `await`       | Waits for an asynchronous operation to complete.                |
+| **Keywords for Null Safety**                                                    |
+| `late`        | Indicates that a variable will be initialized later.            |
+| **Miscellaneous Keywords**                                                      |
+| `await`       | Waits for an asynchronous operation to complete.                |
+| `const`       | Declares a compile-time constant.                               |
+| `final`       | Declares a variable that can only be set once.                  |
+| `is`          | Checks the type of an object.                                   |
+| `new`         | Creates a new instance of an object.                            |
+| `super`       | Refers to the superclass.                                       |
+| `this`        | Refers to the current instance.                                 |
+| `void`        | Specifies that a function does not return a value.              |
+| **Reserved Words for Future Use**                                               |
+| `assert`      | Used for debugging; checks if a condition is true.              |
+| `break`       | Exits a loop or switch statement.                               |
+| `case`        | Defines a case clause in a switch statement.                    |
+| `catch`       | Catches exceptions.                                             |
+| `class`       | Declares a class.                                               |
+| `const`       | Declares a compile-time constant.                               |
+| `continue`    | Skips the rest of the current loop iteration.                   |
+| `default`     | Specifies the default case in a switch statement.               |
+| `do`          | Starts a do-while loop.                                         |
+| `else`        | Specifies the alternative block of code in an if-else statement.|
+| `enum`        | Declares an enumeration.                                        |
+| `extends`     | Indicates that a class is inheriting from another class.        |
+| `false`       | Boolean literal for false.                                      |
+| `final`       | Declares a variable that can only be set once.                  |
+| `finally`     | Declares a block of code that will always be executed.          |
+| `for`         | Starts a for loop.                                              |
+| `if`          | Starts a conditional statement.                                 |
+| `in`          | Used in for-in loops.                                           |
+| `is`          | Checks the type of an object.                                   |
+| `new`         | Creates a new instance of an object.                            |
+| `null`        | Represents a null value.                                        |
+| `rethrow`     | Re-throws the current exception.                                |
+| `return`      | Returns a value from a function.                                |
+| `super`       | Refers to the superclass.                                       |
+| `switch`      | Starts a switch statement.                                      |
+| `this`        | Refers to the current instance.                                 |
+| `throw`       | Throws an exception.                                            |
+| `true`        | Boolean literal for true.                                       |
+| `try`         | Starts a try block to handle exceptions.                        |
+| `var`         | Declares a variable.                                            |
+| `void`        | Specifies that a function does not return a value.              |
+| `while`       | Starts a while loop.                                            |
+| `with`        | Indicates that a class uses a mixin.                            |
