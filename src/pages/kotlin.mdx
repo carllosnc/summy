@@ -1067,6 +1067,50 @@ fun main() {
 }
 ```
 
+## Delegation
+
+Delegation is a feature in Kotlin that allows you to delegate the implementation of a function or property to another object. This can be useful when you want to provide a default implementation for a function or property, or when you want to share the implementation between multiple objects.
+
+**Class delegation:**
+
+```kotlin
+interface Base {
+    fun add(a: Int, b: Int): Int
+    fun sub(a: Int, b: Int): Int
+    fun mul(a: Int, b: Int): Int
+    fun div(a: Int, b: Int): Int
+}
+
+class BaseImpl : Base {
+    override fun add(a: Int, b: Int): Int { return a + b }
+    override fun sub(a: Int, b: Int): Int { return a - b }
+    override fun mul(a: Int, b: Int): Int { return a * b }
+    override fun div(a: Int, b: Int): Int { return a / b }
+}
+
+class Calc : Base by BaseImpl(){
+    override fun add(a: Int, b: Int): Int{
+        println("add from calc")
+        return a + b
+    }
+}
+
+class Math : Base by Calc() {
+    override fun sub(a: Int, b: Int): Int {
+        println("sub from math")
+        return a - b
+    }
+}
+
+fun main() {
+    val math = Math()
+    println(math.add(1, 2))
+    println(math.sub(1, 2))
+    println(math.mul(1, 2))
+    println(math.div(1, 2))
+}
+```
+
 ## Keywords
 
 **Hard Keywords:**
