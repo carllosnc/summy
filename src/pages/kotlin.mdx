@@ -57,6 +57,7 @@ fun main() {
 - [Let Expression](#let-expression)
 - [Pair and Triple](#pair-and-triple)
 - [Destructuring declarations](#destructuring-declarations)
+- [Delegation](#delegation)
 - [Keywords](#keywords)
 
 ## Variables
@@ -1108,6 +1109,44 @@ fun main() {
     println(math.sub(1, 2))
     println(math.mul(1, 2))
     println(math.div(1, 2))
+}
+```
+
+**Property delegation:**
+
+```kotlin
+class Person(){
+    //lazy delegate
+    val name: String by lazy {
+        println("Lazy initializing")
+        "John"
+    }
+
+    //observable delegate
+    var obs: String by Delegates.observable("Initial value"){ _, old, new ->
+        println("$old to $new")
+    }
+
+    //veto delegate called age
+    var age: Int by Delegates.vetoable(0) { _, old, new ->
+        if (new < 0) throw IllegalArgumentException("Age must be positive")
+        println("$old to $new")
+        true
+    }
+}
+
+fun main() {
+    val p = Person()
+    println(p.name)
+    println(p.obs)
+    p.obs = "THE NEW VALUE!!!"
+    println(p.obs)
+
+    //Lazy initializing
+    //John
+    //Initial value
+    //Initial value to THE NEW VALUE!!!
+    //THE NEW VALUE!!!
 }
 ```
 
