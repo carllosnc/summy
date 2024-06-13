@@ -56,6 +56,7 @@ docker run --rm -v .:/app php php app/playground.php
 - <a href="#error-handling">Error Handling</a>
 - <a href="#include-require">Include, Require</a>
 - <a href="#namespaces">Namespaces</a>
+- <a href="#keywords">Keywords</a>
 
 ## Variables
 
@@ -281,6 +282,22 @@ $o = array_reduce($a, function ($acc, $v) {
 
 //count
 $p = count($a); //3
+```
+
+**Destructuring**
+
+```php
+$items = [
+  'first',
+  'second',
+  'third',
+];
+
+list($first, $second, $third) = $items;
+
+echo $first . "\n";
+echo $second . "\n";
+echo $third . "\n";
 ```
 
 [👉 Array reference](https://www.php.net/manual/en/ref.array.php)
@@ -915,3 +932,110 @@ echo $calc->add(1, 2);
 $triangle = new Triangle();
 echo $triangle->area(3, 4);
 ```
+
+## Keywords
+
+**Data Types**
+
+| Keyword    | Description                               |
+|------------|-------------------------------------------|
+| `array`    | Array data type                           |
+| `bool`     | Boolean data type                         |
+| `boolean`  | Boolean data type (alias of `bool`)       |
+| `double`   | Floating point number (alias of `float`)  |
+| `float`    | Floating point number                     |
+| `int`      | Integer data type                         |
+| `integer`  | Integer data type (alias of `int`)        |
+| `null`     | Null value                                |
+| `object`   | Object data type                          |
+| `resource` | Resource data type                        |
+| `string`   | String data type                          |
+
+**Statements and Expressions**
+
+| Keyword        | Description                              |
+|----------------|------------------------------------------|
+| `abstract`     | Abstract class or method                 |
+| `and`          | Logical AND                              |
+| `as`           | Alias in foreach loop                    |
+| `break`        | Exits a loop or switch statement         |
+| `callable`     | Callable type hint                       |
+| `case`         | Case in switch statement                 |
+| `catch`        | Catch block in try-catch                 |
+| `class`        | Defines a class                          |
+| `clone`        | Clones an object                         |
+| `const`        | Defines a constant                       |
+| `continue`     | Skips the rest of the current loop       |
+| `declare`      | Sets execution directives                |
+| `default`      | Default case in switch statement         |
+| `die`          | Equivalent to exit()                     |
+| `do`           | Do-while loop                            |
+| `echo`         | Outputs one or more strings              |
+| `else`         | Alternative condition in if-else         |
+| `elseif`       | Else if condition                        |
+| `empty`        | Checks if a variable is empty            |
+| `enddeclare`   | Ends declare block                       |
+| `endfor`       | Ends for loop                            |
+| `endforeach`   | Ends foreach loop                        |
+| `endif`        | Ends if block                            |
+| `endswitch`    | Ends switch block                        |
+| `endwhile`     | Ends while loop                          |
+| `eval`         | Evaluates a string as PHP code           |
+| `exit`         | Terminates script execution              |
+| `extends`      | Extends a class                          |
+| `final`        | Prevents class/method overriding         |
+| `finally`      | Finally block in try-catch-finally       |
+| `for`          | For loop                                 |
+| `foreach`      | Foreach loop                             |
+| `function`     | Defines a function                       |
+| `global`       | Global variable scope                    |
+| `goto`         | Jumps to a label                         |
+| `if`           | If condition                             |
+| `implements`   | Implements an interface                  |
+| `include`      | Includes and evaluates a file            |
+| `include_once` | Includes a file only once                |
+| `instanceof`   | Checks object type                       |
+| `insteadof`    | Used with traits                         |
+| `interface`    | Defines an interface                     |
+| `isset`        | Checks if a variable is set              |
+| `list`         | Assigns variables as if they were an array |
+| `namespace`    | Defines a namespace                      |
+| `new`          | Creates a new object                     |
+| `or`           | Logical OR                               |
+| `print`        | Outputs a string                         |
+| `private`      | Private access modifier                  |
+| `protected`    | Protected access modifier                |
+| `public`       | Public access modifier                   |
+| `require`      | Includes and evaluates a file            |
+| `require_once` | Includes a file only once                |
+| `return`       | Returns a value from a function          |
+| `static`       | Declares static properties or methods    |
+| `switch`       | Switch statement                         |
+| `throw`        | Throws an exception                      |
+| `trait`        | Defines a trait                          |
+| `try`          | Try block in try-catch                   |
+| `unset`        | Unsets a variable                        |
+| `use`          | Imports a namespace or trait             |
+| `var`          | Defines a variable (PHP 4, deprecated in PHP 5) |
+| `while`        | While loop                               |
+| `xor`          | Logical XOR                              |
+| `yield`        | Returns a value from a generator         |
+
+**Magic Constants**
+
+| Keyword         | Description                               |
+|-----------------|-------------------------------------------|
+| `__CLASS__`     | Current class name                        |
+| `__DIR__`       | Directory of the current file             |
+| `__FILE__`      | Full path and filename of the file        |
+| `__FUNCTION__`  | Function name                             |
+| `__LINE__`      | Current line number in the file           |
+| `__METHOD__`    | Class method name                         |
+| `__NAMESPACE__` | Current namespace                         |
+| `__TRAIT__`     | Current trait name                        |
+
+**Compiler-specific Keywords**
+
+| Keyword           | Description                              |
+|-------------------|------------------------------------------|
+| `__halt_compiler` | Halts the compiler execution             |
