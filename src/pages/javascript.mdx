@@ -1,0 +1,567 @@
+---
+layout: '../layouts/LangLayout.astro'
+title: 'Javascript'
+icon: '/langs/js.svg'
+href: '/javascript'
+lang: 'javascript'
+---
+
+# Javascript
+
+Javascript is a high-level, interpreted programming language that is primarily used for client-side web development. It is a versatile language that can be used for a wide range of applications, including web development, server-side development, and mobile app development.
+
+All examples are based on Javascript 1.8.0.
+
+**Resources:**
+
+- [👉 Javascript info](https://javascript.info/)
+
+## Topics
+- [Variables](#variables)
+- [Primitive Types](#primitive-types)
+- [Operators](#operators)
+- [Strings](#strings)
+- [Null safety](#null-safety)
+- [Collections](#collections)
+- [Loops](#loops)
+- [Literal Objects](#literal-objects)
+- [Functions](#functions)
+
+## Variables
+
+```javascript
+//A variable declared with var is limited
+//to the function within which it is declared.
+var name = 'Javascript';
+
+//A variable declared with let is limited to the
+//block (e.g., {}) within which it is declared.
+let age = 25;
+
+//const: immutable variable
+const pi = 3.14;
+```
+
+**Hoisting**
+
+Variables declared with `var` are hoisted to the top of their scope.
+```javascript
+console.log(z); // undefined (hoisted)
+var z = 3;
+console.log(z); // 3
+```
+
+Variables declared with `let` are also hoisted, but they are not initialized.
+```javascript
+console.log(a); // ReferenceError: Cannot access 'a' before initialization
+let a = 4;
+console.log(a); // 4
+```
+
+## Primitive Types
+
+```javascript
+let number = 10;
+let string = 'Hello, world!';
+let boolean = true;
+let nullValue = null;
+let undefinedValue = undefined;
+let object = {};
+let array = [];
+let symbol = Symbol('mySymbol'); // unique and immutable
+let bigInt = BigInt(10); // BigInt is a new type in ES2020
+```
+
+## Operators
+
+```javascript
+//Arithmetic
+let sum = 1 + 2;
+let sub = 2 - 1;
+let mul = 2 * 2;
+let div = 4 / 2;
+let mod = 5 % 2;
+
+//Assignment
+let a = 1;
+a += 1;
+a -= 1;
+a *= 2;
+a /= 2;
+a %= 2;
+
+//Comparison operators
+5 == 5; // true
+5 != 5; // false
+5 > 3; // true
+5 < 3; // false
+5 >= 3; // true
+5 <= 3; // false
+
+//Logical operators
+true && true; // true
+true && false; // false
+false || true; // true
+
+//Bitwise operators
+let a = 5;
+let b = 3;
+a & b; // 1
+a | b; // 7
+a ^ b; // 6
+a << b; // 20
+a >> b; // 1
+
+//Unary operators
+let num = +'5'; // 5
+let num = -'5'; // -5
+let a = 1;
+a++; // a is now 2
+let b = 1;
+b--; // b is now 0
+let c = true;
+!c; // false
+
+//Ternary operator
+let x = true ? 1 : 0; // 1
+let y = false ? 1 : 0; // 0
+
+//typeof operator
+typeof 'Hello'; // "string"
+typeof 42; // "number"
+typeof true; // "boolean"
+
+//instanceof operator
+let date = new Date();
+date instanceof Date; // true
+
+//spread and rest operator
+let arr = [1, 2, 3];
+let newArr = [...arr, 4, 5]; // [1, 2, 3, 4, 5]
+```
+
+**Equal vs Strict Equal**
+
+Equal (`==`): Compares two values for equality after type conversion.
+```javascript
+'5' == 5; // true
+```
+
+Strict equal (`===`): Compares two values for equality without type conversion.
+```javascript
+'5' === 5; // false
+```
+
+## Strings
+
+```javascript
+let str = 'Hello, world!'; // single-quoted string
+let str2 = "Hello, world!"; // double-quoted string
+let str3 = `Hello, world!`; // template literal
+
+//String concatenation
+let str4 = str + ' ' + str2;
+let str5 = str3 + ' ' + str2;
+
+//String interpolation
+let str6 = `Hello, ${str2}`;
+```
+
+## Null safety
+
+Checking for `null` and `undefined`
+```javascript
+let value;
+if (value !== null && value !== undefined) {
+  // Safe to use `value`
+}
+```
+
+The `typeof` Operator
+```javascript
+let value;
+if (typeof value !== 'undefined') {
+  // Safe to use `value`
+}
+```
+
+Optional Chaining (`?.`)
+```javascript
+let user = {
+  address: {
+    city: 'New York'
+  }
+};
+
+let city = user?.address?.city; // 'New York'
+let street = user?.address?.street; // undefined (no error)
+```
+
+Short-Circuiting with Logical Operators (`||`)
+```javascript
+let value = null;
+let result = value || 'default'; // 'default'
+```
+
+Using Ternary Operator (`?:`)
+```javascript
+let value = null;
+let result = (value !== null && value !== undefined)
+? value
+: 'default'; // 'default'
+```
+
+Nullish coalescing operator (`??`)
+```javascript
+let value = null;
+let result = value ?? 'default'; // 'default'
+```
+
+Nullish coalescing operator with multiple values
+```javascript
+let value = null;
+let result = value ?? 'default1' ?? 'default2'; // 'default2'
+```
+
+Nullish coalescing assignment (`??=`)
+```javascript
+let value = null;
+value ??= 'default'; // 'default'
+```
+
+Null assertion operator (`!`)
+```javascript
+let user = {
+  address: {
+    city: 'New York'
+  }
+};
+
+let city = user.address.city; // 'New York'
+let street = user.address.street; // undefined (no error)
+
+let city2 = user.address!.city; // 'New York'
+let street2 = user.address!.street; // undefined (error)
+```
+
+## Collections
+
+**Array:** is a collection of objects. It is an ordered list of values. Arrays can be created using the `Array()` constructor or using array literals.
+
+```javascript
+//literal declaration
+var arr = [1, 2, 3];
+
+//object declaration
+var arr3 = new Array(5);
+
+//some methods
+arr.push(4);
+arr.pop();
+arr.shift();
+arr.unshift(1);
+arr.splice(1, 1);
+arr.sort();
+```
+
+**Map:** is a collection of key-value pairs. It is an unordered collection of key-value pairs. Maps can be created using the `Map()` constructor or using map literals.
+
+```javascript
+var map = new Map();
+map.set('key1', 'value1');
+map.set('key2', 'value2');
+
+//some methods
+map.get('key1');
+map.has('key1');
+map.delete('key1');
+map.clear();
+```
+
+**WeakMap:** are similar to Maps but the keys must be objects, and they are weakly referenced.
+
+```javascript
+var weakMap = new WeakMap();
+weakMap.set(obj1, 'value1');
+weakMap.set(obj2, 'value2');
+
+//some methods
+weakMap.get(obj1);
+weakMap.has(obj1);
+weakMap.delete(obj1);
+weakMap.clear();
+```
+
+**Set:** is a collection of unique values. It is an unordered collection of values. Sets can be created using the `Set()` constructor or using set literals.
+
+```javascript
+var set = new Set();
+set.add('value1');
+set.add('value2');
+set.add('value2');
+
+//some methods
+set.has('value1');
+set.delete('value1');
+set.clear();
+```
+
+**WeakSet:** are similar to Sets but the values must be objects, and they are weakly referenced.
+
+```javascript
+var weakSet = new WeakSet();
+weakSet.add(obj1);
+weakSet.add(obj2);
+
+//some methods
+weakSet.has(obj1);
+weakSet.delete(obj1);
+weakSet.clear();
+```
+
+## Conditional Statements
+
+```javascript
+//if-else
+if (condition) {
+  // code to execute if condition is true
+} else {
+  // code to execute if condition is false
+}
+
+//if-else if
+if (condition1) {
+  // code to execute if condition1 is true
+} else if (condition2) {
+  // code to execute if condition2 is true
+} else {
+  // code to execute if none of the conditions are true
+}
+
+//switch
+switch (expression) {
+  case value1:
+    // code to execute if expression is value1
+    break;
+  case value2:
+    // code to execute if expression is value2
+    break;
+  default:
+    // code to execute if expression is not equal to value1 or value2
+}
+
+//ternary
+var result = condition ? 'yes' : 'no';
+```
+
+## Loops
+
+```javascript
+//for
+let a = [1, 2, 3];
+for (let i = 0; i < a.length; i++) {
+  console.log(a[i]);
+}
+
+//for-in
+let obj = {
+  a: 1,
+  b: 2,
+  c: 3
+};
+
+for (let key in obj) {
+  console.log(key, obj[key]);
+}
+
+//for-of
+let arr = [1, 2, 3];
+for (let value of arr) {
+  console.log(value);
+}
+
+//while
+let i = 0;
+while (i < 5) {
+  console.log(i);
+  i++;
+}
+
+//do-while
+let i = 0;
+do {
+  console.log(i);
+  i++;
+}
+while (i < 5);
+
+//for-await
+let list = [
+  Promise.resolve(1),
+  Promise.resolve(2),
+  Promise.resolve(3),
+]
+
+for await (let value of list) {
+  console.log(value)
+}
+```
+
+## Literal Objects
+
+```javascript
+//object declaration
+var obj = {
+  name: 'John',
+  age: 30,
+  city: 'New York'
+}
+
+//nested object declaration
+var obj2 = {
+  name: 'John',
+  age: 30,
+  address: {
+    street: '123 Main St',
+    city: 'New York'
+  }
+}
+
+//object with method
+var obj3 = {
+  name: 'John',
+  age: 30,
+  sayHello: function() {
+    console.log('Hello');
+  }
+}
+
+//object with computed property
+var obj4 = {
+  [`name${Math.random()}`]: 'John',
+  age: 30
+}
+
+//shorthand property names
+let firstName = "Jane";
+let lastName = "Doe";
+let age = 25;
+
+let obj5 = {
+    firstName,
+    lastName,
+    age
+};
+console.log(person.firstName); // Output: Jane
+
+//using this to access properties
+var calc = {
+  value: 0,
+  add: function (num) {
+    this.value += num
+    return this
+  },
+  sub: function (num) {
+    this.value -= num
+    return this
+  },
+  mult: function (num) {
+    this.value *= num
+    return this
+  },
+  div: function (num) {
+    this.value /= num
+    return this
+  },
+}
+
+calc.add(5).sub(2).mult(3).div(2) // 4.5
+```
+
+## Functions
+
+```javascript
+//function declaration
+function fn() {
+  console.log('Hello');
+}
+
+//function expression
+let fn = function() {
+  console.log('Hello');
+}
+
+//function with parameters
+function fn(name) {
+  console.log('Hello ' + name);
+}
+
+//function with multiple parameters
+function fn(name, age) {
+  console.log('Hello ' + name + ' ' + age);
+}
+
+//function with default parameters
+function fn(name = 'John', age = 30) {
+  console.log('Hello ' + name + ' ' + age);
+}
+
+//function with rest parameters
+function fn(...names) {
+  console.log('Hello ' + names.join(' '));
+}
+
+//function with async/await
+async function fn() {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  console.log('Hello');
+}
+
+//Arrow function
+let fn = () => {
+  console.log('Hello');
+}
+
+//passing a function as a parameter
+function fn(callback){
+  callback();
+}
+fn(() => { console.log('Hello') })
+
+//imediately invoked function expression
+(function(){
+  console.log('Hello');
+})()
+
+//function with arguments property
+function fn() {
+  console.log(arguments)
+}
+fn(1, 2, 3) // [Arguments] { '0': 1, '1': 2, '2': 3 }
+```
+
+**Differences between traditional Function and arrow functions**
+
+1. **Syntax**:
+   - Traditional: `function name(args) { body }`
+   - Arrow: `const name = (args) => expression`
+
+2. **`this` Binding**:
+   - Traditional: Depends on the call site.
+   - Arrow: Lexical, inherits from parent scope.
+
+3. **`arguments` Object**:
+   - Traditional: Available.
+   - Arrow: Not available, use rest parameters.
+
+4. **Constructor**:
+   - Traditional: Can be used as constructors.
+   - Arrow: Cannot be used as constructors.
+
+5. **Methods**:
+   - Traditional: Suitable for methods.
+   - Arrow: Not suitable for methods.
+
+6. **Implicit Return**:
+   - Traditional: Requires `return` statement.
+   - Arrow: Implicit return for single expressions.
