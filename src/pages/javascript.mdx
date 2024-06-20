@@ -26,6 +26,10 @@ All examples are based on Javascript 1.8.0.
 - [Loops](#loops)
 - [Literal Objects](#literal-objects)
 - [Functions](#functions)
+- [Functions as Constructors](#functions-as-constructors)
+- [Classes](#classes)
+- [Async/Await](#async-await)
+- [Promises](#promises)
 
 ## Variables
 
@@ -565,3 +569,289 @@ fn(1, 2, 3) // [Arguments] { '0': 1, '1': 2, '2': 3 }
 6. **Implicit Return**:
    - Traditional: Requires `return` statement.
    - Arrow: Implicit return for single expressions.
+
+## Functions as Constructors
+
+When a function is used as a constructor, it initializes new objects with specific properties and methods. This is done using the `new` keyword, which creates an instance of the object with a unique prototype chain linking back to the constructor's prototype.
+
+```javascript
+function Person(name, age) {
+  this.name = name
+  this.age = age
+}
+
+Person.prototype.sayHello = function () {
+  console.log('Hello, my name is ' + this.name)
+}
+
+const person = new Person('John', 30)
+person.sayHello() // Output: Hello, my name is John
+```
+
+Example with returning an object:
+
+```javascript
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+
+    // Returning an object explicitly
+    return {
+        name: name,
+        age: age,
+        greet: function() {
+            console.log(`Hello, my name is ${name} and I am ${age} years old.`);
+        }
+    };
+}
+
+const person1 = new Person("Alice", 30);
+person1.greet(); // Output: Hello, my name is Alice and I am 30 years old.
+```
+
+## Classes
+
+Key Features of JavaScript Classes.
+
+1. **Class Declaration**: Defines a class using the class keyword.
+2. **Constructor**: A special method for creating and initializing an object.
+3. **Methods**: Functions defined within a class.
+4. **Inheritance**: Creating a new class based on an existing class.
+5. **Getters and Setters**: Methods to get and set the values of properties.
+6. **Static Methods**: Methods defined on the class itself, not on instances.
+
+```javascript
+// 1. Class Declaration
+class Animal {
+  _name
+
+  // 2. Constructor
+  constructor(name) {
+    this._name = name
+  }
+
+  // 3. Method
+  speak() {
+    console.log(`${this.name} makes a sound.`)
+  }
+
+  // 5. Getter
+  get name() {
+    return this._name
+  }
+
+  // 5. Setter
+  set name(value) {
+    if (value.length < 3) {
+      console.log('Name is too short.')
+      return
+    }
+    this._name = value
+  }
+
+  // 6. Static Method
+  static identify() {
+    console.log('This is an Animal class.')
+  }
+}
+```
+
+**Inheritance:**
+
+```javascript
+// 4. Inheritance
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name); // Call the parent class constructor
+    this.breed = breed;
+  }
+
+  // Overriding a method
+  speak() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+let dog = new Dog('Rex', 'German Shepherd');
+dog.speak(); // Rex barks.
+console.log(dog.breed); // German Shepherd
+```
+
+## Promises
+
+Promises are used to handle asynchronous operations. A promise represents an operation that hasn't completed yet but is expected to in the future.
+
+```javascript
+// Creating a Promise
+let promise = new Promise((resolve, reject) => {
+  let success = true; // Simulating a condition
+  if (success) {
+    resolve("Operation successful!");
+  } else {
+    reject("Operation failed.");
+  }
+});
+
+// Handling Promises
+promise
+  .then((message) => {
+    console.log(message); // Operation successful!
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(() => {
+    console.log("Operation complete.");
+  });
+
+// Chaining Promises
+let promiseChain = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(10), 1000);
+});
+
+promiseChain
+  .then((result) => {
+    console.log(result); // 10
+    return result * 2;
+  })
+  .then((result) => {
+    console.log(result); // 20
+    return result * 3;
+  })
+  .then((result) => {
+    console.log(result); // 60
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+// Promise resolve
+let promise1 = Promise.resolve(3);
+
+let promise2 = new Promise((resolve, reject) =>
+  setTimeout(resolve, 2000, "foo")
+);
+
+let promise3 = 42;
+
+// Promise all
+Promise
+  .all([promise1, promise2, promise3])
+  .then((values) => {
+    console.log(values); // [3, "foo", 42]
+  });
+```
+
+## Async/Await
+
+Async/await is a way to write asynchronous code that looks like synchronous code. It allows you to write asynchronous code in a more readable and maintainable way.
+
+```javascript
+// Async function
+async function fetchData() {
+  try {
+    let response = await fetch('https://server/endpoint/1');
+    let data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  } finally {
+    console.log('Fetch attempt completed.');
+  }
+}
+
+fetchData();
+
+// Concurrency with Promise.all
+async function fetchMultipleData() {
+  try {
+    let [post1, post2] = await Promise.all([
+      fetch('https://server/endpoint/1')
+      .then(res => res.json()),
+      fetch('https://server/endpoint/2')
+      .then(res => res.json())
+    ]);
+  } catch (error) {
+    console.error('Error fetching multiple data:', error);
+  }
+}
+
+fetchMultipleData();
+```
+
+All async functions are a promise generator, which means they return a promise that resolves to the result of the async function.
+
+```javascript
+async function asyncMessage() {
+  return 'hello world'
+}
+
+asyncMessage()
+  .then((message) => console.log(message))
+  .catch((error) => console.error(error))
+  .finally(() => console.log('Async message complete.'))
+```
+
+## Error Handling
+
+```javascript
+// Basic try...catch
+try {
+  let result = 10 / 0;
+  console.log(result);
+  nonExistentFunction();
+} catch (error) {
+  console.error('An error occurred:', error.message);
+}
+
+// Using finally
+try {
+  let result = 10 / 0;
+  console.log(result);
+} catch (error) {
+  console.error('An error occurred:', error.message);
+} finally {
+  console.log('This runs regardless of an error.');
+}
+
+// Custom Error
+try {
+  let age = 15;
+  if (age < 18) {
+    throw new Error('Age must be 18 or above.');
+  }
+} catch (error) {
+  console.error('Custom Error:', error.message);
+}
+
+// Handling Promises with .catch
+let promise = new Promise((resolve, reject) => {
+  let success = false;
+  if (success) {
+    resolve('Operation successful!');
+  } else {
+    reject('Operation failed.');
+  }
+});
+
+promise
+  .then((message) => {
+    console.log(message);
+  })
+  .catch((error) => {
+    console.error('Promise Error:', error);
+  });
+
+// Handling async/await with try...catch
+async function fetchData() {
+  try {
+    let response = await fetch('https://server/endpoint/1');
+    let data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Async/Await Error:', error.message);
+  }
+}
+
+fetchData();
+```
