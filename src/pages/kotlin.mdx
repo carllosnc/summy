@@ -52,7 +52,9 @@ fun main() {
 - [Class Inheritance](#class-inheritance)
 - [Visibility Modifiers](#visibility-modifiers)
 - [Funcional Interfaces (SAM)](#funcional-interfaces-sam)
-- [Coroutines](#coroutines)
+- [Coroutines - basic concepts](#coroutines---basic-concepts)
+- [Coroutines - suspending functions](#coroutines---suspending-functions)
+- [Coroutines - scopes](#coroutines---scopes)
 - [Error Handling](#error-handling)
 - [Let Expression](#let-expression)
 - [Pair and Triple](#pair-and-triple)
@@ -864,65 +866,122 @@ fun main() {
 }
 ```
 
-## Coroutines
+## Coroutines - basic concepts
 
 Kotlin Coroutines is a library that allows you to write asynchronous code in a sequential way. It provides a set of suspending functions that can be called from within a coroutine.
 
 - [👉 Kotlinx Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 
-**Launch**
-
-The `launch` builder starts a new coroutine and does not return a result.
+`launch` is used to start a new coroutine. It is a fire-and-forget mechanism, meaning the coroutine is started and runs concurrently with the rest of the code.
 
 ```kotlin
 import kotlinx.coroutines.*
 
 fun main() {
-    runBlocking {
-        val job = launch {
-            println("Hello from coroutine")
-        }
-        delay(1000)
-        job.cancel()
+    GlobalScope.launch {
+        // This coroutine runs in the background
+        delay(1000L)
+        println("Hello from coroutine!")
     }
+    println("Hello from main thread!")
+    Thread.sleep(2000L) // Keep the main thread alive
 }
 ```
-
-**Async**
-
-The `async` builder starts a new coroutine and returns a `Deferred` object that can be used to get the result of the coroutine.
+`runBlocking` creates a coroutine that blocks the current thread until its completion. It's often used in main functions and tests to bridge the gap between blocking and non-blocking code.
 
 ```kotlin
 import kotlinx.coroutines.*
 
 fun main() = runBlocking {
-    val deferred = async {
-        delay(1000)
-
-        return@async "Hello World"
+    // This coroutine runs in the main thread and blocks it
+    launch {
+        delay(1000L)
+        println("Hello from coroutine!")
     }
-
-    println("Loading...")
-    val result = deferred.await()
-    println(result)
+    println("Hello from main thread!")
 }
 ```
-**Structured concurrency**
 
-Structured concurrency ensures that new coroutines are launched within a specific scope, making it easier to manage and cancel them collectively.
+`delay` is a suspending function that pauses the coroutine without blocking the underlying thread. It is used to mimic non-blocking delays.
 
 ```kotlin
 import kotlinx.coroutines.*
 
 fun main() = runBlocking {
-    coroutineScope {
-        launch {
-            delay(5000)
-            println("Task from nested launch")
-       }
-        println("Task from coroutineScope")
+    println("Start")
+    delay(1000L)
+    println("End after 1 second delay")
+}
+```
+
+## Coroutines - suspending functions
+
+A suspending function is a function that can suspend the execution of a coroutine without blocking the thread. It is marked with the `suspend` keyword.
+
+```kotlin
+import kotlinx.coroutines.*
+
+suspend fun fetchData(): String {
+    delay(1000L) // Simulate long-running operation
+    return "Data fetched"
+}
+
+fun main() = runBlocking {
+    val data = fetchData() // Call the suspending function
+    println(data) // Print the result
+}
+```
+
+## Coroutines - scopes
+
+**GlobalScope**
+- Launches coroutines that are not bound to any specific scope.
+- Use with caution as it creates global coroutines which live until the application runs.
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() {
+    GlobalScope.launch {
+        delay(1000L)
+        println("Hello from GlobalScope")
     }
-    println("Coroutine scope is done")
+    Thread.sleep(2000L) // Keep the main thread alive
+}
+```
+
+**CoroutineScope**
+- Defines a scope for new coroutines and manages their lifecycle.
+- Use it to create structured concurrency.
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    val customScope = CoroutineScope(Dispatchers.Default)
+    customScope.launch {
+        delay(1000L)
+        println("Hello from CoroutineScope")
+    }
+    // Wait for the coroutine to finish
+    delay(2000L)
+}
+```
+
+**runBlocking**
+
+- Creates a coroutine that blocks the current thread until its completion.
+- Typically used in main functions and tests.
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    launch {
+        delay(1000L)
+        println("Hello from runBlocking")
+    }
+    println("Hello from main thread")
 }
 ```
 
