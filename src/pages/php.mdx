@@ -47,6 +47,7 @@ docker run --rm -v .:/app php php app/playground.php
 - <a href="#functions">Functions</a>
 - <a href="#closure-arrow-function">Closure, Arrow function</a>
 - <a href="#classes">Classes</a>
+- <a href="#anonymous-class">Anonymous class</a>
 - <a href="#class-inheritance">Class inheritance</a>
 - <a href="#abstract-class">Abstract Class</a>
 - <a href="#interfaces">Interfaces</a>
@@ -585,6 +586,28 @@ echo Person::$description; //Person Class
 Person::StaticMethod(); //A simple static method
 
 echo $person; //Jane Doe 25
+```
+
+## Anonymous class
+
+```php
+$person = new class(string $name, int $age)
+{
+  public function __construct(string $name, int $age)
+  {
+    $this->name = $name;
+    $this->age = $age;
+  }
+
+  public function getFullName()
+  {
+    return $this->name . ' ' . $this->lastname;
+  }
+};
+
+//usage
+$person = new Person('John', 'Doe', 30);
+echo $person->getFullName(); //John Doe
 ```
 
 ## Class inheritance
