@@ -793,6 +793,30 @@ fetch('https://api.example.com/data')
   .catchError((e) => print(e));
 ```
 
+**Completer**
+
+>Completers in Dart are objects that allow you to create and complete Futures manually
+
+```dart
+import 'dart:async';
+
+Future<void> delayedMessage(String message, Duration duration) async {
+  var completer = Completer<void>();
+
+  Timer(duration, () {
+    completer.complete();
+  });
+
+  await completer.future;
+
+  print(message);
+}
+
+void main() async {
+  await delayedMessage('Hello, World!', Duration(seconds: 3));
+}
+```
+
 ## Error handling
 
 ```dart
