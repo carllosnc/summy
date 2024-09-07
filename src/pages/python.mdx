@@ -1,0 +1,206 @@
+---
+layout: '../layouts/LangLayout.astro'
+title: 'Python'
+icon: '/langs/python.svg'
+href: '/python'
+lang: 'python'
+---
+
+# Python
+
+Python is a popular general-purpose scripting language that is especially suited to web development.
+
+All examples are based on Python 3.10.
+
+**Resources:**
+
+- [👉 Python Official Documentation](https://www.python.org/doc/)
+- [👉 Python The Right Way](https://pythontherightway.com/)
+- [👉 Learn Python](https://www.learnpython.org/)
+
+## How to start
+
+After installing Python, you can create a file with `.py` extension and run it with `python` command.
+
+```python
+print("Hello, world")
+```
+
+## Topics
+- [Variables](#variables)
+- [Built-in types](#built-in-types)
+- [Operators](#operators)
+- [String](#string)
+
+## Variables
+
+```python
+# simple declaration
+message = "Hello, world"
+
+# multiple assignment
+a = 10
+b = 20
+c = 30
+
+# type hinting
+age: int = 30
+name: str = "Alice"
+```
+
+## Built-in types
+
+```python
+# None
+x = None
+
+# Boolean
+y = True
+z = False
+
+# Integer
+a = 10
+b = 100
+c = -10
+
+# Float
+d = 10.5
+e = 10.0
+f = -10.0
+
+# String
+g = "Hello, world"
+h = 'Hello, world'
+i = """Hello,
+world"""
+
+# List
+l = [1, 2, 3]
+
+# Tuple
+t = (1, 2, 3)
+
+# Set
+s = {1, 2, 3}
+
+# Dictionary
+d = {"a": 1, "b": 2, "c": 3}
+
+# Range
+r = range(1, 10)
+```
+
+## Operators
+
+```python
+# arithmetic operators
+a = 10 + 5 # 15
+b = 10 - 5 # 5
+c = 10 * 5 # 50
+d = 10 / 5 # 2
+e = 10 % 3 # 1
+
+# assignment operators
+f = 10
+f += 5 # 15
+f -= 5 # 10
+f *= 5 # 50
+f /= 5 # 10
+f %= 3 # 1
+
+# comparison operators
+g = 10 == 10 # True
+h = 10 != 5 # True
+i = 10 > 5 # True
+j = 10 < 5 # False
+k = 10 >= 10 # True
+l = 10 <= 5 # False
+
+# logical operators
+m = True and True # True
+n = True or False # True
+o = not True # False
+
+# increment and decrement operators
+p = 10
+p++ # 11
+p-- # 10
+
+# concatenation
+q = "Hello" + " " + "world" # Hello world
+
+# null coalescing
+r = None ?? "no value" # no value
+
+# null coalescing assignment
+s = None
+s ??= "no value" # no value
+
+# spaceship operator
+t = 10 <=> 5 # 1
+u = 5 <=> 10 # -1
+v = 10 <=> 10 # 0
+
+# ternary
+w = True ? "show if true" : "show if false" # show if true
+
+# shorthand ternary
+x = False ? "first" : "second" # first
+y = 5 ? "first" : "second" # second
+z = 5 ?: 0 # 5
+
+# assignment
+a = 10
+a = 20 # a = 20
+```
+
+## String
+
+```python
+# basic declaration
+string = "Hello, world"
+
+# [+] operator
+print("hello" + " " + "world") # hello world
+
+# [*] operator
+print("hello" * 3) # hellohellohello
+
+# [in] operator
+print("hello" in "hello world") # True
+
+# [not in] operator
+print("hello" not in "hello world") # False
+
+# built-in string functions
+print(len("hello")) # 5
+print(str.upper("hello")) # HELLO
+print(str.lower("HELLO")) # hello
+print(str.capitalize("hello")) # Hello
+print(str.title("hello")) # Hello
+print(str.count("hello", "l")) # 2
+print(str.find("hello", "l")) # 2
+print(str.rfind("hello", "l")) # 5
+print(str.index("hello", "l")) # 2
+print(str.rindex("hello", "l")) # 5
+print(str.replace("hello", "l", "x")) # hexxo
+
+# build-in string methods
+string = "hello world"
+print(string.startswith("hello")) # True
+print(string.endswith("world")) # True
+print(string.upper()) # HELLO WORLD
+print(string.lower()) # hello world
+
+# string slicing
+s = "hello world"
+print(s[0]) # h
+print(s[1:4]) # ell
+print(s[1:]) # ello world
+
+# string interpolation
+carModel = "Toyota"
+carYear = 2022
+
+print(f"My {carModel} is {carYear}") # My Toyota is 2022
+```
