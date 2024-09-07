@@ -12,7 +12,7 @@ TypeScript is a statically typed superset of JavaScript developed by Microsoft. 
 
 ## Getting Started
 
-[Bun](https://bun.sh/) and [Deno](https://deno.com/) are Javascript runtimes that provide a simple to run a typescript file.
+[Bun](https://bun.sh/) and [Deno](https://deno.com/) are Javascript runtimes that provide a simple way to run a typescript file.
 
 Using Bun:
 ```bash
@@ -31,6 +31,9 @@ deno run index.ts
 - [Type assertions](#type-assertions)
 - [instanceof and typeof](#instanceof-and-typeof)
 - [Union Types](#union-types)
+- [Intersection Types](#intersection-types)
+- [Type Aliases](#type-aliases)
+- [Interfaces](#interfaces)
 
 ## Compile time vs run time checking
 
@@ -143,6 +146,30 @@ let name: string | null = null;
 let nameLength = name!.length;
 ```
 
+**Type assertion and union types.**
+
+```typescript
+type Person = {
+  name: string
+  age: number
+}
+
+type Employee = {
+  companyId: number
+  role: string
+}
+
+var worker: Employee | Person = {
+  companyId: 1,
+  role: 'worker',
+  name: 'John Doe',
+  age: 30,
+}
+
+console.log((worker as Person).name)
+console.log((worker as Employee).companyId)
+```
+
 ## instanceof and typeof
 
 The `typeof` operator is used to determine the type of a variable. It returns a string indicating the type of the operand.
@@ -232,3 +259,165 @@ class Person {
   }
 }
 ```
+
+## Intersection Types
+
+Intersection types are used to combine multiple types into a single type. They allow you to define a type that has all the properties of multiple types.
+
+```typescript
+interface Person {
+  name: string
+  age: number
+}
+
+interface Employee {
+  companyId: number
+  role: string
+}
+
+type EmployeeOrPerson = Employee & Person
+
+const worker: EmployeeOrPerson = {
+  companyId: 1,
+  role: 'worker',
+  name: 'John Doe',
+  age: 30,
+}
+```
+
+## Type Aliases
+
+Type aliases are a way to create a new name for an existing type. They are useful when you want to make your code more readable or when you want to create a new type that is similar to an existing one.
+
+```typescript
+type Name = string;
+type Age = number;
+type User = { name: Name; age: Age };
+type fn = (name: Name, age: Age) => void;
+type calc = (a: number, b: number, action: (result: number) => void) => void;
+```
+
+## Interfaces
+
+Interfaces are a way to define a contract for an object. They specify the properties and methods that an object must have.
+
+```typescript
+//basic interface declaration
+interface Person {
+  name: string;
+  age: number;
+}
+
+//optional properties
+interface Person {
+  name: string;
+  age?: number;
+}
+
+//readonly properties
+interface Person {
+  readonly name: string;
+  age: number;
+}
+
+//method signature
+interface Person {
+  sayHello(): void;
+}
+
+//function types
+interface GreetFunction {
+  (name: string): string;
+}
+
+//indexable types
+interface StringArray {
+  [index: number]: string;
+}
+
+//extending interfaces
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface Employee extends Person {
+  employeeId: number;
+}
+
+//hybrid types
+interface Counter {
+  (start: number): string;
+  interval: number;
+  reset(): void;
+}
+
+let counter: Counter = (function (start: number) {
+  // function implementation
+}) as Counter;
+counter.interval = 123;
+counter.reset = function () {
+  // reset implementation
+};
+```
+
+**Class implementation**
+
+Classes can implement interfaces to enforce a particular structure.
+
+```typescript
+interface Person {
+  name: string;
+  age: number;
+  greet(): string;
+}
+
+class Employee implements Person {
+  name: string;
+  age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    return `Hello, my name is ${this.name}.`;
+  }
+}
+```
+
+**Extending Multiple Interfaces**
+
+```typescript
+interface Person {
+  name: string;
+}
+
+interface Contact {
+  email: string;
+}
+
+interface Employee extends Person, Contact {
+  employeeId: number;
+}
+```
+
+**Interface vs type alias**
+
+
+| Feature                     | Interface 🤝                      | Type Alias 🏷️                   |
+|-----------------------------|-----------------------------------|----------------------------------|
+| **Syntax**                  | `interface Person { name: string; }` | `type Person = { name: string; };` |
+| **Usage**                   | Objects, methods                  | Objects, unions, tuples          |
+| **Extending**               | `extends` keyword                 | Intersection (`&`)               |
+| **Classes**                 | Implementable in classes          | Can't implement directly         |
+| **Merging**                 | ✅                                | ❌                               |
+| **Unions & Intersections**  | ❌                                | ✅                               |
+| **Index Signatures**        | ✅                                | ✅                               |
+| **Function Types**          | ✅                                | ✅                               |
+| **Tuples**                  | ❌                                | ✅                               |
+| **Computed Properties**     | ✅                                | ✅                               |
+| **Constraints**             | `extends` for constraints         | Generics & intersections         |
+| **Use Cases**               | Best for object structures        | Versatile, complex types         |
+
