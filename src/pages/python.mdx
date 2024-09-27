@@ -30,7 +30,17 @@ print("Hello, world")
 - [Variables](#variables)
 - [Built-in types](#built-in-types)
 - [Operators](#operators)
+- [Type hinting](#type-hinting)
 - [String](#string)
+- [Collections](#collections)
+- [Conditional statements](#conditional-statements)
+- [Loops](#loops)
+- [Functions](#functions)
+- [Classes](#classes)
+- [Metaclasses](#metaclasses)
+- [Mixins](#mixins)
+- [Dataclasses](#dataclasses)
+- [Class Decorators](#class-decorators)
 
 ## Variables
 
@@ -45,7 +55,7 @@ c = 30
 
 # type hinting
 age: int = 30
-name: str = "Alice"
+name: str = "Python"
 ```
 
 ## Built-in types
@@ -154,6 +164,86 @@ a = 10
 a = 20 # a = 20
 ```
 
+## Type hinting
+
+Python type hinting, introduced in Python 3.5 and enhanced in subsequent versions, is a way to indicate the expected types of variables, function parameters, and return values in your code.
+
+```python
+# basic syntax
+def greet(name: str) -> str:
+    return f"Hello, {name}"
+
+age: int = 30
+
+# common types
+from typing import List, Dict, Tuple, Optional
+
+typed_list: List[int] = [1, 2, 3]
+typed_dict: Dict[str, int] = {"a": 1, "b": 2, "c": 3}
+typed_tuple: Tuple[int, str, float] = (1, "hello", 3.14)
+typed_optional: Optional[str] = "hello"
+
+# user defined types
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        print(f"Hello, {self.name}!")
+
+def get_person_age(person: Person) -> int:
+    return person.age
+
+# union types
+from typing import Union
+
+def print_id(id: Union[int, str]):
+    print(f"ID: {id}")
+
+print_id(1)
+print_id("10")
+
+# any type
+from typing import Any
+
+def process_data(data: Any) -> None:
+    pass
+
+# type aliases
+from typing import List, Tuple
+
+Vector = List[float]
+Matrix = List[Vector]
+
+def scale_matrix(matrix: Matrix, factor: float) -> Matrix:
+
+# callable types
+from typing import Callable
+
+def apply_operation(x: int, operation: Callable[[int], int]) -> int:
+    return operation(x)
+
+# generic types
+from typing import TypeVar, List
+
+T = TypeVar('T')
+
+def first(l: List[T]) -> T:
+    return l[0]
+
+# final variables (Python 3.8+)
+from typing import Final
+
+MAX_SIZE: Final = 100
+
+# Literal Types (Python 3.8+)
+from typing import Literal
+
+def move(direction: Literal['left', 'right', 'up', 'down']) -> None:
+    pass
+```
+
 ## String
 
 ```python
@@ -204,3 +294,504 @@ carYear = 2022
 
 print(f"My {carModel} is {carYear}") # My Toyota is 2022
 ```
+
+## Collections
+
+**Arrays:** are a fixed-size, ordered collection of elements of the same type.
+
+```python
+from array import array
+
+# array
+my_array = array('i', [1, 2, 3, 4, 5])
+my_array.reverse()
+my_array.append(6)
+my_array.extend([7, 8, 9])
+print(type(my_array))
+```
+
+**Lists:** are a dynamic-size, ordered collection of elements of the same type.
+
+```python
+# list
+my_list = [1, 2, 3, 4, 5]
+my_list.reverse()
+my_list.append(6)
+my_list.extend([7, 8, 9])
+print(type(my_list))
+```
+
+**Tuples:** are a fixed-size, ordered collection of elements of the same type.
+
+```python
+# tuple
+my_tuple = (1, 2, 3, 4, 5)
+my_tuple.count(2) # 2
+my_tuple.index(2) # 1
+```
+
+**Sets:** are an unordered collection of unique elements.
+
+```python
+# set
+my_set = {1, 2, 3, 3, 4, 4, 5, 5, 5}
+my_set.add(6)
+my_set.remove(2)
+my_set.union({6, 7, 8})
+print(type(my_set))
+```
+
+**Dictionaries:** are a collection of key-value pairs.
+
+```python
+# dictionary
+my_dict = {"a": 1, "b": 2, "c": 3}
+my_dict.update({"d": 4, "e": 5})
+my_dict.pop("b")
+my_dict.clear()
+print(type(my_dict))
+```
+
+## Conditional statements
+
+```python
+# if statement
+if x > 10:
+    print("x is greater than 10")
+
+# if-else statement
+if x > 10:
+    print("x is greater than 10")
+else:
+    print("x is less than or equal to 10")
+
+# if-elif-else statement
+if x > 10:
+    print("x is greater than 10")
+elif x < 10:
+    print("x is less than 10")
+else:
+    print("x is equal to 10")
+
+# short hand if
+if a > b: print("a is greater than b")
+
+# short hand if-else
+print("a is greater than b") if a > b else print("a is less than or equal to b")
+
+# and
+if a > b and b > c:
+    print("a is greater than b and b is greater than c")
+
+# or
+if a > b or b > c:
+    print("a is greater than b or b is greater than c")
+
+# not
+if not a > b:
+    print("a is not greater than b")
+
+# pass statement
+if a > b:
+    pass
+```
+
+**Match and Case Statements**
+
+```python
+x = 10
+
+match x:
+    case 1:
+        print("x is 1")
+    case 2:
+        print("x is 2")
+    case _:
+        print("x is neither 1 nor 2")
+```
+
+## Loops
+
+```python
+# for loop
+for i in range(1, 10):
+    print(i)
+
+# while loop
+i = 1
+while i <= 10:
+    print(i)
+    i += 1
+
+# break statement
+i = 1
+while i <= 10:
+    print(i)
+    if i == 5:
+        break
+    i += 1
+
+# continue statement
+i = 1
+while i <= 10:
+    if i == 5:
+        continue
+    print(i)
+    i += 1
+```
+
+**List Comprehension:** is a concise way to create lists based on existing lists.
+
+```python
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = [x**2 for x in numbers]
+print(squared_numbers)
+```
+
+## Functions
+
+```python
+# basic declaration
+def greet(name):
+    print(f"Hello, {name}!")
+
+# default parameter
+def greet(name, greeting="Hello"):
+    print(f"{greeting}, {name}!")
+
+greet("Python") # Hello, Python!
+greet("Bob", "Hi") # Hi, Bob!
+greet(name="Python", greeting="Hi") # Hi, Python!
+
+# variable length argument list
+def sum(*numbers):
+    total = 0
+    for number in numbers:
+        total += number
+    return total
+
+# keyword arguments
+def greet(name, greeting="Hello"):
+    print(f"{greeting}, {name}!")
+
+# *args and **kwargs
+def print_args(*args, **kwargs):
+    for arg in args:
+        print(arg)
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_args(1, 2, 3, name="Python", age=30)
+```
+
+**Lambda Functions:** are anonymous functions that can be used in place of a function name.
+
+```python
+# lambda function
+multiply = lambda x, y: x * y
+print(multiply(2, 3)) # 6
+
+# lambda function with default parameter
+add = lambda x, y=0: x + y
+print(add(2, 3)) # 5
+```
+
+## Classes
+
+```python
+# basic class
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+# methods
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        print(f"Hello, {self.name}!")
+
+    def get_age(self):
+        return self.age
+
+# class attributes
+class Car:
+    wheels = 4  # Class attribute
+
+    def __init__(self, make):
+        self.make = make  # Instance attribute
+
+# class methods
+class Car:
+    wheels = 4  # Class attribute
+
+    def __init__(self, make):
+        self.make = make  # Instance attribute
+
+    @classmethod
+    def get_wheels(cls):
+        return cls.wheels
+
+# static methods
+class Calc:
+    @staticmethod
+    def add(x, y):
+        return x + y
+
+    @staticmethod
+    def subtract(x, y):
+        return x - y
+
+    @staticmethod
+    def multiply(x, y):
+        return x * y
+
+    @staticmethod
+    def divide(x, y):
+        return x / y
+
+# getter and setter
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    @property
+    def name(self):
+        return self._name.upper()
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, value):
+        if value > 0:
+            self._age = value
+        else:
+            raise ValueError("Age must be a positive number")
+
+person = Person("Python", 30)
+print(person.name)
+person.name = "Bob"
+print(person.name)
+
+#encapsulation
+class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance  # "Private" attribute
+
+    def deposit(self, amount):
+        self.__balance += amount
+```
+
+**Magic Methods:** are special methods that are called automatically by the Python interpreter.
+
+```python
+# magic methods
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def __str__(self): # convert to string
+        return f"{self.title} by {self.author}"
+
+    def __eq__(self, other): # check equality
+        return self.title == other.title and self.author == other.author
+
+person = Person("Python", 30)
+print(person)
+```
+
+**Inheritance:** is a mechanism that allows a class to inherit the properties and methods of another class.
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        print(f"Hello, {self.name}!")
+
+class Hero(Person):
+    def __init__(self, name, age, power):
+        super().__init__(name, age)
+        self.power = power
+
+    def fight(self):
+        print(f"{self.name} is fighting with {self.power}!")
+```
+
+## Metaclasses
+
+Metaclasses are classes that define the behavior of other classes. They are used to customize the behavior of classes at runtime.
+
+```python
+# metaclass
+class MetaclassExample(type):
+    def __new__(cls, name, bases, attrs):
+        print(f"Creating a new class: {name}")
+        return super().__new__(cls, name, bases, attrs)
+
+class Example(metaclass=MetaclassExample): pass
+
+Example # Output: Creating a new class: Example
+```
+
+## Mixins
+
+Mixins are a way to share code between classes. They allow you to define reusable functionality that can be included in multiple classes.
+
+```python
+# mixin
+class Printable:
+    def print(self):
+        print(self)
+
+class Person(Printable):
+    def __init__(self, name):
+        self.name = name
+
+person = Person("Python")
+person.print() # Output: Person('Python')
+```
+
+```python
+import json
+
+class SerializeMixin:
+    def serialize(self):
+        return json.dumps(self.__dict__)
+
+class SaveableMixin:
+    def save(self):
+        # Code to save object to database
+        pass
+
+class User(SerializeMixin, SaveableMixin):
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+user = User("Python", "python@example.com")
+print(user.serialize())
+user.save()
+```
+
+## Dataclasses
+
+Dataclasses are a special type of class that automatically generate methods for accessing and modifying the attributes of the class.
+
+```python
+# basic usage
+from dataclasses import dataclass
+
+@dataclass
+class Point:
+    x: int
+    y: int
+
+p = Point(1, 2)
+print(p)
+
+# default values
+@dataclass
+class Person:
+    name: str
+    age: int = 30
+
+# post-init processing
+@dataclass
+class Circle:
+    radius: float
+    area: float = 0.0
+
+    def __post_init__(self):
+        self.area = 3.14 * self.radius ** 2
+
+# immutable dataclasses
+@dataclass(frozen=True)
+class ImmutablePoint:
+    x: int
+    y: int
+
+# inheritance
+@dataclass
+class Animal:
+    name: str
+
+@dataclass
+class Dog(Animal):
+    breed: str
+
+# field options
+from dataclasses import dataclass, field
+import random
+
+@dataclass
+class Point:
+    id: int = field(init=False, default_factory=lambda: Point.random_id())
+    x: int
+    y: int
+
+    @staticmethod
+    def random_id():
+        return random.randint(1, 100)
+
+p = Point(1, 2)
+p2 = Point(x=3, y=4)
+
+print(p)
+print(p2)
+
+# comparison
+@dataclass(order=True)
+class Person:
+    name: str = field(compare=False)
+    age: int
+
+# conversion to dictionary
+@dataclass
+class Point:
+    x: int
+    y: int
+
+p = Point(1, 2)
+
+print(asdict(p))
+
+# slots
+@dataclass(slots=True)
+class Efficient:
+    x: int
+    y: int
+```
+
+## Class Decorators
+
+Class decorators are a way to modify the behavior of a class at runtime.
+
+```python
+def add_greeting(cls):
+    cls.greet = lambda self: print(f"Hello, {self.name}!")
+    return cls
+
+@add_greeting
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+person = Person("Python")
+person.greet()
+```
+
+[Primer on Class Decorators](https://realpython.com/primer-on-python-decorators/)
