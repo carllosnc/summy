@@ -41,6 +41,10 @@ print("Hello, world")
 - [Mixins](#mixins)
 - [Dataclasses](#dataclasses)
 - [Class Decorators](#class-decorators)
+- [Error Handling](#error-handling)
+- [Modules](#modules)
+- [Generators](#generators)
+- [Iterators](#iterators)
 
 ## Variables
 
@@ -795,3 +799,218 @@ person.greet()
 ```
 
 [Primer on Class Decorators](https://realpython.com/primer-on-python-decorators/)
+
+## Error Handling
+
+```python
+# example of a error handling function
+def basic_error_handling(x, y):
+    try:
+        result = x / y
+        print(f"Result: {result}")
+    except ZeroDivisionError:
+        print("Error: Division by zero")
+    except Exception as e:
+        print(f"Error: {e}")
+
+# multiple exceptions in one block
+def multiple_exceptions(x, y):
+    try:
+        file  = open("file.txt", "r")
+        age = int(input("Enter your age: "))
+    except (FileNotFoundError, ValueError) as Error:
+        print(f"Error: {Error}")
+
+# try-except-else-finally block
+def complete_error_handling():
+    try:
+        file = open("example.txt", "w")
+        file.write("Hello, world!")
+    except:
+        print("Error: Unable to open file")
+    else:
+        print("File opened successfully")
+    finally:
+        file.close()
+        print("File closed")
+
+# custom exception class
+class AgeError(Exception):
+    def __init__(self, message="Invalid age entered"):
+        self.message = message
+        super().__init__(self.message)
+
+# using custom exception
+def verify_age(age):
+    try:
+        age = int(age)
+        if age < 0 or age > 150:
+            raise AgeError("Age must be between 0 and 150")
+        return f"Valid age: {age}"
+    except ValueError:
+        return "Please enter a numeric value"
+    except AgeError as e:
+        return str(e)
+```
+
+## Modules
+
+```python
+# importing a module
+import math
+
+# importing specific functions from a module
+from math import sqrt, sin, cos
+
+# importing all functions from a module
+from math import *
+
+# importing a module with an alias
+import math as m
+
+# importing a module and using it in the code
+import math
+
+print(math.sqrt(16)) # 4
+print(sqrt(16)) # 4.0
+print(m.sqrt(16)) # 4.0
+
+# importing a module from a different directory
+import sys
+sys.path.append("path/to/directory")
+
+# importing a module from a different directory with an alias
+import sys
+sys.path.append("path/to/directory")
+from my_module import my_function
+```
+
+**Custom modules**
+
+`calc.py`
+```python
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    return x / y
+```
+
+`main.py`
+```python
+import calc
+
+print(calc.add(2, 3)) # 5
+print(calc.subtract(5, 2)) # 3
+print(calc.multiply(4, 6)) # 24
+print(calc.divide(10, 2)) # 5.0
+```
+
+## Generators
+
+Generators are a type of iterable, similar to lists or tuples, but with a key difference: they don't store all the values in memory at once. Instead, they generate the values on the fly as they are needed.
+
+```python
+# basic example of generator
+def gen():
+    yield 1
+    yield 2
+    yield 3
+
+print(list(gen()))
+
+# fibonacci sequence
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+fib = fibonacci()
+
+for _ in range(6):
+    print(next(fib))
+```
+
+## Iterators
+
+Iterators are objects that allow you to iterate over a sequence of values, one at a time. They are used in a `for` loop to loop over a sequence of values.
+
+```python
+# built-in iterator
+my_list = [1, 2, 3, 4, 5]
+my_iterator = iter(my_list)  # Creating an iterator
+
+# using the iterator
+print(next(my_iterator))  # Output: 1
+print(next(my_iterator))  # Output: 2
+print(next(my_iterator))  # Output: 3
+
+# custom iterator
+class CountDown:
+    def __init__(self, start):
+        self.current = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current <= 0:
+            raise StopIteration
+        else:
+            self.current -= 1
+            return self.current + 1
+
+# create an iterator object
+countdown = CountDown(5)
+
+# using the iterator
+for num in countdown:
+    print(num)
+```
+
+## Keywords
+
+| Keyword   | Description                                               |
+|-----------|-----------------------------------------------------------|
+| `False`   | Boolean value representing false.                         |
+| `None`    | Represents the absence of a value.                        |
+| `True`    | Boolean value representing true.                          |
+| `and`     | Logical operator for conjunction.                         |
+| `as`      | Used to create an alias in imports or exceptions.         |
+| `assert`  | For debugging, tests a condition.                         |
+| `async`   | Defines asynchronous functions.                           |
+| `await`   | Used with async to pause and resume execution.            |
+| `break`   | Exits out of a loop.                                      |
+| `class`   | Defines a new class.                                      |
+| `continue`| Skips the rest of the current loop iteration.             |
+| `def`     | Defines a function.                                       |
+| `del`     | Deletes an object.                                        |
+| `elif`    | Else if; used in conditional statements.                  |
+| `else`    | Defines the alternative branch of a condition.            |
+| `except`  | Catches exceptions in a `try` block.                      |
+| `finally` | Executes code after `try`-`except` blocks, regardless of outcome. |
+| `for`     | Defines a loop.                                           |
+| `from`    | Imports specific parts of a module.                       |
+| `global`  | Declares a global variable.                               |
+| `if`      | Starts a conditional statement.                           |
+| `import`  | Imports a module or package.                              |
+| `in`      | Checks if a value exists in a sequence.                   |
+| `is`      | Tests object identity.                                    |
+| `lambda`  | Defines an anonymous function.                            |
+| `nonlocal`| Declares a non-local variable in nested functions.        |
+| `not`     | Logical operator for negation.                            |
+| `or`      | Logical operator for disjunction.                         |
+| `pass`    | A null statement; does nothing.                           |
+| `raise`   | Raises an exception.                                      |
+| `return`  | Returns a value from a function.                          |
+| `try`     | Tests code for errors.                                    |
+| `while`   | Defines a while loop.                                     |
+| `with`    | Simplifies exception handling and resource management.    |
+| `yield`   | Pauses a function and returns an intermediate result.     |
