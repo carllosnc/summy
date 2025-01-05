@@ -421,3 +421,42 @@ interface Employee extends Person, Contact {
 | **Constraints**             | `extends` for constraints         | Generics & intersections         |
 | **Use Cases**               | Best for object structures        | Versatile, complex types         |
 
+## Keyof Operator
+
+The `keyof` operator is used to get the keys of an object type.
+
+```typescript
+interface User {
+  name: string
+  age: number
+  location: string
+}
+
+type UserKeys = keyof User
+
+const nameKey: UserKeys = 'name'
+const ageKey: UserKeys = 'age'
+const locationKey: UserKeys = 'location'
+
+console.log(nameKey)
+console.log(ageKey)
+console.log(locationKey)
+```
+
+This is useful for creating function that can only accept valid property names
+
+```typescript
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key]
+}
+
+const user: User = {
+  name: 'John',
+  age: 30,
+  location: 'New York',
+}
+
+const userName = getProperty(user, 'name')
+const userAge = getProperty(user, 'age')
+const userLocation = getProperty(user, 'location')
+```
