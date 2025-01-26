@@ -34,6 +34,7 @@ deno run index.ts
 - [Intersection Types](#intersection-types)
 - [Type Aliases](#type-aliases)
 - [Interfaces](#interfaces)
+- [Keyof Operator](#keyof-operator)
 
 ## Compile time vs run time checking
 
@@ -168,6 +169,34 @@ var worker: Employee | Person = {
 
 console.log((worker as Person).name)
 console.log((worker as Employee).companyId)
+```
+
+`as` is used for type assertions, allowing you to explicitly inform the compiler about the type of a value when it cannot be inferred automatically.
+```typescript
+//as
+let someValue: any = "hello, typescript"
+let len: number = (someValue as string).length
+```
+
+`any` is a special type of TypeScript that represents a value of any type.
+```typescript
+//as any
+let anyValue: any = 43e
+anyValue = 'hello world'
+anyValue = true
+```
+
+`as const` is a type assertion that allows you to create a read-only value, this is useful when creating objects and arrays that should not be modified.
+```typescript
+//as const
+const colors = ['red', 'green', 'blue'] as const
+colors.push('yellow') //error
+
+const person = {
+  name: 'John',
+  age: 30,
+} as const
+person.name = 'Jane' //error
 ```
 
 ## instanceof and typeof
